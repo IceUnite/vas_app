@@ -10,6 +10,10 @@ class VectorAssets {
   static const String icHistoryDeactive = 'assets/images/ic_history_deactive.svg';
   static const String icNoteBookDeactive = 'assets/images/ic_notebook_deactive.svg';
   static const String icProfileDeactive = 'assets/images/ic_profile_deactive.svg';
+
+
+
+
   //
   static const String icHomeActive = 'assets/images/ic_home_active.svg';
   static const String icHistoryActive = 'assets/images/ic_history_active.svg';
