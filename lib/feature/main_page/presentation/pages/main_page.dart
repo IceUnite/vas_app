@@ -25,6 +25,7 @@ class MainPage extends StatelessWidget {
           child: Column(
             children: [
               GradientBannerWidget(
+
                 title: 'context..psyhologist',
                 description: 'context..chooseFrom',
                 btnText: 'context..choose',
