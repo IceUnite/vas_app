@@ -60,21 +60,31 @@ class RoutesInit {
             path: RoutePath.mainScreenPath,
             name: MainPage.name,
             builder: (context, state) => const MainPage(),
+              routes: []
           ),
           GoRoute(
             path: RoutePath.orderScreenPath,
             name: OrderPage.name,
             builder: (context, state) => const OrderPage(),
+            routes: []
           ),
           GoRoute(
             path: RoutePath.historyScreenPath,
             name: HistoryPage.name,
             builder: (context, state) => HistoryPage(),
+            routes: []
           ),
           GoRoute(
             path: RoutePath.profileScreenPath,
             name: ProfilePage.name,
             builder: (context, state) => ProfilePage(),
+            routes: [
+              GoRoute(
+                  path: RoutePath.myDataPagePath,
+                  name: MyDataPage.name,
+                  builder: (context, state) => MyDataPage(),
+              ),
+            ]
           ),
         ],
       ),

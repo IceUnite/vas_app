@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_theme.dart';
 import 'package:vas_app/core/theme/typography.dart';
@@ -14,44 +15,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _bannerOffset;
-  late Animation<Offset> _rowOffset;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _bannerOffset = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-
-    _rowOffset = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,55 +32,57 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              SlideTransition(
-                position: _bannerOffset,
-                child: GradientBannerWidget(
-                  gradient: AppColors.gradientOrangeBackground,
-                  title: 'Быстрое оформление документов',
-                  description: 'Выберите из 146 образцов',
-                  btnText: 'Выбрать',
-                  imagePath: ImageAssets.saly,
-                  width: 100,
-                  onPress: () {
-                    // context.go(AppRoute.sessionScreenRoute);
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              SizedBox(
-                height: 160,
-                child: SlideTransition(
-                  position: _rowOffset,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: OtherOptionWidget(
-                          title: "Популярные документы",
-                          subTitle: "Читать",
-                          icon: VectorAssets.icPlansh,
-                          onTap: () {},
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Expanded(
-                        child: OtherOptionWidget(
-                          title: "История заказов",
-                          subTitle: "Перейти",
-                          icon: VectorAssets.icHistory,
-                          onTap: () {},
-                        ),
-                      ),
-                    ],
+          child: AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: const Duration(milliseconds: 1400),
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  verticalOffset: 150.0,
+                  curve: Curves.easeOut,
+                  child: FadeInAnimation(
+                    child: widget,
                   ),
                 ),
+                children: [
+                  GradientBannerWidget(
+                    gradient: AppColors.gradientOrangeBackground,
+                    title: 'Быстрое оформление документов',
+                    description: 'Выберите из 146 образцов',
+                    btnText: 'Выбрать',
+                    imagePath: ImageAssets.saly,
+                    width: 100,
+                    onPress: () {
+                      // context.go(AppRoute.sessionScreenRoute);
+                    },
+                  ),
+                  const SizedBox(height: 18),
+                  SizedBox(
+                    height: 160,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: OtherOptionWidget(
+                            title: "Популярные документы",
+                            subTitle: "Читать",
+                            icon: VectorAssets.icPlansh,
+                            onTap: () {},
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: OtherOptionWidget(
+                            title: "История заказов",
+                            subTitle: "Перейти",
+                            icon: VectorAssets.icHistory,
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
