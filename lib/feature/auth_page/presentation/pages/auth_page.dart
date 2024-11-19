@@ -9,7 +9,7 @@ import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 
 class AuthPage extends StatefulWidget {
-  AuthPage({Key? key}) : super(key: key);
+  const AuthPage({Key? key}) : super(key: key);
 
   static String name = RoutePath.authScreenPath;
 

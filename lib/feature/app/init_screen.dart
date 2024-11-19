@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/internal/di/sl.dart';
 import 'routing/route_path.dart';
 
 class InitScreen extends StatefulWidget {

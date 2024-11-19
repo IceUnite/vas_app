@@ -25,7 +25,7 @@ class OtherOptionWidget extends StatelessWidget {
     return Container(
       height: 161,
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: AppColors.gray.shade30),
       child: InkWell(
         onTap: onTap,
@@ -36,14 +36,14 @@ class OtherOptionWidget extends StatelessWidget {
               title,
               style: AppTypography.font22Regular.copyWith(fontSize: 18),
             ),
-            if (description == null) ...[Spacer()] else
+            if (description == null) ...[const Spacer()] else
               Padding(
-                padding: EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 4),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 25),
                   child: Text(
                     description!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.green,
                     ),
                   ),
@@ -60,7 +60,7 @@ class OtherOptionWidget extends StatelessWidget {
                     color: AppColors.gray.shade80,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 ClipOval(
                   child: Container(
                     color: AppColors.white,
