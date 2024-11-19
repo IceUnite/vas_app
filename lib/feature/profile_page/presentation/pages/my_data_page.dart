@@ -6,6 +6,11 @@ class MyDataPage extends StatelessWidget {
   static String name = RoutePath.myDataPagePath;
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios_new, size: 24,), onPressed: () { Navigator.of(context).pop(); },),
+
+      ),
+    );
   }
 }
