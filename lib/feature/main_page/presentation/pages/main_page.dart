@@ -23,6 +23,7 @@ class MainPage extends StatelessWidget {
             )),
       ),
       body: SingleChildScrollView(
+feature/home_page
           child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -65,6 +66,7 @@ class MainPage extends StatelessWidget {
                     ),
                   ),
                 ],
+
               ),
             ),
           ],
