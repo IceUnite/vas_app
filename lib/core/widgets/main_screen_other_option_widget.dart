@@ -22,13 +22,13 @@ class OtherOptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 161,
-        width: double.infinity,
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: AppColors.gray.shade30),
+    return Container(
+      height: 161,
+      width: double.infinity,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: AppColors.gray.shade30),
+      child: InkWell(
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
