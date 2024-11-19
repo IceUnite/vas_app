@@ -19,6 +19,11 @@ class VectorAssets {
   static const String icHistoryActive = 'assets/images/ic_history_active.svg';
   static const String icNoteBookActive = 'assets/images/ic_notebook_active.svg';
   static const String icProfileActive = 'assets/images/ic_profile_active.svg';
+  static const String icMyData = 'assets/images/ic_my_data.svg';
+  static const String icRefreshStory = 'assets/images/ic_refresh_story.svg';
+  static const String icBell = 'assets/images/ic_bell.svg';
+  static const String icDoOrder = 'assets/images/ic_do_order.svg';
+  static const String icLogout = 'assets/images/ic_logout.svg';
 
 
 }
