@@ -13,10 +13,9 @@ import 'package:go_router/src/misc/errors.dart';
 
 
 import 'test_helpers.dart';
-import '../lib/go_router.dart';
-import '../lib/src/configuration.dart';
-import '../lib/src/match.dart';
-import '../lib/src/matching.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router/src/match.dart';
+import 'package:go_router/src/matching.dart';
 import 'package:logging/logging.dart';
 const bool enableLogs = true;
 final Logger log = Logger('GoRouter tests');
@@ -689,7 +688,7 @@ void main() {
         'Handles the Android back button when parentNavigatorKey is set to the root navigator',
         (WidgetTester tester) async {
       final List<MethodCall> log = <MethodCall>[];
-      TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(SystemChannels.platform,
               (MethodCall methodCall) async {
         log.add(methodCall);
@@ -731,7 +730,7 @@ void main() {
     testWidgets("Handles the Android back button when ShellRoute can't pop",
         (WidgetTester tester) async {
       final List<MethodCall> log = <MethodCall>[];
-      TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(SystemChannels.platform,
               (MethodCall methodCall) async {
         log.add(methodCall);
@@ -795,7 +794,7 @@ void main() {
       'Handles the Android back button when a second Shell has a GoRoute with parentNavigator key',
       (WidgetTester tester) async {
     final List<MethodCall> log = <MethodCall>[];
-    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(SystemChannels.platform,
             (MethodCall methodCall) async {
       log.add(methodCall);

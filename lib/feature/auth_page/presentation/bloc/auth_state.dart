@@ -2,7 +2,7 @@ part of 'auth_bloc.dart';
 
 @immutable
 class AuthState extends Equatable {
-  AuthState({
+  const AuthState({
     this.cellResponse,
     this.isCorrect,
     this.login,
@@ -18,6 +18,7 @@ class AuthState extends Equatable {
   final String? trueLogin;
   final String? truePassword;
 
+  @override
   List<Object?> get props => <Object?>[
         cellResponse,
         login,
@@ -47,7 +48,7 @@ class AuthState extends Equatable {
 }
 
 final class AuthInitial extends AuthState {
-  AuthInitial()
+  const AuthInitial()
       : super(
           isCorrect: true,
           cellResponse: null,

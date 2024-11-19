@@ -8,12 +8,50 @@ import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   AuthPage({Key? key}) : super(key: key);
 
   static String name = RoutePath.authScreenPath;
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin {
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late AnimationController _animationController;
+  bool _isForward = true; // Флаг для отслеживания направления анимации
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    );
+
+    // Добавляем обработчик для изменения направления
+    _animationController.addListener(() {
+      if (_isForward && _animationController.value >= 0.25) {
+        _animationController.reverse();
+        _isForward = false;
+      } else if (!_isForward && _animationController.value <= 0) {
+        _animationController.forward();
+        _isForward = true;
+      }
+    });
+
+    _animationController.forward(); // Запуск анимации
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _loginController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +71,19 @@ class AuthPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 40, top: 60, left: 60, right: 60),
-                  child: Image.asset(ImageAssets.logo),
+                  child: AnimatedBuilder(
+                    animation: _animationController,
+                    builder: (context, child) {
+                      double angle = _animationController.value * 2.0 * 3.141592653589793;
+                      return Transform(
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001) // Перспектива
+                          ..rotateY(angle), // Вращение вокруг оси Y
+                        alignment: Alignment.center,
+                        child: Image.asset(ImageAssets.logo),
+                      );
+                    },
+                  ),
                 ),
                 Text(
                   'Вход',

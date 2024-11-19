@@ -35,7 +35,7 @@ class GoRouteInformationProvider extends RouteInformationProvider
     // TODO(chunhtai): report extra to browser through state if possible
     // See https://github.com/flutter/flutter/issues/108142
     SystemNavigator.routeInformationUpdated(
-      location: routeInformation.location!,
+      location: routeInformation.location,
       replace: replace,
     );
     _value = routeInformation;

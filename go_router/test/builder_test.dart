@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
-import '../lib/go_router.dart';
-import '../lib/src/builder.dart';
-import '../lib/src/configuration.dart';
-import '../lib/src/match.dart';
-import '../lib/src/matching.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router/src/builder.dart';
+import 'package:go_router/src/configuration.dart';
+import 'package:go_router/src/match.dart';
+import 'package:go_router/src/matching.dart';
 
 void main() {
   group('RouteBuilder', () {

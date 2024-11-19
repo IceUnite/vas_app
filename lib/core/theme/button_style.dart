@@ -9,9 +9,9 @@ class AppButtonStyle {
     shape: WidgetStateProperty.all(RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),
     )),
-    textStyle: WidgetStateProperty.all(TextStyle(color: AppColors.white)),
+    textStyle: WidgetStateProperty.all(const TextStyle(color: AppColors.white)),
     backgroundColor: WidgetStateProperty.all(AppColors.orange200),
-    elevation: WidgetStatePropertyAll(5),
+    elevation: const WidgetStatePropertyAll(5),
   );
 
   static final primaryStyleGreenOpacity = ButtonStyle(
@@ -19,7 +19,7 @@ class AppButtonStyle {
     shape: WidgetStateProperty.all(RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     )),
-    textStyle: WidgetStateProperty.all(TextStyle(color: AppColors.green)),
+    textStyle: WidgetStateProperty.all(const TextStyle(color: AppColors.green)),
     backgroundColor: WidgetStateProperty.all(AppColors.green300),
   );
 }

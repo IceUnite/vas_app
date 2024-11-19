@@ -39,10 +39,10 @@ class GradientBannerWidget extends StatelessWidget {
             bottom: 0,
             child: imagePath != null
                 ? Image(
-              image: AssetImage(imagePath!),
-              height: 180,
-            )
-                : SizedBox(),
+                    image: AssetImage(imagePath!),
+                    height: 180,
+                  )
+                : const SizedBox(),
           ),
           Positioned(
               left: 20,
@@ -50,16 +50,23 @@ class GradientBannerWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title!,
-                    style: AppTypography.font24Regular.copyWith(
-                      color: AppColors.white,
+                  SizedBox(
+                    width: 200,
+                    height: 70,
+                    child: Text(
+                      title!,
+                      style: AppTypography.font18Regular.copyWith(
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    description!,
-                    style: AppTypography.font18Regular.copyWith(color: AppColors.white, fontSize: 13),
+                  // const SizedBox(height: 10),
+                  SizedBox(
+                    width: 137,
+                    child: Text(
+                      description!,
+                      style: AppTypography.font18Regular.copyWith(color: AppColors.white, fontSize: 13),
+                    ),
                   ),
                 ],
               )),
@@ -71,8 +78,13 @@ class GradientBannerWidget extends StatelessWidget {
               width: width,
               child: ElevatedButton(
                 onPressed: onPress,
-                style: AppButtonStyle.primaryStyleOrange,
-                child: Text(btnText!),
+                style: AppButtonStyle.primaryStyleOrange.copyWith(
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),),
+                  backgroundColor: WidgetStatePropertyAll(AppColors.white)
+                ),
+                child: Text(btnText!, style: AppTypography.font12Regular.copyWith(color: AppColors.black, fontWeight: FontWeight.w700),),
               ),
             ),
           ),
