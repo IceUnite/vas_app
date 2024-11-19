@@ -82,7 +82,7 @@ class GradientBannerWidget extends StatelessWidget {
                   shape: WidgetStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),),
-                  backgroundColor: WidgetStatePropertyAll(AppColors.white)
+                  backgroundColor: const WidgetStatePropertyAll(AppColors.white)
                 ),
                 child: Text(btnText!, style: AppTypography.font12Regular.copyWith(color: AppColors.black, fontWeight: FontWeight.w700),),
               ),
