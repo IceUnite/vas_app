@@ -100,7 +100,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                       child: BottomNavigationBar(
                         selectedLabelStyle: AppTypography.font16Regular,
                         unselectedLabelStyle: AppTypography.font16Regular,
-                        unselectedItemColor: AppColors.gray100,
+                        unselectedItemColor: AppColors.gray.shade70,
                         selectedItemColor: AppColors.orange200,
                         type: BottomNavigationBarType.fixed,
                         items: [

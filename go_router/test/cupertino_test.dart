@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
-import '../lib/src/pages/cupertino.dart';
+import 'package:go_router/src/pages/cupertino.dart';
 import 'helpers/error_screen_helpers.dart';
 
 void main() {

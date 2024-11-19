@@ -25,5 +25,9 @@ class VectorAssets {
   static const String icDoOrder = 'assets/images/ic_do_order.svg';
   static const String icLogout = 'assets/images/ic_logout.svg';
 
+  static const String icBook = 'assets/images/ic_book.svg';
+  static const String icPlansh = 'assets/images/ic_plansh.svg';
+  static const String icHistory = 'assets/images/ic_history.svg';
+
 
 }

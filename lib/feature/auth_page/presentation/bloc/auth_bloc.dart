@@ -3,15 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
-import 'package:vas_app/feature/app/routing/route_path.dart';
-
 part 'auth_event.dart';
 
 part 'auth_state.dart';
 
 @lazySingleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc() : super(const AuthInitial()) {
     on<CheckLoginPasswordEvent>(_onLogin);
   }
 

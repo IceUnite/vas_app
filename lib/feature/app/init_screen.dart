@@ -18,7 +18,7 @@ class _InitScreenState extends State<InitScreen> {
     super.didChangeDependencies();
 
     // Инициализация GetIt
-    configureDependencies();
+    // configureDependencies();
 
     // Навигация теперь будет корректно работать
     Future.microtask(() => context.goNamed(RoutePath.authScreenPath));
