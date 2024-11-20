@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_theme.dart';
-
-import 'package:vas_app/core/widgets/default_app_bar.dart';
+import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,8 +24,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: const DefaultAppBar(
-        titleText: 'Никита Алексеевич',
+      appBar: AppBar(
+        title: Text(
+          'Никита Алексеевич',
+          style: AppTypography.font26Regular.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -108,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                         Icon(
+                        Icon(
                           Icons.arrow_forward_ios,
                           size: 20,
                           color: AppColors.gray.shade50,
@@ -152,27 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           activeColor: AppColors.orange100,
                           trackColor: AppColors.gray.shade30,
-
                         ),
-                        //
-                        // Switch(
-                        //   activeColor: AppColors.white,
-                        //   activeTrackColor: AppColors.orange100,
-                        //   inactiveThumbColor: AppColors.white,
-                        //   inactiveTrackColor: Colors.black54,
-                        //   // trackColor:  WidgetStateProperty.all(AppColors.white),
-                        //   overlayColor: WidgetStateProperty.all(AppColors.white),
-                        //   thumbIcon: WidgetStateProperty.all(
-                        //     const Icon(
-                        //       Icons.circle, // Или любой другой значок
-                        //       size: 20, // Установите нужный размер
-                        //       color: Colors.white, // Цвет значка
-                        //     ),
-                        //   ),
-                        //   value: valueSwitchButton,
-                        //   onChanged: (value) =>
-                        //       setState(() => valueSwitchButton = value),
-                        // ),
                       ],
                     ),
                     const SizedBox(
@@ -203,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                         Icon(
+                        Icon(
                           Icons.arrow_forward_ios,
                           size: 20,
                           color: AppColors.gray.shade50,
@@ -238,7 +222,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-
                       ],
                     ),
                   ],

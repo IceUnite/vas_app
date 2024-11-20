@@ -20,7 +20,7 @@ abstract class AppTypography {
           const FontFeature.disable('liga'),
         ],
       );
-
+  static TextStyle get font8Regular => _nunito(fontSize: 8);
   static TextStyle get font10Regular => _nunito(fontSize: 10);
   static TextStyle get font12Regular => _nunito(fontSize: 12);
   static TextStyle get font14Regular => _nunito(fontSize: 14);
