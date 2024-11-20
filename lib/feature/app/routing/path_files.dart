@@ -10,7 +10,7 @@ import 'package:vas_app/feature/main_page/presentation/pages/main_page.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/typography.dart';
-import '../../history_page/presentation/pages/historia_page.dart';
+import '../../history_page/presentation/pages/history_page.dart';
 import '../../order_page/presentation/pages/order_page.dart';
 import '../../profile_page/presentation/pages/profile_page.dart';
 import 'route_path.dart';

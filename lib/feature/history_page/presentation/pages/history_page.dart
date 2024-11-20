@@ -3,10 +3,12 @@ import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/order_ticket_widget.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
-class OrderPage extends StatelessWidget {
-  const OrderPage({Key? key}) : super(key: key);
-  static String name = RoutePath.orderScreenPath;
+class HistoryPage extends StatelessWidget {
+  const HistoryPage({
+    super.key,
+  });
 
+  static String name = RoutePath.historyScreenPath;
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +35,19 @@ class OrderPage extends StatelessWidget {
               titleText: 'Справка о составе семьи',
               description:
                   'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
+              status: OrderStatus.inProgress,
             ),
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
                   'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
-              orderTime: '72 часа',
+              status: OrderStatus.notReady,
             ),
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
-                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
-              orderTime: '24 часа',
+                  'Заберите справку до 14.12.2024 в кабинете 4022',
+              status: OrderStatus.ready,
             ),
             
           ],
@@ -56,3 +56,5 @@ class OrderPage extends StatelessWidget {
     );
   }
 }
+
+
