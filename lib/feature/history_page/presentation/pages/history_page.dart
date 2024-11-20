@@ -41,7 +41,7 @@ class HistoryPage extends StatelessWidget {
               titleText: 'Справка о составе семьи',
               description:
                   'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.notReady,
+              status: OrderStatus.rejected,
             ),
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',

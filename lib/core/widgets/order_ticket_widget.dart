@@ -3,7 +3,7 @@ import 'package:vas_app/core/theme/app_corners.dart';
 import 'package:vas_app/core/theme/app_theme.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
-enum OrderStatus { ready, notReady, inProgress, doOrder }
+enum OrderStatus { ready, rejected, inProgress, doOrder }
 
 class OrderTicketWidget extends StatelessWidget {
   final String titleText;
@@ -23,7 +23,7 @@ class OrderTicketWidget extends StatelessWidget {
     switch (status) {
       case OrderStatus.ready:
         return AppColors.green200;
-      case OrderStatus.notReady:
+      case OrderStatus.rejected:
         return AppColors.red;
       case OrderStatus.inProgress:
         return AppColors.orange200;
@@ -35,9 +35,9 @@ class OrderTicketWidget extends StatelessWidget {
   String getText(OrderStatus status) {
     switch (status) {
       case OrderStatus.ready:
-        return 'Готово';
-      case OrderStatus.notReady:
-        return 'Не готово';
+        return 'Выполнено';
+      case OrderStatus.rejected:
+        return 'Отменено';
       case OrderStatus.inProgress:
         return 'В обработке';
       case OrderStatus.doOrder:
