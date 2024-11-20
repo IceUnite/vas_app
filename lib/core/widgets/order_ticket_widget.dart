@@ -3,7 +3,12 @@ import 'package:vas_app/core/theme/app_corners.dart';
 import 'package:vas_app/core/theme/app_theme.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
-enum OrderStatus { ready, rejected, inProgress, doOrder }
+enum OrderStatus {
+  ready,
+  rejected,
+  inProgress,
+  doOrder,
+}
 
 class OrderTicketWidget extends StatelessWidget {
   final String titleText;
@@ -15,7 +20,7 @@ class OrderTicketWidget extends StatelessWidget {
     super.key,
     required this.titleText,
     required this.description,
-    required this.status, 
+    required this.status,
     this.orderTime,
   });
 

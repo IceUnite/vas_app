@@ -49,7 +49,6 @@ class OrderPage extends StatelessWidget {
               status: OrderStatus.doOrder,
               orderTime: '24 часа',
             ),
-            
           ],
         ),
       ),
