@@ -24,11 +24,11 @@ class OrderTicketWidget extends StatelessWidget {
       case OrderStatus.ready:
         return AppColors.green200;
       case OrderStatus.notReady:
-        return AppColors.red200;
+        return AppColors.red;
       case OrderStatus.inProgress:
-        return AppColors.orange100;
+        return AppColors.orange200;
       case OrderStatus.doOrder:
-        return AppColors.orange100;
+        return AppColors.orange200;
     }
   }
 
