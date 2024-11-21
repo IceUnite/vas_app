@@ -52,7 +52,7 @@ class OrderTicketWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.gray.shade50,
-          borderRadius: AppCorners.radius5,
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -78,24 +78,23 @@ class OrderTicketWidget extends StatelessWidget {
                       status.name == 'doOrder'
                           ? Text(
                               'Время выполнения',
-                              style: AppTypography.font8Regular
+                              style: AppTypography.font10Regular
                                   .copyWith(fontWeight: FontWeight.bold),
                             )
                           : const SizedBox(),
                       Container(
+                        width: status.name == 'doOrder' ? null : 130,
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        margin: EdgeInsets.only(top: 5),
                         decoration: BoxDecoration(
                           color: getColor(status),
-                          borderRadius: AppCorners.radius15,
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 15),
-                            child: Text(
-                              getText(status),
-                              style: AppTypography.font18Regular
-                                  .copyWith(fontWeight: FontWeight.w700),
-                            ),
+                          child: Text(
+                            getText(status),
+                            style: AppTypography.font16Regular
+                                .copyWith(fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
@@ -104,7 +103,7 @@ class OrderTicketWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Text(
                 description,

@@ -7,6 +7,8 @@ import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_theme.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
+import '../../../../core/theme/typography.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -38,7 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Text('Никита Алексеевич'),
+        title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
+        fontWeight: FontWeight.w700,
+        ),),
         centerTitle: true,
       ),
       body: Padding(
