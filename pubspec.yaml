@@ -45,6 +45,7 @@ dependencies:
   bot_toast: ^4.0.3
   lottie: ^3.1.2
   dotted_decoration: ^2.0.0
+  flutter_staggered_animations: ^1.1.1
 #  talker_flutter: ^1.7.1
 #  nested: ^1.0.0
 #  firebase_core: ^2.27.0

@@ -26,7 +26,10 @@ class OtherOptionWidget extends StatelessWidget {
       height: 161,
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: AppColors.gray.shade30),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: AppColors.gray.shade40,
+      ),
       child: InkWell(
         onTap: onTap,
         child: Column(
@@ -67,7 +70,7 @@ class OtherOptionWidget extends StatelessWidget {
                     height: 60,
                     width: 60,
                     child: Center(
-                      child: SizedBox(width: 34, height:34, child: SvgPicture.asset(icon)),
+                      child: SizedBox(width: 34, height: 34, child: SvgPicture.asset(icon)),
                     ),
                   ),
                 )
