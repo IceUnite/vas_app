@@ -37,9 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.white,
       appBar: AppBar(
-        // backgroundColor: AppColors.white,
         title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
           fontWeight: FontWeight.w700,
         ),),
@@ -103,27 +101,26 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         _buildOptionRow(
                           icon: VectorAssets.icRefreshStory,
-                          title: 'История заказа документов',
+                          title: 'История заказов',
                         ),
                         const SizedBox(height: 30),
                         const Text(
                           'Настройки',
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                         ),
-                        // const SizedBox(height: 30),
-                        // _buildOptionRowWithSwitch(
-                        //   icon: VectorAssets.icBell,
-                        //   title: 'Уведомления',
-                        // ),
-                        const SizedBox(height: 30),_buildOptionRowWithSwitch(
+                        const SizedBox(height: 30),
+                        _buildOptionRowWithSwitch(
                           icon: VectorAssets.icBell,
-                          title: 'Темная тема',
-                          onTap: (){
-                            print('sfsfsfggf');
-                            Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-
-                          }
+                          title: 'Уведомления',
                         ),
+                        // const SizedBox(height: 30),_buildOptionRowWithSwitch(
+                        //   icon: VectorAssets.icBell,
+                        //   title: 'Темная тема',
+                        //   onTap: (){
+                        //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                        //
+                        //   }
+                        // ),
                         // const SizedBox(height: 30),
                         // ElevatedButton(
                         //   style: AppButtonStyle.primaryStyleOrange.copyWith(minimumSize: const WidgetStatePropertyAll(Size(200, 60))),

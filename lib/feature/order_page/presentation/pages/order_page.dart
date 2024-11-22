@@ -13,7 +13,7 @@ class OrderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'История заказов',
+          'Заказ Документов',
           style: AppTypography.font26Regular.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -25,34 +25,35 @@ class OrderPage extends StatelessWidget {
           size: 20,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-        child: ListView(
-          children: const [
-            OrderTicketWidget(
-              titleText: 'Справка о составе семьи',
-              description:
-                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
-            ),
-            OrderTicketWidget(
-              titleText: 'Справка о составе семьи',
-              description:
-                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
-              orderTime: '72 часа',
-            ),
-            OrderTicketWidget(
-              titleText: 'Справка о составе семьи',
-              description:
-                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
-              status: OrderStatus.doOrder,
-              orderTime: '24 часа',
-            ),
-            
-          ],
-        ),
-      ),
+      body: SizedBox()
+      // body: Padding(
+      //   padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+      //   child: ListView(
+      //     children: const [
+      //       OrderTicketWidget(
+      //         titleText: 'Справка о составе семьи',
+      //         description:
+      //             'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
+      //         status: OrderStatus.doOrder,
+      //       ),
+      //       OrderTicketWidget(
+      //         titleText: 'Справка о составе семьи',
+      //         description:
+      //             'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
+      //         status: OrderStatus.doOrder,
+      //         orderTime: '72 часа',
+      //       ),
+      //       OrderTicketWidget(
+      //         titleText: 'Справка о составе семьи',
+      //         description:
+      //             'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
+      //         status: OrderStatus.doOrder,
+      //         orderTime: '24 часа',
+      //       ),
+      //
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
