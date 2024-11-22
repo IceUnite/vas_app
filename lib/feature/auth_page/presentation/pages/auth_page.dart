@@ -143,18 +143,14 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                   child: ElevatedButton(
                     style: AppButtonStyle.primaryStyleOrange,
                     onPressed: () {
-                      GetIt.I<BotToastDi>().showNotification(
-                        icon: null,
-                        title: "failure.toString()",
+                      context.read<AuthBloc>().add(
+                        CheckLoginPasswordEvent(
+                          // login: '1111',
+                          // password: '1111'
+                          login: _loginController.text,
+                          password: _passwordController.text,
+                        ),
                       );
-                      // context.read<AuthBloc>().add(
-                      //   CheckLoginPasswordEvent(
-                      //     // login: '1111',
-                      //     // password: '1111'
-                      //     login: _loginController.text,
-                      //     password: _passwordController.text,
-                      //   ),
-                      // );
                     },
                     child: Text(
                       'Войти',
