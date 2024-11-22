@@ -5,7 +5,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
-import 'package:vas_app/core/theme/button_style.dart';
 import 'package:vas_app/core/theme/theme_notifier.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +22,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool valueSwitchButton = false;
-  Key _animationKey = UniqueKey();
 
   @override
   void initState() {
@@ -33,16 +31,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _restartAnimation() {
     setState(() {
-      _animationKey = UniqueKey();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      // backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
+        // backgroundColor: AppColors.white,
         title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
           fontWeight: FontWeight.w700,
         ),),
@@ -90,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         const Text(
                           'Моя информация',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                          style: TextStyle(fontSize: 18, ),
                         ),
                         const SizedBox(height: 30),
                         _buildOptionRow(
