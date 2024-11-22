@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vas_app/core/theme/app_theme.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 
 class AppButtonStyle {
   const AppButtonStyle._();

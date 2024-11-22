@@ -14,6 +14,7 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Text(
           'История заказов',
           style: AppTypography.font26Regular.copyWith(

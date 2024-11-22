@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vas_app/core/theme/app_corners.dart';
-import 'package:vas_app/core/theme/app_theme.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
 enum OrderStatus { ready, rejected, inProgress, doOrder }
@@ -15,7 +14,7 @@ class OrderTicketWidget extends StatelessWidget {
     super.key,
     required this.titleText,
     required this.description,
-    required this.status, 
+    required this.status,
     this.orderTime,
   });
 
@@ -48,11 +47,22 @@ class OrderTicketWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: Container(
+        constraints: const BoxConstraints(
+          minHeight: 180.0,
+        ),
         decoration: BoxDecoration(
-          color: AppColors.gray.shade50,
+          color: AppColors.gray.shade40,
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              offset: const Offset(4, 4),
+              blurRadius: 5.0,
+              spreadRadius: 0.25,
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -66,8 +76,7 @@ class OrderTicketWidget extends StatelessWidget {
                   Flexible(
                     child: Text(
                       titleText,
-                      style: AppTypography.font18Regular
-                          .copyWith(fontWeight: FontWeight.w700),
+                      style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
                     ),
                   ),
                   const SizedBox(
@@ -78,14 +87,14 @@ class OrderTicketWidget extends StatelessWidget {
                       status.name == 'doOrder'
                           ? Text(
                               'Время выполнения',
-                              style: AppTypography.font10Regular
-                                  .copyWith(fontWeight: FontWeight.bold),
+                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
                             )
                           : const SizedBox(),
                       Container(
-                        width: status.name == 'doOrder' ? null : 130,
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        margin: EdgeInsets.only(top: 5),
+                        constraints:
+                            status.name == 'doOrder' ? const BoxConstraints(minWidth: 100) : const BoxConstraints(minWidth: 120),
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        margin: const EdgeInsets.only(top: 5),
                         decoration: BoxDecoration(
                           color: getColor(status),
                           borderRadius: BorderRadius.circular(10),
@@ -93,8 +102,7 @@ class OrderTicketWidget extends StatelessWidget {
                         child: Center(
                           child: Text(
                             getText(status),
-                            style: AppTypography.font16Regular
-                                .copyWith(fontWeight: FontWeight.w700),
+                            style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),

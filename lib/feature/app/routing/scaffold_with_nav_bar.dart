@@ -56,8 +56,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
 
     return MediaQuery(
       data: data.copyWith(
-        textScaleFactor:
-            data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor,
+        textScaler: TextScaler.linear(data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor),
       ),
       child: Scaffold(
         body: AnimatedBuilder(
