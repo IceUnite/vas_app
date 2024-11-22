@@ -32,9 +32,11 @@ class _ApplicationState extends State<Application> {
     return AppAdaptiveProvider(
       child: AppRouterProvider(
         goRouter: _router.router,
-        child: ChangeNotifierProvider<ThemeNotifier>( // Добавляем ChangeNotifierProvider
+        child: ChangeNotifierProvider<ThemeNotifier>(
+          // Добавляем ChangeNotifierProvider
           create: (_) => ThemeNotifier(),
-          child: Consumer<ThemeNotifier>( // Используем Consumer для отслеживания изменений
+          child: Consumer<ThemeNotifier>(
+            // Используем Consumer для отслеживания изменений
             builder: (context, themeNotifier, child) {
               return buildApp(context, themeNotifier);
             },
@@ -49,11 +51,16 @@ class _ApplicationState extends State<Application> {
       providers: buildListProviders(locator: locator),
       child: MaterialApp.router(
         // theme: ThemeData.light(), // Укажите вашу светлую тему
-        darkTheme: ThemeData.dark(), // Укажите вашу темную тему
+        darkTheme: ThemeData.dark(),
+        // Укажите вашу темную тему
         // themeMode: themeNotifier.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
         // Слушаем тему
-        theme: themeNotifier.currentTheme,  // Используем текущую тему из ThemeNotifier
+        theme: themeNotifier.currentTheme,
+        // Используем текущую тему из ThemeNotifier
         builder: BotToastInit(),
+        // navigatorObservers: [BotToastNavigatorObserver()],
+        //2. registered route observer
+
         title: 'VAS documents',
         routerConfig: _router.router,
         localizationsDelegates: const [

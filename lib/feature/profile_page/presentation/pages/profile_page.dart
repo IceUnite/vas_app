@@ -103,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         _buildOptionRow(
                           icon: VectorAssets.icRefreshStory,
-                          title: 'История заказа документов',
+                          title: 'История заказов',
                         ),
                         const SizedBox(height: 30),
                         const Text(
@@ -119,7 +119,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           icon: VectorAssets.icBell,
                           title: 'Темная тема',
                           onTap: (){
-                            print('sfsfsfggf');
                             Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
 
                           }
