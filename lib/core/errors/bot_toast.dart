@@ -11,7 +11,7 @@ class BotToastDi {
     Widget? icon,
   }) =>
       BotToast.showCustomNotification(
-        duration: Duration(hours: 8),
+        duration: Duration(seconds: 10),
         align: const Alignment(0, 0.94),
         wrapToastAnimation: (controller, cancel, Widget child) =>
             CustomAnimationWidget(
