@@ -37,9 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.white,
       appBar: AppBar(
-        // backgroundColor: AppColors.white,
         title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
           fontWeight: FontWeight.w700,
         ),),
@@ -47,117 +45,115 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: const Duration(milliseconds: 1400),
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: 50.0,
-                  curve: Curves.easeOut,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 1400),
+              childAnimationBuilder: (widget) => SlideAnimation(
+                verticalOffset: 50.0,
+                curve: Curves.easeOut,
+                child: FadeInAnimation(
+                  child: widget,
                 ),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: InkWell(
-                        onTap: (){
-                          context.goNamed(RoutePath.myDataPagePath);
-                        },
-                        child: CircleAvatar(
-                          child: SvgPicture.asset(
-                            VectorAssets.icProfileActive,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
+              ),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                  child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: InkWell(
+                      onTap: (){
+                        context.goNamed(RoutePath.myDataPagePath);
+                      },
+                      child: CircleAvatar(
+                        child: SvgPicture.asset(
+                          VectorAssets.icProfileActive,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Моя информация',
-                          style: TextStyle(fontSize: 18, ),
-                        ),
-                        const SizedBox(height: 30),
-                        _buildOptionRow(
-                          icon: VectorAssets.icMyData,
-                          title: 'Мои данные',
-                          onTap: () {
-                            context.goNamed(RoutePath.myDataPagePath);
-                          },
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                          child: Divider(),
-                        ),
-                        _buildOptionRow(
-                          icon: VectorAssets.icRefreshStory,
-                          title: 'История заказов',
-                        ),
-                        const SizedBox(height: 30),
-                        const Text(
-                          'Настройки',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                        // const SizedBox(height: 30),
-                        // _buildOptionRowWithSwitch(
-                        //   icon: VectorAssets.icBell,
-                        //   title: 'Уведомления',
-                        // ),
-                        const SizedBox(height: 30),_buildOptionRowWithSwitch(
-                          icon: VectorAssets.icBell,
-                          title: 'Темная тема',
-                          onTap: (){
-                            Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-
-                          }
-                        ),
-                        // const SizedBox(height: 30),
-                        // ElevatedButton(
-                        //   style: AppButtonStyle.primaryStyleOrange.copyWith(minimumSize: const WidgetStatePropertyAll(Size(200, 60))),
-                        //   child:const Text( 'Переключить тему'),
-                        //   onPressed: () {
-                        //     // Переключение темы
-                        //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-                        //   },
-                        // ),
-                        const SizedBox(height: 30),
-                        const Text(
-                          'Сервис',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                        const SizedBox(height: 30),
-                        _buildOptionRow(
-                          icon: VectorAssets.icDoOrder,
-                          title: 'Сделать заказ документа',
-                        ),
-                        const SizedBox(height: 30),
-                        const Text(
-                          'Аккаунт',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                        const SizedBox(height: 30),
-                        _buildOptionRow(
-                          icon: VectorAssets.icLogout,
-                          title: 'Выйти',
-                          textColor: AppColors.red200,
-                        ),
-                      ],
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Моя информация',
+                        style: TextStyle(fontSize: 18, ),
+                      ),
+                      const SizedBox(height: 30),
+                      _buildOptionRow(
+                        icon: VectorAssets.icMyData,
+                        title: 'Мои данные',
+                        onTap: () {
+                          context.goNamed(RoutePath.myDataPagePath);
+                        },
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Divider(),
+                      ),
+                      _buildOptionRow(
+                        icon: VectorAssets.icRefreshStory,
+                        title: 'История заказов',
+                      ),
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Настройки',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 30),
+                      _buildOptionRowWithSwitch(
+                        icon: VectorAssets.icBell,
+                        title: 'Уведомления',
+                      ),
+                      // const SizedBox(height: 30),_buildOptionRowWithSwitch(
+                      //   icon: VectorAssets.icBell,
+                      //   title: 'Темная тема',
+                      //   onTap: (){
+                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                      //
+                      //   }
+                      // ),
+                      // const SizedBox(height: 30),
+                      // ElevatedButton(
+                      //   style: AppButtonStyle.primaryStyleOrange.copyWith(minimumSize: const WidgetStatePropertyAll(Size(200, 60))),
+                      //   child:const Text( 'Переключить тему'),
+                      //   onPressed: () {
+                      //     // Переключение темы
+                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                      //   },
+                      // ),
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Сервис',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 30),
+                      _buildOptionRow(
+                        icon: VectorAssets.icDoOrder,
+                        title: 'Сделать заказ документа',
+                      ),
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Аккаунт',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 30),
+                      _buildOptionRow(
+                        icon: VectorAssets.icLogout,
+                        title: 'Выйти',
+                        textColor: AppColors.red200,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
