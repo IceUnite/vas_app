@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
-import 'package:vas_app/core/theme/app_theme.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/button_style.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
@@ -103,6 +105,14 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -117,6 +127,14 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   obscureText: true,
                 ),
@@ -127,10 +145,10 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                     onPressed: () {
                       context.read<AuthBloc>().add(
                         CheckLoginPasswordEvent(
-                          login: '1111',
-                          password: '1111'
-                          // login: _loginController.text,
-                          // password: _passwordController.text,
+                          // login: '1111',
+                          // password: '1111'
+                          login: _loginController.text,
+                          password: _passwordController.text,
                         ),
                       );
                     },

@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
-import 'package:vas_app/core/theme/app_theme.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
+import 'package:vas_app/core/theme/theme_notifier.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/theme/typography.dart';
 
@@ -20,7 +22,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool valueSwitchButton = false;
-  Key _animationKey = UniqueKey();
 
   @override
   void initState() {
@@ -30,24 +31,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _restartAnimation() {
     setState(() {
-      _animationKey = UniqueKey();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
         title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
-        fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w700,
         ),),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: AnimationConfiguration.toStaggeredList(
               duration: const Duration(milliseconds: 1400),
@@ -86,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       const Text(
                         'Моя информация',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                        style: TextStyle(fontSize: 18, ),
                       ),
                       const SizedBox(height: 30),
                       _buildOptionRow(
@@ -102,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       _buildOptionRow(
                         icon: VectorAssets.icRefreshStory,
-                        title: 'История заказа документов',
+                        title: 'История заказов',
                       ),
                       const SizedBox(height: 30),
                       const Text(
@@ -114,6 +112,23 @@ class _ProfilePageState extends State<ProfilePage> {
                         icon: VectorAssets.icBell,
                         title: 'Уведомления',
                       ),
+                      // const SizedBox(height: 30),_buildOptionRowWithSwitch(
+                      //   icon: VectorAssets.icBell,
+                      //   title: 'Темная тема',
+                      //   onTap: (){
+                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                      //
+                      //   }
+                      // ),
+                      // const SizedBox(height: 30),
+                      // ElevatedButton(
+                      //   style: AppButtonStyle.primaryStyleOrange.copyWith(minimumSize: const WidgetStatePropertyAll(Size(200, 60))),
+                      //   child:const Text( 'Переключить тему'),
+                      //   onPressed: () {
+                      //     // Переключение темы
+                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                      //   },
+                      // ),
                       const SizedBox(height: 30),
                       const Text(
                         'Сервис',
@@ -153,9 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Color textColor = Colors.black,
   }) {
     return InkWell(
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -182,6 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildOptionRowWithSwitch({
     required String icon,
     required String title,
+    VoidCallback? onTap,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,6 +213,9 @@ class _ProfilePageState extends State<ProfilePage> {
         CupertinoSwitch(
           value: valueSwitchButton,
           onChanged: (value) {
+            if (onTap != null) {
+              onTap(); // Вызываем переданный onTap
+            }
             setState(() {
               valueSwitchButton = value;
             });

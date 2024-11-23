@@ -60,29 +60,29 @@ class RoutesInit {
             path: RoutePath.mainScreenPath,
             name: MainPage.name,
             builder: (context, state) => const MainPage(),
-              routes: []
+              routes: const []
           ),
           GoRoute(
             path: RoutePath.orderScreenPath,
             name: OrderPage.name,
             builder: (context, state) => const OrderPage(),
-            routes: []
+            routes: const []
           ),
           GoRoute(
             path: RoutePath.historyScreenPath,
             name: HistoryPage.name,
-            builder: (context, state) => HistoryPage(),
-            routes: []
+            builder: (context, state) => const HistoryPage(),
+            routes: const []
           ),
           GoRoute(
             path: RoutePath.profileScreenPath,
             name: ProfilePage.name,
-            builder: (context, state) => ProfilePage(),
+            builder: (context, state) => const ProfilePage(),
             routes: [
               GoRoute(
                   path: RoutePath.myDataPagePath,
                   name: MyDataPage.name,
-                  builder: (context, state) => MyDataPage(),
+                  builder: (context, state) => const MyDataPage(),
               ),
             ]
           ),
@@ -91,7 +91,7 @@ class RoutesInit {
       GoRoute(
         path: RoutePath.authScreenPath,
         name: AuthPage.name,
-        builder: (context, state) => AuthPage(),
+        builder: (context, state) => const AuthPage(),
       ),
     ],
   );

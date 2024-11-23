@@ -15,6 +15,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+
+
+  provider: ^6.1.2
   go_router:
     path: ./go_router
   #  go_router: ^13.2.0

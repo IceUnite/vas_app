@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
-import 'package:vas_app/core/theme/app_theme.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
-import 'package:vas_app/core/widgets/main_screen_card.dart';
-import 'package:vas_app/core/widgets/main_screen_other_option_widget.dart';
+import 'package:vas_app/core/widgets/gradient_banner_widget.dart';
+import 'package:vas_app/core/widgets/other_option_widget.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
 class MainPage extends StatefulWidget {
@@ -68,7 +68,7 @@ class _MainPageState extends State<MainPage> {
                             onTap: () {},
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 18),
                         Expanded(
                           child: OtherOptionWidget(
                             title: "История заказов",

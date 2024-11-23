@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
 import '../theme/app_theme.dart';
@@ -22,14 +23,14 @@ class OtherOptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final decoration = Theme.of(context).extension<ContainerDecorations>()?.containerDecorationShadow;
+
     return Container(
       height: 161,
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: AppColors.gray.shade40,
-      ),
+      decoration: decoration?.copyWith(borderRadius:BorderRadius.circular(24), color: AppColors.gray.shade40),
+
       child: InkWell(
         onTap: onTap,
         child: Column(
