@@ -14,7 +14,6 @@ class AppRouteSingleTone {
 
   void showBottomNavigationBar(double value){
     showValue = value;
-    print('sfsdffsd $showValue');
     if (isShowBottomBarMyAddressesPage) {
       showValue = 0;
     }

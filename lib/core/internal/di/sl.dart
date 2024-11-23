@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 
 import 'package:dio/dio.dart';
@@ -8,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:vas_app/core/internal/di/sl.config.dart';
-import 'package:vas_app/core/internal/reference_wrapper.dart';
 
 final getIt = GetIt.instance;
 

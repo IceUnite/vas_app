@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/internal/di/sl.dart';
+import 'package:vas_app/core/resources/assets/resources.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'routing/route_path.dart';
 
 class InitScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _InitScreenState extends State<InitScreen> {
     super.didChangeDependencies();
 
     // Инициализация GetIt
-    configureDependencies();
+    // configureDependencies();
 
     // Навигация теперь будет корректно работать
     Future.microtask(() => context.goNamed(RoutePath.authScreenPath));
@@ -27,13 +28,9 @@ class _InitScreenState extends State<InitScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.white, // Цвет фона берется из темы
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            context.goNamed(RoutePath.authScreenPath);
-          },
-          child: const Text('go to next page'),
-        ),
+        child: SizedBox(width: 150, height: 150, child: Image.asset(ImageAssets.logo)),
       ),
     );
   }

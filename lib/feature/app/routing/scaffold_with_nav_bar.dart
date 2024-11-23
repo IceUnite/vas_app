@@ -56,8 +56,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
 
     return MediaQuery(
       data: data.copyWith(
-        textScaleFactor:
-            data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor,
+        textScaler: TextScaler.linear(data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor),
       ),
       child: Scaffold(
         body: AnimatedBuilder(
@@ -100,7 +99,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                       child: BottomNavigationBar(
                         selectedLabelStyle: AppTypography.font16Regular,
                         unselectedLabelStyle: AppTypography.font16Regular,
-                        unselectedItemColor: AppColors.gray100,
+                        unselectedItemColor: AppColors.gray.shade70,
                         selectedItemColor: AppColors.orange200,
                         type: BottomNavigationBarType.fixed,
                         items: [

@@ -55,7 +55,7 @@ class GoRouteInformationParser extends RouteInformationParser<RouteMatchList> {
   ) {
     late final RouteMatchList initialMatches;
     try {
-      initialMatches = matcher.findMatch(routeInformation.location!,
+      initialMatches = matcher.findMatch(routeInformation.location,
           extra: routeInformation.state);
     } on MatcherError {
       log.info('No initial matches: ${routeInformation.location}');
@@ -79,8 +79,8 @@ class GoRouteInformationParser extends RouteInformationParser<RouteMatchList> {
     Future<RouteMatchList> processRedirectorResult(RouteMatchList matches) {
       if (matches.isEmpty) {
         return SynchronousFuture<RouteMatchList>(errorScreen(
-            Uri.parse(routeInformation.location!),
-            MatcherError('no routes for location', routeInformation.location!)
+            Uri.parse(routeInformation.location),
+            MatcherError('no routes for location', routeInformation.location)
                 .toString()));
       }
       return SynchronousFuture<RouteMatchList>(matches);

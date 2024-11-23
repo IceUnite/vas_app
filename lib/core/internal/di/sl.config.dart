@@ -17,6 +17,7 @@ import '../../../feature/main_page/presentation/bloc/profile_bloc.dart'
     as _i1013;
 import '../../../feature/profile_page/presentation/bloc/profile_bloc.dart'
     as _i1046;
+import '../../errors/bot_toast.dart' as _i959;
 import 'sl.dart' as _i581;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +33,7 @@ _i174.GetIt $initGetIt(
   );
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
+  gh.lazySingleton<_i959.BotToastDi>(() => _i959.BotToastDi());
   gh.lazySingleton<_i1046.ProfileBloc>(() => _i1046.ProfileBloc());
   gh.lazySingleton<_i185.AuthBloc>(() => _i185.AuthBloc());
   gh.lazySingleton<_i1013.ProfileBloc>(() => _i1013.ProfileBloc());

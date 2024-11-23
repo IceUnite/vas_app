@@ -4,11 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/go_router.dart';
-import '../lib/src/configuration.dart';
-import '../lib/src/delegate.dart';
-import '../lib/src/match.dart';
-import '../lib/src/misc/error_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router/src/delegate.dart';
+import 'package:go_router/src/match.dart';
+import 'package:go_router/src/misc/error_screen.dart';
 
 Future<GoRouter> createGoRouter(
   WidgetTester tester, {

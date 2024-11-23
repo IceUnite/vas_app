@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
 class Themes {
   static ThemeData get lightTheme => ThemeData(
     brightness: Brightness.light,
     fontFamily: 'Raleway',
-    scaffoldBackgroundColor: AppColors.appBackground,
-    primaryColor: AppColors.black,
-    colorScheme: const ColorScheme.light(primary: AppColors.black),
+    scaffoldBackgroundColor: AppColors.white,
+    primaryColor: AppColors.white,
+    colorScheme: const ColorScheme.light(primary: AppColors.white),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: AppColors.white,
     ),
@@ -25,82 +26,136 @@ class Themes {
       ),
     ),
     appBarTheme: const AppBarTheme(
-      elevation: 1,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
-      backgroundColor: AppColors.black100,
-      shadowColor: AppColors.black100,
+      elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Прозрачный статус-бар
+        statusBarIconBrightness: Brightness.dark, // Темные значки
+      ),
+      backgroundColor: AppColors.white,
+      shadowColor: AppColors.white,
       centerTitle: true,
     ),
-
-    textTheme:const TextTheme(),
-    inputDecorationTheme: const InputDecorationTheme(
-      border: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      enabledBorder: InputBorder.none,
+    textTheme: const TextTheme(),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
     ),
+    extensions: const <ThemeExtension<dynamic>>[
+      ContainerDecorations(),
+    ],
   );
 
-  static ThemeData get darkTheme => lightTheme;
+  static ThemeData get darkTheme => lightTheme.copyWith(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColors.black100,
+    primaryColor: AppColors.black100,
+    colorScheme: const ColorScheme.dark(
+      primary: AppColors.black100,
+      onPrimary: AppColors.white,
+      surface: AppColors.black,
+      onSurface: AppColors.white,
+    ),
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColors.green, // Подсветка курсора
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.green,
+        foregroundColor: AppColors.black,
+        minimumSize: const Size(double.infinity, 61),
+        textStyle: AppTypography.font16Regular,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppColors.black, // Черный статус-бар
+        statusBarIconBrightness: Brightness.light, // Светлые значки
+      ),
+      backgroundColor: AppColors.black,
+      shadowColor: AppColors.black,
+      centerTitle: true,
+    ),
+    textTheme: const TextTheme(
+      headlineLarge: TextStyle(
+        color: AppColors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      bodySmall: TextStyle(
+        color: AppColors.white,
+        fontSize: 16,
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      errorBorder: InputBorder.none,
+      disabledBorder: InputBorder.none,
+    ),
+    extensions: const <ThemeExtension<dynamic>>[
+      ContainerDecorations(),
+    ],
+  );
 }
 
-abstract class AppColors {
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color white200 = Color(0xFFD7D7D7);
-  static const Color gray = Color(0xFFD1D1D1);
-  static const Color white100 = Color(0xFF0D6D6D6);
-  static const Color white300 = Color(0xFFEAEAEA);
-  static const Color white50 = Color(0xFFF4F4F4);
+class ContainerDecorations extends ThemeExtension<ContainerDecorations> {
+  final BoxDecoration containerDecorationShadow;
 
-  static const Color appBackground = Color(0xFF262626);
+  const ContainerDecorations({
+    this.containerDecorationShadow = const BoxDecoration(
+      color: Color(0xFFE1E1E6),
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          offset: Offset(4, 4),
+          blurRadius: 5.0,
+          spreadRadius: 0.25,
+        ),
+      ],
+    ),
+  });
 
+  @override
+  ContainerDecorations copyWith({BoxDecoration? containerDecoration}) {
+    return ContainerDecorations(
+      containerDecorationShadow: containerDecoration ?? this.containerDecorationShadow,
+    );
+  }
 
-  static const Color black50 = Color(0xFF262626);
-  static const Color black100 = Color(0xFF1D1E1E);
-  static const Color black200 = Color(0xFFB1B1BCC);
-  static const Color black = Color(0xFF141414);
-  static const Color red = Color(0xFFEB5757);
-
-  static const Color orange = Color(0xFFF37B7B);
-
-  static const Color green = Color(0xFF1C545B);
-  static const Color green100 = Color(0xFF5B97B);
-  static const Color green200 = Color(0xFF25B97B);
-  static const Color green300 = Color(0xFFA8BFC2);
-  static const Color green400 = Color(0xFF96B5B9);
-  static const Color green500 = Color(0xFFD7E3E4);
-  static const Color green600 = Color(0xFF87A0A4);
-
-  static const Color light = Color(0xFFA8BFC2);
-
-  static const Color gray100 = Color(0xFFD1D1D1);
-  static const Color gray200 = Color(0xFFD4D4D4);
-  static const Color gray300 = Color(0xFF858585);
-  static const Color gray400 = Color(0xFF404040);
-  static const Color gray50 = Color(0xFF535353);
-
-  static const Color orange100 = Color(0xFFFFCC00);
-  static const Color orange200 = Color(0xFFFFD161);
-
-
-  static const Color purple100 = Color(0xFFE6D7FF);
-  static const Color red100 = Color(0xFF37B7B);
-  // static const Color orange100 = Color(0xFFFFAF50);
-  static const Color blue100 = Color(0xFF49B2D3);
-
-  static const gradientOrangeBackground = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment(0, 1),
-    colors: <Color>[
-      Color(0xffFFC529),
-      Color(0xffFCC842),
-      Color(0xffF9CA56),
-    ],
-    tileMode: TileMode.mirror,
-  );
-
-
-
-
+  @override
+  ContainerDecorations lerp(
+      ThemeExtension<ContainerDecorations>? other, double t) {
+    if (other is! ContainerDecorations) return this;
+    return ContainerDecorations(
+      containerDecorationShadow: BoxDecoration.lerp(
+          containerDecorationShadow, other.containerDecorationShadow, t)!,
+    );
+  }
 }

@@ -4,8 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
- import '../lib/go_router.dart';
- import '../lib/src/configuration.dart';
+ import 'package:go_router/go_router.dart';
 
 
 void main() {

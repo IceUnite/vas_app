@@ -9,7 +9,8 @@ List<BlocProvider> buildListProviders({required GetIt locator}) {
   return <BlocProvider>[
     BlocProvider<ProfileBloc>(
       create: (context) => locator<ProfileBloc>(),
-    ),BlocProvider<AuthBloc>(
+    ),
+    BlocProvider<AuthBloc>(
       create: (context) => locator<AuthBloc>(),
     ),
     // BlocProvider<HotelRoomBloc>(
