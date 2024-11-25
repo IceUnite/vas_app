@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
@@ -52,7 +53,7 @@ class _MainPageState extends State<MainPage> {
                     imagePath: ImageAssets.saly,
                     width: 100,
                     onPress: () {
-                      // context.go(AppRoute.sessionScreenRoute);
+                      context.goNamed(RoutePath.orderScreenPath);
                     },
                   ),
                   const SizedBox(height: 18),
@@ -65,7 +66,9 @@ class _MainPageState extends State<MainPage> {
                             title: "Популярные документы",
                             subTitle: "Читать",
                             icon: VectorAssets.icPlansh,
-                            onTap: () {},
+                            onTap: () {
+                              context.goNamed(RoutePath.orderScreenPath);
+                            },
                           ),
                         ),
                         const SizedBox(width: 18),
@@ -74,7 +77,10 @@ class _MainPageState extends State<MainPage> {
                             title: "История заказов",
                             subTitle: "Перейти",
                             icon: VectorAssets.icHistory,
-                            onTap: () {},
+                            onTap: () {
+                              context.goNamed(RoutePath.historyScreenPath);
+
+                            },
                           ),
                         ),
                       ],

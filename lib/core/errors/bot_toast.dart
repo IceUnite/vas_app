@@ -2,7 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vas_app/core/widgets/error_toast.dart';
+import 'package:vas_app/core/widgets/toasts_and_alerts/confirm_alert.dart';
+import 'package:vas_app/core/widgets/toasts_and_alerts/error_toast.dart';
 
 @lazySingleton
 class BotToastDi {
@@ -18,43 +19,60 @@ class BotToastDi {
               controller: controller,
               child: child,
             ),
-        toastBuilder: (cancelFunc) => ErrorToast(
-          onCancel: cancelFunc,
-          label: title,
-          icon: icon,
-        ),
+        toastBuilder: (cancelFunc) =>
+            ErrorToast(
+              onCancel: cancelFunc,
+              label: title,
+              icon: icon,
+            ),
       );
 
-  // void showDeliveryDialog({
-  //   required String title,
-  //   required String subTitle,
-  //   required VoidCallback onConfirm,
-  //   String? roomNumber,
-  //   Widget? icon,
-  // }) =>
-  //     BotToast.showCustomNotification(
-  //       duration: Duration(days: 1),
-  //       align: const Alignment(0, 0),
-  //       wrapToastAnimation: (controller, cancel, Widget child) =>
-  //           CustomAnimationWidget(
-  //             controller: controller,
-  //             child: child,
-  //           ),
-  //       toastBuilder: (cancelFunc) => DeliveryAlert(
-  //         roomNumber: roomNumber,
-  //         subTitle: subTitle,
-  //         onConfirm: onConfirm,
-  //         onCancel: cancelFunc, // Передайте функцию отмены в ваш кастомный алерт
-  //         title: title, // Передайте заголовок в ваш кастомный алерт
-  //         icon: icon, // Передайте иконку, если она есть
-  //       ),
-  //     );
+  void showConfirmDialog({
+    required String title,
+    required String subTitle,
+    required VoidCallback onConfirm,
+    required BuildContext context,
+    String? roomNumber,
+    Widget? icon,
+  }) {
+    BotToast.showCustomNotification(
+      duration: Duration(hours: 5),
+      align: const Alignment(0, 0),
+      wrapToastAnimation: (controller, cancel, Widget child) =>
+          Stack(
+            children: [
+              GestureDetector(
+                onTap: cancel, // Закрывает при нажатии на фон
+                child: Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height,
+                  color: Colors.black.withOpacity(0.5), // Полупрозрачный черный фон
+                ),
+              ),
+              CustomAnimationWidget(
+                controller: controller,
+                child: child,
+              ),
+            ],
+          ),
+      toastBuilder: (cancelFunc) =>
+          ConfirmAlert(
+            onCancel: cancelFunc,
+            onConfirm: onConfirm,
+            icon: icon,
+            label: title,
+          ),
+    );
+  }
 }
 
-
-
-
-class CustomAnimationWidget extends StatefulWidget {
+  class CustomAnimationWidget extends StatefulWidget {
   final AnimationController controller;
   final Widget child;
 
@@ -98,6 +116,3 @@ class _CustomAnimationWidgetState extends State<CustomAnimationWidget> {
     );
   }
 }
-
-
-

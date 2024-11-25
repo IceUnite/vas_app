@@ -19,23 +19,18 @@ class OrderPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-          size: 20,
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
         child: ListView(
-          children: const [
-            OrderTicketWidget(
+          children: [
+             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
                   'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
               status: OrderStatus.doOrder,
             ),
-            OrderTicketWidget(
+             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
                   'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
