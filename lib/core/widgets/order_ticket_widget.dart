@@ -55,7 +55,7 @@ class OrderTicketWidget extends StatelessWidget {
         onTap: () {
           GetIt.I<BotToastDi>().showConfirmDialog(
             icon: null,
-            title: "Неверный логин или пароль",
+            title: "Подтвердите действие",
             onConfirm: () {},
             subTitle: 'subTitle', context: context,
           );

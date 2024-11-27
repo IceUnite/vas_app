@@ -82,6 +82,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                     opacity: _appRouteSingleTone.showValue,
                     duration: const Duration(milliseconds: 300),
                     child: Container(
+
                       decoration: const BoxDecoration(
                         boxShadow: [
                           BoxShadow(
@@ -90,7 +91,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                             blurRadius: 14,
                           )
                         ],
-                        color: Colors.white,
+                        color: Colors.blue,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
                           topLeft: Radius.circular(10),
