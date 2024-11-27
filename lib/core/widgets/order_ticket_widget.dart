@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
+import 'package:vas_app/core/widgets/ods_alert.dart';
 
 enum OrderStatus { ready, rejected, inProgress, doOrder }
 
@@ -53,12 +54,11 @@ class OrderTicketWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: InkWell(
         onTap: () {
-          GetIt.I<BotToastDi>().showConfirmDialog(
-            icon: null,
-            title: "Подтвердите действие",
-            onConfirm: () {},
-            subTitle: 'subTitle', context: context,
-          );
+          ApeironSpaceDialog.showActionDialog(context,
+              title: "Подверждение заказа документа",
+              onPressed: () {},
+              verticalMargin: MediaQuery.of(context).size.height * 0.32);
+
         },
         child: Container(
           constraints: const BoxConstraints(

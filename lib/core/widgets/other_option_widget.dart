@@ -29,8 +29,7 @@ class OtherOptionWidget extends StatelessWidget {
       height: 161,
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: decoration?.copyWith(borderRadius:BorderRadius.circular(24), color: AppColors.gray.shade40),
-
+      decoration: decoration?.copyWith(borderRadius: BorderRadius.circular(24), color: AppColors.gray.shade40),
       child: InkWell(
         onTap: onTap,
         child: Column(
