@@ -50,17 +50,9 @@ class _ApplicationState extends State<Application> {
     return MultiBlocProvider(
       providers: buildListProviders(locator: locator),
       child: MaterialApp.router(
-        // theme: ThemeData.light(), // Укажите вашу светлую тему
         darkTheme: ThemeData.dark(),
-        // Укажите вашу темную тему
-        // themeMode: themeNotifier.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-        // Слушаем тему
         theme: themeNotifier.currentTheme,
-        // Используем текущую тему из ThemeNotifier
         builder: BotToastInit(),
-        // navigatorObservers: [BotToastNavigatorObserver()],
-        //2. registered route observer
-
         title: 'VAS documents',
         routerConfig: _router.router,
         localizationsDelegates: const [

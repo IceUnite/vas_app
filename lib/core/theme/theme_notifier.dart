@@ -12,6 +12,7 @@ class ThemeNotifier extends ChangeNotifier {
   }
 
   // Загружаем тему из SharedPreferences
+
   void _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
     _isDarkTheme = prefs.getBool('isDarkTheme') ?? false;

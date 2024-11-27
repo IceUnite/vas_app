@@ -8,10 +8,12 @@ class ScaffoldWithNavBarTabItem extends BottomNavigationBarItem {
     Widget? iconActive,
     required Widget icon,
     String? label,
+    // Color? backgroundColor,
   }) : super(
           icon: icon,
           label: label,
           activeIcon: iconActive,
+    // backgroundColor: backgroundColor,
         );
 
   /// The initial location/path

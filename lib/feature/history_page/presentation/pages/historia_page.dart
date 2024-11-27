@@ -14,7 +14,6 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(
           'История заказов',
           style: AppTypography.font26Regular.copyWith(
@@ -22,40 +21,31 @@ class HistoryPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
-          size: 20,
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
         child: ListView(
-          children: const [
+          children: [
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
-              'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
+                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
               status: OrderStatus.inProgress,
             ),
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
               description:
-              'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
+                  'Получить данную справку можно в течении 1-2 дней (добавим либо инфу о том сколько получать либо краткое описание документа)',
               status: OrderStatus.rejected,
             ),
             OrderTicketWidget(
               titleText: 'Справка о составе семьи',
-              description:
-              'Заберите справку до 14.12.2024 в кабинете 4022',
+              description: 'Заберите справку до 14.12.2024 в кабинете 4022',
               status: OrderStatus.ready,
             ),
-
           ],
         ),
       ),
     );
   }
 }
-
-

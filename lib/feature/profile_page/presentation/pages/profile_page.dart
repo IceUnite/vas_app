@@ -38,32 +38,37 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Никита Алексеевич',style: AppTypography.font26Regular.copyWith(
-          fontWeight: FontWeight.w700,
-        ),),
+        title: Text(
+          'Никита Алексеевич',
+          style: AppTypography.font26Regular.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(), // Обеспечивает скроллинг даже при полном содержимом
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: AnimationConfiguration.toStaggeredList(
-              duration: const Duration(milliseconds: 1400),
-              childAnimationBuilder: (widget) => SlideAnimation(
-                verticalOffset: 50.0,
-                curve: Curves.easeOut,
-                child: FadeInAnimation(
-                  child: widget,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: AnimationConfiguration.toStaggeredList(
+            duration: const Duration(milliseconds: 1400),
+            childAnimationBuilder: (widget) => SlideAnimation(
+              verticalOffset: 50.0,
+              curve: Curves.easeOut,
+              child: FadeInAnimation(
+                child: widget,
               ),
-              children: [
-                Padding(
+            ),
+            children: [
+              Center(
+                child: Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
                   child: SizedBox(
                     height: 100,
                     width: 100,
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         context.goNamed(RoutePath.myDataPagePath);
                       },
                       child: CircleAvatar(
@@ -77,95 +82,81 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Моя информация',
-                        style: TextStyle(fontSize: 18, ),
-                      ),
-                      const SizedBox(height: 30),
-                      _buildOptionRow(
-                        icon: VectorAssets.icMyData,
-                        title: 'Мои данные',
-                        onTap: () {
-                          context.goNamed(RoutePath.myDataPagePath);
-                        },
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Divider(),
-                      ),
-                      _buildOptionRow(
-                        icon: VectorAssets.icRefreshStory,
-                        title: 'История заказов',
-                      ),
-                      const SizedBox(height: 30),
-                      const Text(
-                        'Настройки',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      const SizedBox(height: 30),
-                      _buildOptionRowWithSwitch(
-                        icon: VectorAssets.icBell,
-                        title: 'Уведомления',
-                      ),
-                      // const SizedBox(height: 30),_buildOptionRowWithSwitch(
-                      //   icon: VectorAssets.icBell,
-                      //   title: 'Темная тема',
-                      //   onTap: (){
-                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-                      //
-                      //   }
-                      // ),
-                      // const SizedBox(height: 30),
-                      // ElevatedButton(
-                      //   style: AppButtonStyle.primaryStyleOrange.copyWith(minimumSize: const WidgetStatePropertyAll(Size(200, 60))),
-                      //   child:const Text( 'Переключить тему'),
-                      //   onPressed: () {
-                      //     // Переключение темы
-                      //     Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-                      //   },
-                      // ),
-                      const SizedBox(height: 30),
-                      const Text(
-                        'Сервис',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      const SizedBox(height: 30),
-                      _buildOptionRow(
-                        icon: VectorAssets.icDoOrder,
-                        title: 'Сделать заказ документа',
-                      ),
-                      const SizedBox(height: 30),
-                      const Text(
-                        'Аккаунт',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      const SizedBox(height: 30),
-                      _buildOptionRow(
-                        icon: VectorAssets.icLogout,
-                        title: 'Выйти',
-                        textColor: AppColors.red200,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Моя информация',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 30),
+              _buildOptionRow(
+                icon: VectorAssets.icMyData,
+                title: 'Мои данные',
+                onTap: () {
+                  context.goNamed(RoutePath.myDataPagePath);
+                },
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: Divider(),
+              ),
+              _buildOptionRow(
+                icon: VectorAssets.icRefreshStory,
+                title: 'История заказов',
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Настройки',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 30),
+              _buildOptionRowWithSwitch(
+                icon: VectorAssets.icBell,
+                title: 'Уведомления',
+              ),
+              const SizedBox(height: 30),
+              _buildOptionRowWithSwitch(
+                icon: VectorAssets.icBell,
+                title: 'Темная тема',
+                onTap: () {
+                  Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+                },
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Сервис',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 30),
+              _buildOptionRow(
+                icon: VectorAssets.icDoOrder,
+                title: 'Сделать заказ документа',
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Аккаунт',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 30),
+              _buildOptionRow(
+                icon: VectorAssets.icLogout,
+                title: 'Выйти',
+                // textColor: AppColors.red200,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
+
+
   Widget _buildOptionRow({
     required String icon,
     required String title,
     VoidCallback? onTap,
-    Color textColor = Colors.black,
+    // Color textColor = Colors.black,
   }) {
     return InkWell(
       onTap: onTap,
@@ -178,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(width: 16),
               Text(
                 title,
-                style: TextStyle(fontSize: 18, color: textColor, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 18,  fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -206,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(width: 16),
             Text(
               title,
-              style: const TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ],
         ),

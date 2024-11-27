@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
+import 'package:vas_app/core/widgets/ods_alert.dart';
 
 enum OrderStatus { ready, rejected, inProgress, doOrder }
 
@@ -9,14 +12,15 @@ class OrderTicketWidget extends StatelessWidget {
   final String description;
   final OrderStatus status;
   final String? orderTime;
+  VoidCallback? ontap;
 
-  const OrderTicketWidget({
-    super.key,
-    required this.titleText,
-    required this.description,
-    required this.status,
-    this.orderTime,
-  });
+  OrderTicketWidget(
+      {super.key,
+      required this.titleText,
+      required this.description,
+      required this.status,
+      this.orderTime,
+      this.ontap});
 
   Color getColor(OrderStatus status) {
     switch (status) {
@@ -48,76 +52,86 @@ class OrderTicketWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
-      child: Container(
-        constraints: const BoxConstraints(
-          minHeight: 180.0,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.gray.shade40,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              offset: const Offset(4, 4),
-              blurRadius: 5.0,
-              spreadRadius: 0.25,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      titleText,
-                      style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    children: [
-                      status.name == 'doOrder'
-                          ? Text(
-                              'Время выполнения',
-                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
-                            )
-                          : const SizedBox(),
-                      Container(
-                        constraints:
-                            status.name == 'doOrder' ? const BoxConstraints(minWidth: 100) : const BoxConstraints(minWidth: 120),
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        margin: const EdgeInsets.only(top: 5),
-                        decoration: BoxDecoration(
-                          color: getColor(status),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            getText(status),
-                            style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                description,
-                style: AppTypography.font14Regular,
+      child: InkWell(
+        onTap: () {
+          ApeironSpaceDialog.showActionDialog(context,
+              title: "Подверждение заказа документа",
+              onPressed: () {},
+              verticalMargin: MediaQuery.of(context).size.height * 0.32);
+
+        },
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: 180.0,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.gray.shade40,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                offset: const Offset(4, 4),
+                blurRadius: 5.0,
+                spreadRadius: 0.25,
               ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        titleText,
+                        style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      children: [
+                        status.name == 'doOrder'
+                            ? Text(
+                                'Время выполнения',
+                                style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
+                              )
+                            : const SizedBox(),
+                        Container(
+                          constraints: status.name == 'doOrder'
+                              ? const BoxConstraints(minWidth: 100)
+                              : const BoxConstraints(minWidth: 120),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                          margin: const EdgeInsets.only(top: 5),
+                          decoration: BoxDecoration(
+                            color: getColor(status),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              getText(status),
+                              style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  description,
+                  style: AppTypography.font14Regular,
+                ),
+              ],
+            ),
           ),
         ),
       ),
