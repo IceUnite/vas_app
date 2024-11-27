@@ -27,10 +27,10 @@ class Themes {
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // Прозрачный статус-бар
-        statusBarIconBrightness: Brightness.dark, // Темные значки
-      ),
+      // systemOverlayStyle: SystemUiOverlayStyle(
+        // statusBarColor: Colors.transparent, // Прозрачный статус-бар
+        // statusBarIconBrightness: Brightness.dark, // Темные значки
+      // ),
       backgroundColor: AppColors.white,
       shadowColor: AppColors.white,
       centerTitle: true,
@@ -83,10 +83,10 @@ class Themes {
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.black, // Черный статус-бар
-        statusBarIconBrightness: Brightness.light, // Светлые значки
-      ),
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarColor: AppColors.black, // Черный статус-бар
+      //   statusBarIconBrightness: Brightness.light, // Светлые значки
+      // ),
       backgroundColor: AppColors.black,
       shadowColor: AppColors.black,
       centerTitle: true,

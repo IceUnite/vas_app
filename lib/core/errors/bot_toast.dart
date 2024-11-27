@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:vas_app/core/widgets/toasts_and_alerts/confirm_alert.dart';
@@ -14,17 +13,15 @@ class BotToastDi {
       BotToast.showCustomNotification(
         duration: Duration(seconds: 10),
         align: const Alignment(0, 0.94),
-        wrapToastAnimation: (controller, cancel, Widget child) =>
-            CustomAnimationWidget(
-              controller: controller,
-              child: child,
-            ),
-        toastBuilder: (cancelFunc) =>
-            ErrorToast(
-              onCancel: cancelFunc,
-              label: title,
-              icon: icon,
-            ),
+        wrapToastAnimation: (controller, cancel, Widget child) => CustomAnimationWidget(
+          controller: controller,
+          child: child,
+        ),
+        toastBuilder: (cancelFunc) => ErrorToast(
+          onCancel: cancelFunc,
+          label: title,
+          icon: icon,
+        ),
       );
 
   void showConfirmDialog({
@@ -38,41 +35,34 @@ class BotToastDi {
     BotToast.showCustomNotification(
       duration: Duration(hours: 5),
       align: const Alignment(0, 0),
-      wrapToastAnimation: (controller, cancel, Widget child) =>
-          Stack(
-            children: [
-              GestureDetector(
-                onTap: cancel, // Закрывает при нажатии на фон
-                child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
-                  color: Colors.black.withOpacity(0.5), // Полупрозрачный черный фон
-                ),
-              ),
-              CustomAnimationWidget(
-                controller: controller,
-                child: child,
-              ),
-            ],
+      wrapToastAnimation: (controller, cancel, Widget child) => Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          GestureDetector(
+            onTap: cancel, // Закрывает при нажатии на фон
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white.withOpacity(0.7), // Полупрозрачный черный фон
+            ),
           ),
-      toastBuilder: (cancelFunc) =>
-          ConfirmAlert(
-            onCancel: cancelFunc,
-            onConfirm: onConfirm,
-            icon: icon,
-            label: title,
+          CustomAnimationWidget(
+            controller: controller,
+            child: child,
           ),
+        ],
+      ),
+      toastBuilder: (cancelFunc) => ConfirmAlert(
+        onCancel: cancelFunc,
+        onConfirm: onConfirm,
+        icon: icon,
+        label: title,
+      ),
     );
   }
 }
 
-  class CustomAnimationWidget extends StatefulWidget {
+class CustomAnimationWidget extends StatefulWidget {
   final AnimationController controller;
   final Widget child;
 

@@ -33,11 +33,11 @@ class ConfirmAlert extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: AppColors.gray.shade70,
-        border: Border.all(
-          color: AppColors.gray.shade90, // Цвет рамки
-          width: 3.0, // Толщина рамки
-        ),
+        color: AppColors.white200,
+        // border: Border.all(
+        //   color: AppColors.gray.shade90, // Цвет рамки
+        //   width: 0.0, // Толщина рамки
+        // ),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, .08),
@@ -76,7 +76,7 @@ class ConfirmAlert extends StatelessWidget {
                   onConfirm;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade300, // Легкий красный цвет
+                  backgroundColor: Colors.green.shade300,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
@@ -94,7 +94,7 @@ class ConfirmAlert extends StatelessWidget {
               ElevatedButton(
                 onPressed: onCancel,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade300, // Легкий красный цвет
+                  backgroundColor: Colors.red.shade300,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
