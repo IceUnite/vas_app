@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/theme_notifier.dart';
+import 'package:vas_app/core/theme/typography.dart';
+import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
-import 'package:provider/provider.dart';
-
-import '../../../../core/theme/typography.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,17 +23,6 @@ class _ProfilePageState extends State<ProfilePage> {
   bool valueSwitchButton = false;
 
   @override
-  void initState() {
-    super.initState();
-    _restartAnimation();
-  }
-
-  void _restartAnimation() {
-    setState(() {
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,116 +35,104 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(), // Обеспечивает скроллинг даже при полном содержимом
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 1400),
-            childAnimationBuilder: (widget) => SlideAnimation(
-              verticalOffset: 50.0,
-              curve: Curves.easeOut,
-              child: FadeInAnimation(
-                child: widget,
-              ),
-            ),
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: InkWell(
-                      onTap: () {
-                        context.goNamed(RoutePath.myDataPagePath);
-                      },
-                      child: CircleAvatar(
-                        child: SvgPicture.asset(
-                          VectorAssets.icProfileActive,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
+        child: AnimatedListItems(
+          duration: const Duration(milliseconds: 1000),
+          verticalOffset: 50.0,
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                child: SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: InkWell(
+                    onTap: () {
+                      context.goNamed(RoutePath.myDataPagePath);
+                    },
+                    child: CircleAvatar(
+                      child: SvgPicture.asset(
+                        VectorAssets.icProfileActive,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
-              const Text(
-                'Моя информация',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 30),
-              _buildOptionRow(
-                icon: VectorAssets.icMyData,
-                title: 'Мои данные',
-                onTap: () {
-                  context.goNamed(RoutePath.myDataPagePath);
-                },
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                child: Divider(),
-              ),
-              _buildOptionRow(
-                icon: VectorAssets.icRefreshStory,
-                title: 'История заказов',
-              ),
-              const SizedBox(height: 30),
-              const Text(
-                'Настройки',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 30),
-              _buildOptionRowWithSwitch(
-                icon: VectorAssets.icBell,
-                title: 'Уведомления',
-              ),
-              const SizedBox(height: 30),
-              _buildOptionRowWithSwitch(
-                icon: VectorAssets.icBell,
-                title: 'Темная тема',
-                onTap: () {
-                  Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
-                },
-              ),
-              const SizedBox(height: 30),
-              const Text(
-                'Сервис',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 30),
-              _buildOptionRow(
-                icon: VectorAssets.icDoOrder,
-                title: 'Сделать заказ документа',
-              ),
-              const SizedBox(height: 30),
-              const Text(
-                'Аккаунт',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 30),
-              _buildOptionRow(
-                icon: VectorAssets.icLogout,
-                title: 'Выйти',
-                // textColor: AppColors.red200,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Моя информация',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 30),
+            _buildOptionRow(
+              icon: VectorAssets.icMyData,
+              title: 'Мои данные',
+              onTap: () {
+                context.goNamed(RoutePath.myDataPagePath);
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              child: Divider(),
+            ),
+            _buildOptionRow(
+              icon: VectorAssets.icRefreshStory,
+              title: 'История заказов',
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Настройки',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 30),
+            _buildOptionRowWithSwitch(
+              icon: VectorAssets.icBell,
+              title: 'Уведомления',
+            ),
+            const SizedBox(height: 30),
+            _buildOptionRowWithSwitch(
+              icon: VectorAssets.icBell,
+              title: 'Темная тема',
+              onTap: () {
+                Provider.of<ThemeNotifier>(context, listen: false).toggleTheme();
+              },
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Сервис',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 30),
+            _buildOptionRow(
+              icon: VectorAssets.icDoOrder,
+              title: 'Сделать заказ документа',
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              'Аккаунт',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 30),
+            _buildOptionRow(
+              icon: VectorAssets.icLogout,
+              title: 'Выйти',
+            ),
+            const SizedBox(height: 150),
+          ],
         ),
       ),
     );
   }
 
-
-
   Widget _buildOptionRow({
     required String icon,
     required String title,
     VoidCallback? onTap,
-    // Color textColor = Colors.black,
   }) {
     return InkWell(
       onTap: onTap,
@@ -169,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(width: 16),
               Text(
                 title,
-                style: TextStyle(fontSize: 18,  fontWeight: FontWeight.w400),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -205,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
           value: valueSwitchButton,
           onChanged: (value) {
             if (onTap != null) {
-              onTap(); // Вызываем переданный onTap
+              onTap();
             }
             setState(() {
               valueSwitchButton = value;
