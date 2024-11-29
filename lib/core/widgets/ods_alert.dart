@@ -186,35 +186,61 @@ class ApeironSpaceDialog extends StatelessWidget {
       context: context,
       dismissible: dismissible,
       builder: (BuildContext sheetContext) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Center(
-              child: SingleChildScrollView(
-                // physics: SuperBouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 24,
-                        horizontal: 26,
-                      ),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: builder(sheetContext),
-                      ),
-                    ),
-                  ),
-                ),
+        return Center(
+          child: SingleChildScrollView(
+            // physics: SuperBouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 16,
+                right: 16,
               ),
+
+              // ch_handleDialogQueue(
+              //       context: context,
+              //       dismissible: dismissible,
+              //       builder: (BuildContext sheetContext) {
+              //         return Center(
+              //           child: SingleChildScrollView(
+              //             // physics: SuperBouncingScrollPhysics(),
+              //             child: Padding(
+              //               padding: EdgeInsets.only(
+              //                 bottom: MediaQuery.of(context).viewInsets.bottom,
+              //                 left: 16,
+              //                 right: 16,
+              //               ),
+              // child: Material(
+              //   color: Colors.transparent,
+              //   borderRadius: BorderRadius.circular(12),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(
+              //       vertical: 24,
+              //       horizontal: 26,
+              //     ),
+              //     child: SizedBox(
+              //       width: double.infinity,
+              //       child: builder(sheetContext),
+              //     ),
+              //   ),
+              // ),
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //     );ild: Material(
+              //   color: Colors.transparent,
+              //   borderRadius: BorderRadius.circular(12),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(
+              //       vertical: 24,
+              //       horizontal: 26,
+              //     ),
+              //     child: SizedBox(
+              //       width: double.infinity,
+              //       child: builder(sheetContext),
+              //     ),
+              //   ),
+              // ),
             ),
           ),
         );
@@ -387,112 +413,100 @@ class ApeironSpaceDialog extends StatelessWidget {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Container(
-          height: 100,
-          margin: EdgeInsets.symmetric(vertical: verticalMargin ?? 100, horizontal: 20),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                offset: Offset(0, 5),
+    return Center(
+      // Центрирование
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        constraints: BoxConstraints(maxHeight: 250),
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // if (roomNumber != null)
+            Text(
+              textAlign: TextAlign.center,
+              title ?? '',
+              style: AppTypography.font20Regular.copyWith(
+                color: AppColors.black,
+                fontWeight: FontWeight.w700,
               ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              // if (roomNumber != null)
-              Text(
-                textAlign: TextAlign.center,
-                title ?? '',
-                style: AppTypography.font20Regular.copyWith(
+            ),
+            message != null
+                ? Text(
+                    message ?? '',
+                    style: AppTypography.font20Regular.copyWith(
+                      color: AppColors.black,
+                    ),
+                  )
+                : SizedBox(),
+
+            Spacer(),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: AppColors.white,
+                backgroundColor: AppColors.green200.withOpacity(0.8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+              onPressed: () {
+                onConfirmTap == null ? null : onConfirmTap!();
+                print('on close0');
+
+                // onCancel!();
+              },
+              child: Text(
+                'Подтвердить',
+                style: AppTypography.font16Regular.copyWith(
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              // else
-              //   Text(
-              //     '${title}',
-              //     style: AppTypography.font20Regular.copyWith(
-              //       color: AppColors.black,
-              //       fontWeight: FontWeight.w700,
-              //     ),
-              //   ),
-              // SizedBox(height: 20),
-              message != null
-                  ? Text(
-                      message ?? '',
-                      style: AppTypography.font20Regular.copyWith(
-                        color: AppColors.black,
-                      ),
-                    )
-                  : SizedBox(),
-              Spacer(flex: 2),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.075,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColors.white,
-                    backgroundColor: AppColors.green200.withOpacity(0.8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onPressed: () {
-                    onConfirmTap == null ? null : onConfirmTap!();
-                    print('on close0');
+            ),
+            SizedBox(
+              height: 20,
+            ),
 
-                    // onCancel!();
-                  },
-                  child: Text(
-                    'Подтвердить',
-                    style: AppTypography.font16Regular.copyWith(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: AppColors.white,
+                backgroundColor: AppColors.orange.withOpacity(0.8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
               ),
-              Spacer(flex: 1),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.075,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColors.white,
-                    backgroundColor: AppColors.orange.withOpacity(0.8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onPressed: () {
-                    onCloseTap == null ? null : onCloseTap!();
-                    print('on close1');
-                  },
-                  // onPressed: null,
-                  child: Text(
-                    'Отмена',
-                    style: AppTypography.font16Regular.copyWith(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+              onPressed: () {
+                onCloseTap == null ? null : onCloseTap!();
+                print('on close1');
+              },
+              // onPressed: null,
+              child: Text(
+                'Отмена',
+                style: AppTypography.font16Regular.copyWith(
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ],
-          ),
-          // ],
-          // ),
-        ));
+            ),
+          ],
+        ),
+        // ],
+        // ),
+      ),
+    );
   }
 }
 

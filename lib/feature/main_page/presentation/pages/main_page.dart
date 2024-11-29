@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
+import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/gradient_banner_widget.dart';
 import 'package:vas_app/core/widgets/other_option_widget.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
@@ -33,62 +33,51 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: AnimationLimiter(
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: const Duration(milliseconds: 1400),
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: 150.0,
-                  curve: Curves.easeOut,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
-                ),
-                children: [
-                  GradientBannerWidget(
-                    gradient: AppColors.gradientOrangeBackground,
-                    title: 'Быстрое оформление документов',
-                    description: 'Выберите из 146 образцов',
-                    btnText: 'Выбрать',
-                    imagePath: ImageAssets.saly,
-                    width: 100,
-                    onPress: () {
-                      context.goNamed(RoutePath.orderScreenPath);
-                    },
-                  ),
-                  const SizedBox(height: 18),
-                  SizedBox(
-                    height: 160,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: OtherOptionWidget(
-                            title: "Популярные документы",
-                            subTitle: "Читать",
-                            icon: VectorAssets.icPlansh,
-                            onTap: () {
-                              context.goNamed(RoutePath.orderScreenPath);
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 18),
-                        Expanded(
-                          child: OtherOptionWidget(
-                            title: "История заказов",
-                            subTitle: "Перейти",
-                            icon: VectorAssets.icHistory,
-                            onTap: () {
-                              context.goNamed(RoutePath.historyScreenPath);
-
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+          child: AnimatedListItems(
+            duration: const Duration(milliseconds: 1400),
+            verticalOffset: 150.0,
+            children: [
+              GradientBannerWidget(
+                gradient: AppColors.gradientOrangeBackground,
+                title: 'Быстрое оформление документов',
+                description: 'Выберите из 146 образцов',
+                btnText: 'Выбрать',
+                imagePath: ImageAssets.saly,
+                width: 100,
+                onPress: () {
+                  context.goNamed(RoutePath.orderScreenPath);
+                },
               ),
-            ),
+              const SizedBox(height: 18),
+              SizedBox(
+                height: 160,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OtherOptionWidget(
+                        title: "Популярные документы",
+                        subTitle: "Читать",
+                        icon: VectorAssets.icPlansh,
+                        onTap: () {
+                          context.goNamed(RoutePath.orderScreenPath);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      child: OtherOptionWidget(
+                        title: "История заказов",
+                        subTitle: "Перейти",
+                        icon: VectorAssets.icHistory,
+                        onTap: () {
+                          context.goNamed(RoutePath.historyScreenPath);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
