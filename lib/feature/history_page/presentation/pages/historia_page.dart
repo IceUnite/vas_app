@@ -42,19 +42,25 @@ class HistoryPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: AnimatedListItems(
-        verticalOffset: 50.0,
-        duration: const Duration(milliseconds: 600),
-        children: _items.map((item) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
-            child: OrderTicketWidget(
-              titleText: item['title'] as String,
-              description: item['description'] as String,
-              status: item['status'] as OrderStatus,
-            ),
+      body: ListView.builder(
+        itemCount: _items.length,
+        itemBuilder: (context, index) {
+          final item = _items[index];
+          return AnimatedListItems(
+            verticalOffset: 50.0,
+            duration: const Duration(milliseconds: 600),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
+                child: OrderTicketWidget(
+                  titleText: item['title'] as String,
+                  description: item['description'] as String,
+                  status: item['status'] as OrderStatus,
+                ),
+              ),
+            ],
           );
-        }).toList(),
+        },
       ),
     );
   }

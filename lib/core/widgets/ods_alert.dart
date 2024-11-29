@@ -15,7 +15,6 @@ class ApeironSpaceDialog extends StatelessWidget {
     this.closeText,
     this.content,
     this.onCloseTap,
-    this.verticalMargin,
   });
 
   final String? title;
@@ -25,7 +24,6 @@ class ApeironSpaceDialog extends StatelessWidget {
   final String? closeText;
   final VoidCallback? onCloseTap;
   final Widget? content;
-  final double? verticalMargin;
 
   static final Queue<DialogQueueData> _queue = Queue<DialogQueueData>();
 
@@ -164,7 +162,6 @@ class ApeironSpaceDialog extends StatelessWidget {
           message: message,
           confirmText: confirmText ?? "go",
           closeText: closeText,
-          verticalMargin: verticalMargin,
           onConfirmTap: () {
             Navigator.of(context).pop();
             onPressed.call();
@@ -464,12 +461,11 @@ class ApeironSpaceDialog extends StatelessWidget {
               ),
               onPressed: () {
                 onConfirmTap == null ? null : onConfirmTap!();
-                print('on close0');
 
                 // onCancel!();
               },
               child: Text(
-                'Подтвердить',
+                this.confirmText ?? 'Подтвердить',
                 style: AppTypography.font16Regular.copyWith(
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
@@ -490,11 +486,10 @@ class ApeironSpaceDialog extends StatelessWidget {
               ),
               onPressed: () {
                 onCloseTap == null ? null : onCloseTap!();
-                print('on close1');
               },
               // onPressed: null,
               child: Text(
-                'Отмена',
+                this.closeText ?? 'Отмена',
                 style: AppTypography.font16Regular.copyWith(
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
