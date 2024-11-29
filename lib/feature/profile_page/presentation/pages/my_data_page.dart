@@ -3,7 +3,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
+import 'package:vas_app/core/theme/app_corners.dart';
+import 'package:vas_app/core/theme/button_style.dart';
 import 'package:vas_app/core/theme/typography.dart';
+import 'package:vas_app/core/widgets/my_data_textfield.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
 class MyDataPage extends StatelessWidget {
@@ -30,72 +33,85 @@ class MyDataPage extends StatelessWidget {
           },
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: AnimationConfiguration.toStaggeredList(
-          duration: const Duration(milliseconds: 1400),
-          childAnimationBuilder: (widget) => SlideAnimation(
-            verticalOffset: 50.0,
-            curve: Curves.easeOut,
-            child: FadeInAnimation(
-              child: widget,
-            ),
-          ),
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                child: SizedBox(
-                  height: 150,
-                  width: 150,
-                  child: CircleAvatar(
-                    child: SvgPicture.asset(
-                      VectorAssets.icProfileActive,
-                      width: 150,
+      body: ListView(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 1400),
+              childAnimationBuilder: (widget) => SlideAnimation(
+                verticalOffset: 50.0,
+                curve: Curves.easeOut,
+                child: FadeInAnimation(
+                  child: widget,
+                ),
+              ),
+              children: [
+                Center(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                    child: SizedBox(
                       height: 150,
-                      fit: BoxFit.cover,
+                      width: 150,
+                      child: CircleAvatar(
+                        child: SvgPicture.asset(
+                          VectorAssets.icProfileActive,
+                          width: 150,
+                          height: 150,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {},
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Редактировать',
-                        style: AppTypography.font16Regular.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.blue200,
-                        ),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: () {},
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Редактировать',
+                            style: AppTypography.font16Regular.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blue200,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          MyDataTextField(text: 'Никита'),
+                          MyDataTextField(text: 'Алексеевич'),
+                          MyDataTextField(text: '+7 999 999 99 99'),
+                          MyDataTextField(text: 'nikita2024@yandex.ru'),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              style: AppButtonStyle.primaryStyleOrange,
+                              onPressed: () {},
+                              child: Text(
+                                'Сохранить изменения',
+                                style: AppTypography.font18Regular.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 60,
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 15),
-                        decoration: BoxDecoration(
-                          color: AppColors.gray.shade30,
-                          borderRadius: BorderRadius.circular(15),
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: Text('Никита'),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
