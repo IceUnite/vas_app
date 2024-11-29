@@ -44,13 +44,17 @@ class OrderPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: AnimatedListItems(
-          verticalOffset: 50.0,
-          duration: const Duration(milliseconds: 600),
-          children: _orderWidgets,
-        ),
+      body: ListView.builder(
+        itemCount: _orderWidgets.length,
+        itemBuilder: (context, index) {
+          return AnimatedListItems(
+            verticalOffset: 50.0,
+            duration: const Duration(milliseconds: 600),
+            children: [
+              _orderWidgets[index],
+            ],
+          );
+        },
       ),
     );
   }

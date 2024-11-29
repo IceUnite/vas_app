@@ -8,6 +8,7 @@ import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/theme_notifier.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/animated_list_item.dart';
+import 'package:vas_app/core/widgets/ods_alert.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -119,6 +120,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 30),
             _buildOptionRow(
+              onTap: (){
+                ApeironSpaceDialog.showActionDialog(context,
+                    title: "Вы уверены что хотите выйти из своего аккаунта?",
+                    onPressed: () {},
+                  confirmText: "Отмена",
+                  closeText: 'Выйти'
+                );
+              },
               icon: VectorAssets.icLogout,
               title: 'Выйти',
             ),
