@@ -26,7 +26,6 @@ class ApeironSpaceDialog extends StatelessWidget {
   final Widget? content;
 
   static final Queue<DialogQueueData> _queue = Queue<DialogQueueData>();
-
   static void showUnknownErrorDialog(BuildContext context) {
     showApiErrorDialog(
       outerContext: context,
@@ -410,12 +409,12 @@ class ApeironSpaceDialog extends StatelessWidget {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Center(
       // Центрирование
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: EdgeInsets.symmetric(  horizontal: screenWidth < 350 ? 20 :(screenWidth - 350) /2 ),
         constraints: BoxConstraints(maxHeight: 250),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
