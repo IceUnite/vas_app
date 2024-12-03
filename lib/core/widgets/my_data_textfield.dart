@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/app_corners.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
 class MyDataTextField extends StatelessWidget {
   final String text;
+  final bool isFlag;
+  // final TextEditingController textEditingController;
 
   const MyDataTextField({
     super.key,
     required this.text,
+    required this.isFlag,
+
+    // required this.textEditingController,
   });
 
   @override
@@ -35,11 +42,48 @@ class MyDataTextField extends StatelessWidget {
             ),
           ],
         ),
-        child: Text(
-          text,
-          style: AppTypography.font16Regular.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
+        child: Row(
+          children: [
+            isFlag
+                ? Container(
+                    decoration: BoxDecoration(
+                      borderRadius: AppCorners.radius25,
+                    ),
+                    child: SvgPicture.asset(
+                      VectorAssets.icRussia,
+                      width: 30,
+                      height: 30,
+                      fit: BoxFit.fill,
+                      clipBehavior: Clip.antiAlias,
+                    ),
+                  )
+                : const SizedBox(),
+            Flexible(
+              child: TextFormField(
+                // controller: textEditingController,
+                initialValue: text,
+                // readOnly: true,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                // obscureText: true,
+              ),
+            ),
+          ],
         ),
       ),
     );

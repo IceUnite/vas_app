@@ -9,9 +9,8 @@ import 'package:vas_app/feature/auth_page/presentation/pages/auth_page.dart';
 import 'package:vas_app/feature/main_page/presentation/pages/main_page.dart';
 import 'package:vas_app/feature/profile_page/presentation/pages/my_data_page.dart';
 
-
 import '../../../core/theme/typography.dart';
-import '../../history_page/presentation/pages/historia_page.dart';
+import '../../history_page/presentation/pages/history_page.dart';
 import '../../order_page/presentation/pages/order_page.dart';
 import '../../profile_page/presentation/pages/profile_page.dart';
 import 'route_path.dart';

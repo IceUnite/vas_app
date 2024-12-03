@@ -7,12 +7,12 @@ class VectorAssets {
 
   //BottomNavBar
   static const String icHomeDeactive = 'assets/images/ic_home_deactive.svg';
-  static const String icHistoryDeactive = 'assets/images/ic_history_deactive.svg';
-  static const String icNoteBookDeactive = 'assets/images/ic_notebook_deactive.svg';
-  static const String icProfileDeactive = 'assets/images/ic_profile_deactive.svg';
-
-
-
+  static const String icHistoryDeactive =
+      'assets/images/ic_history_deactive.svg';
+  static const String icNoteBookDeactive =
+      'assets/images/ic_notebook_deactive.svg';
+  static const String icProfileDeactive =
+      'assets/images/ic_profile_deactive.svg';
 
   //
   static const String icHomeActive = 'assets/images/ic_home_active.svg';
@@ -24,10 +24,9 @@ class VectorAssets {
   static const String icBell = 'assets/images/ic_bell.svg';
   static const String icDoOrder = 'assets/images/ic_do_order.svg';
   static const String icLogout = 'assets/images/ic_logout.svg';
+  static const String icRussia = 'assets/images/ic_russia.svg';
 
   static const String icBook = 'assets/images/ic_book.svg';
   static const String icPlansh = 'assets/images/ic_plansh.svg';
   static const String icHistory = 'assets/images/ic_history.svg';
-
-
 }

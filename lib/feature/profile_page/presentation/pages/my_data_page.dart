@@ -9,9 +9,23 @@ import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/my_data_textfield.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 
-class MyDataPage extends StatelessWidget {
-  const MyDataPage({Key? key}) : super(key: key);
+class MyDataPage extends StatefulWidget {
+  const MyDataPage({
+    super.key,
+  });
+
   static String name = RoutePath.myDataPagePath;
+
+  @override
+  State<MyDataPage> createState() => _MyDataPageState();
+}
+
+class _MyDataPageState extends State<MyDataPage> {
+  // final TextEditingController _nameController = TextEditingController();
+  // final TextEditingController _surnameController = TextEditingController();
+  // final TextEditingController _phoneController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,10 +97,26 @@ class MyDataPage extends StatelessWidget {
                           const SizedBox(
                             height: 30,
                           ),
-                          MyDataTextField(text: 'Никита'),
-                          MyDataTextField(text: 'Алексеевич'),
-                          MyDataTextField(text: '+7 999 999 99 99'),
-                          MyDataTextField(text: 'nikita2024@yandex.ru'),
+                          MyDataTextField(
+                            text: 'Никита',
+                            isFlag: false,
+                            // textEditingController: _nameController,
+                          ),
+                          MyDataTextField(
+                            text: 'Алексеевич',
+                            isFlag: false,
+                            // textEditingController: _surnameController,
+                          ),
+                          MyDataTextField(
+                            text: '+7 999 999 99 99',
+                            isFlag: true,
+                            // textEditingController: _phoneController,
+                          ),
+                          MyDataTextField(
+                            text: 'nikita2024@yandex.ru',
+                            isFlag: false,
+                            // textEditingController: _emailController,
+                          ),
                           const SizedBox(
                             height: 30,
                           ),
