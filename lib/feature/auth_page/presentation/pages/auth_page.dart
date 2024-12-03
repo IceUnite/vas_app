@@ -82,7 +82,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                           ..setEntry(3, 2, 0.001) // Перспектива
                           ..rotateY(angle), // Вращение вокруг оси Y
                         alignment: Alignment.center,
-                        child: Image.asset(ImageAssets.logo),
+                        child: Container(child: Image.asset(ImageAssets.logo)),
                       );
                     },
                   ),

@@ -4,6 +4,7 @@ import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
+import 'package:vas_app/feature/order_page/presentation/pages/order_page.dart';
 
 enum OrderStatus { ready, rejected, inProgress, doOrder }
 
@@ -12,7 +13,7 @@ class OrderTicketWidget extends StatelessWidget {
   final String description;
   final OrderStatus status;
   final String? orderTime;
-  VoidCallback? ontap;
+  VoidCallback? onTap;
 
   OrderTicketWidget(
       {super.key,
@@ -20,7 +21,7 @@ class OrderTicketWidget extends StatelessWidget {
       required this.description,
       required this.status,
       this.orderTime,
-      this.ontap});
+      this.onTap});
 
   Color getColor(OrderStatus status) {
     switch (status) {
@@ -51,11 +52,12 @@ class OrderTicketWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
         onTap: () {
-          ApeironSpaceDialog.showActionDialog(context,
+          getDocuments();          ApeironSpaceDialog.showActionDialog(context,
               title: "Подверждение заказа документа",
+              confirmText: 'Подтвердить',
               onPressed: () {}
           );
               // verticalMargin: MediaQuery.of(context).size.height * 0.32);
