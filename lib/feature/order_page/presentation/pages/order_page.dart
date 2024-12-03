@@ -78,7 +78,6 @@ class Document {
   final String status;
 
   Document({required this.id, required this.name, required this.description, required this.status});
-
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
       id: json['id'],
@@ -91,23 +90,20 @@ class Document {
 
 Future<void> getDocuments() async {
   final dio = Dio();
-  final uri = 'http://127.0.0.1:8000/documents'; // Убедитесь, что ваш сервер работает на этом адресе
+  final uri = 'http://127.0.0.1:8000/documents';
 
   try {
     final response = await dio.get(uri);
 
     if (response.statusCode == 200) {
-      // Если запрос успешен (HTTP 200), то парсим JSON
       List<dynamic> data = response.data;
       List<Document> documents = data.map((jsonItem) => Document.fromJson(jsonItem)).toList();
 
-      // Печатаем результат
       print( response.data);
       for (var document in documents) {
         print('ID: ${document.id}, Name: ${document.name},Description : ${document.description} Status: ${document.status}');
       }
     } else {
-      // Если что-то пошло не так
       print('Ошибка при получении документов: ${response.statusCode}');
     }
   } catch (e) {
