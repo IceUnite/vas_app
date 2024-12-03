@@ -3,7 +3,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
-import 'package:vas_app/core/theme/app_corners.dart';
 import 'package:vas_app/core/theme/button_style.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/my_data_textfield.dart';
@@ -21,6 +20,7 @@ class MyDataPage extends StatefulWidget {
 }
 
 class _MyDataPageState extends State<MyDataPage> {
+  // TODO Надо подумать на счет логики изменения данных
   // final TextEditingController _nameController = TextEditingController();
   // final TextEditingController _surnameController = TextEditingController();
   // final TextEditingController _phoneController = TextEditingController();
@@ -97,22 +97,22 @@ class _MyDataPageState extends State<MyDataPage> {
                           const SizedBox(
                             height: 30,
                           ),
-                          MyDataTextField(
+                          const MyDataTextField(
                             text: 'Никита',
                             isFlag: false,
                             // textEditingController: _nameController,
                           ),
-                          MyDataTextField(
+                          const MyDataTextField(
                             text: 'Алексеевич',
                             isFlag: false,
                             // textEditingController: _surnameController,
                           ),
-                          MyDataTextField(
+                          const MyDataTextField(
                             text: '+7 999 999 99 99',
                             isFlag: true,
                             // textEditingController: _phoneController,
                           ),
-                          MyDataTextField(
+                          const MyDataTextField(
                             text: 'nikita2024@yandex.ru',
                             isFlag: false,
                             // textEditingController: _emailController,
