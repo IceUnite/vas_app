@@ -1,4 +1,3 @@
-
 import 'package:flutter/painting.dart';
 
 abstract class AppColors {
@@ -36,6 +35,7 @@ abstract class AppColors {
   static const Color purple100 = Color(0xFFE6D7FF);
   static const Color red100 = Color(0xFF37B7B7);
   static const Color blue100 = Color(0xFF49B2D3);
+  static const Color blue200 = Color(0xFF5F81F5);
 
   static const gradientOrangeBackground = LinearGradient(
     colors: [
@@ -54,16 +54,16 @@ class _Gray extends ColorSwatch<int> {
 
   const _Gray()
       : super(_primary, const <int, Color>{
-    100: Color(_primary),
-    90: Color(0xFF303033),
-    80: Color(0xFF88868D),
-    70: Color(0xFFA7AAAF),
-    60: Color(0xFFD2D2D9),
-    50: Color(0xFFE1E1E6),
-    40: Color(0xFFEBEBF0),
-    30: Color(0xFFF3F3F8),
-    0: Color(0xFFFFFFFF),
-  });
+          100: Color(_primary),
+          90: Color(0xFF303033),
+          80: Color(0xFF88868D),
+          70: Color(0xFFA7AAAF),
+          60: Color(0xFFD2D2D9),
+          50: Color(0xFFE1E1E6),
+          40: Color(0xFFEBEBF0),
+          30: Color(0xFFF3F3F8),
+          0: Color(0xFFFFFFFF),
+        });
 
   Color get shade100 => this[100]!;
   Color get shade90 => this[90]!;
