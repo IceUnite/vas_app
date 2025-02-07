@@ -370,7 +370,9 @@ class ApeironSpaceDialog extends StatelessWidget {
     Future<void> callback() async {
       await showDialog<void>(
         context: context,
-        barrierColor: barrierColor?.withOpacity(.8) ?? AppColors.orange200.withOpacity(.3),
+        barrierColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black.withOpacity(.8)
+            : AppColors.orange200.withOpacity(.3),
         barrierDismissible: dismissible,
         builder: builder,
       );
@@ -407,9 +409,9 @@ class ApeironSpaceDialog extends StatelessWidget {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).brightness;
     double screenWidth = MediaQuery.of(context).size.width;
     return Center(
       // Центрирование
@@ -418,7 +420,9 @@ class ApeironSpaceDialog extends StatelessWidget {
         constraints: BoxConstraints(maxHeight: 250),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme == Brightness.dark
+              ? AppColors.gray.shade90 // Для темной темы
+              : AppColors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -436,7 +440,7 @@ class ApeironSpaceDialog extends StatelessWidget {
               textAlign: TextAlign.center,
               title ?? '',
               style: AppTypography.font20Regular.copyWith(
-                color: AppColors.black,
+                // color: AppColors.black,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -453,7 +457,9 @@ class ApeironSpaceDialog extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: AppColors.white,
-                backgroundColor: AppColors.green200.withOpacity(0.8),
+                backgroundColor: theme == Brightness.dark
+                    ? AppColors.green200.withOpacity(0.8) // Для темной темы
+                    : AppColors.green200.withOpacity(0.8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),

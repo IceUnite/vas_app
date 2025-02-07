@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/button_style.dart';
@@ -26,7 +24,6 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late AnimationController _animationController;
-  bool _isForward = true; // Флаг для отслеживания направления анимации
 
   @override
   void initState() {
@@ -36,18 +33,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
       duration: const Duration(seconds: 10),
     );
 
-    // Добавляем обработчик для изменения направления
-    _animationController.addListener(() {
-      if (_isForward && _animationController.value >= 0.25) {
-        _animationController.reverse();
-        _isForward = false;
-      } else if (!_isForward && _animationController.value <= 0) {
-        _animationController.forward();
-        _isForward = true;
-      }
-    });
-
-    _animationController.forward(); // Запуск анимации
+    _animationController.forward();
   }
 
   @override
@@ -109,7 +95,6 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                         },
                       ),
                     ),
-
                     Text(
                       'Вход',
                       style: AppTypography.font24Regular.copyWith(
@@ -168,11 +153,11 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                         style: AppButtonStyle.primaryStyleOrange,
                         onPressed: () {
                           context.read<AuthBloc>().add(
-                            CheckLoginPasswordEvent(
-                              login: _loginController.text,
-                              password: _passwordController.text,
-                            ),
-                          );
+                                CheckLoginPasswordEvent(
+                                  login: _loginController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
                         },
                         child: Text(
                           'Войти',

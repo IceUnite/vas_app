@@ -57,7 +57,7 @@ class OrderTicketWidget extends StatelessWidget {
           onTap: () {
             getDocuments();
             ApeironSpaceDialog.showActionDialog(context,
-                title: "Подверждение заказа документа", confirmText: 'Подтвердить', onPressed: () {});
+                title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressed: () {});
             // verticalMargin: MediaQuery.of(context).size.height * 0.32);
           },
           child: IntrinsicHeight(
