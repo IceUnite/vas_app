@@ -54,92 +54,88 @@ class OrderTicketWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
-        onTap: () {
-          getDocuments();          ApeironSpaceDialog.showActionDialog(context,
-              title: "Подверждение заказа документа",
-              confirmText: 'Подтвердить',
-              onPressed: () {}
-          );
-              // verticalMargin: MediaQuery.of(context).size.height * 0.32);
-
-        },
-        child: IntrinsicHeight(
-          child: Container(
-            constraints: const BoxConstraints(
-              minHeight: 180.0,
-              maxHeight: 240.0,
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.gray.shade40,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  offset: const Offset(4, 4),
-                  blurRadius: 5.0,
-                  spreadRadius: 0.25,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          titleText,
-                          style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      Column(
-                        children: [
-                          if (status.name == 'doOrder')
-                            Text(
-                              'Время выполнения',
-                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          Container(
-                            constraints: status.name == 'doOrder'
-                                ? const BoxConstraints(minWidth: 100)
-                                : const BoxConstraints(minWidth: 120),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                            margin: const EdgeInsets.only(top: 5),
-                            decoration: BoxDecoration(
-                              color: getColor(status),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-
-                                getText(status),
-                                style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    maxLines: 6,
-                    overflow:  TextOverflow.ellipsis,
-                    description,
-                    style: AppTypography.font14Regular,
+          onTap: () {
+            getDocuments();
+            ApeironSpaceDialog.showActionDialog(context,
+                title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressed: () {});
+            // verticalMargin: MediaQuery.of(context).size.height * 0.32);
+          },
+          child: IntrinsicHeight(
+            child: Container(
+              constraints: const BoxConstraints(
+                minHeight: 180.0,
+                maxHeight: 240.0,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.gray.shade90 // Для темной темы
+                    : AppColors.gray.shade40,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    offset: const Offset(4, 4),
+                    blurRadius: 5.0,
+                    spreadRadius: 0.25,
                   ),
                 ],
               ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            titleText,
+                            style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Column(
+                          children: [
+                            if (status.name == 'doOrder')
+                              Text(
+                                'Время выполнения',
+                                style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            Container(
+                              constraints: status.name == 'doOrder'
+                                  ? const BoxConstraints(minWidth: 100)
+                                  : const BoxConstraints(minWidth: 120),
+                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                              margin: const EdgeInsets.only(top: 5),
+                              decoration: BoxDecoration(
+                                color: getColor(status),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  getText(status),
+                                  style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      maxLines: 6,
+                      overflow: TextOverflow.ellipsis,
+                      description,
+                      style: AppTypography.font14Regular,
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        )
-
-      ),
+          )),
     );
   }
 }

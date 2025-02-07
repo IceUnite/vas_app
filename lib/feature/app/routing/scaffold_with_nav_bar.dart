@@ -102,6 +102,9 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                         unselectedLabelStyle: AppTypography.font16Regular,
                         unselectedItemColor: AppColors.gray.shade70,
                         selectedItemColor: AppColors.orange200,
+                        backgroundColor: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.gray.shade90 // Для темной темы
+                            : AppColors.white,
                         type: BottomNavigationBarType.fixed,
                         items: [
                           ScaffoldWithNavBarTabItem(
