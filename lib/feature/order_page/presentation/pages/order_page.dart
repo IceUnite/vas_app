@@ -45,7 +45,7 @@ class _OrderPageState extends State<OrderPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'История заказов',
+          'Заказ документа',
           style: AppTypography.font26Regular.copyWith(
             fontWeight: FontWeight.w700,
           ),
