@@ -48,6 +48,8 @@ abstract class AppCorners {
       value: 60,
       border: BorderRadius.all(Radius.circular(60)),
       radius: Radius.circular(60));
+
+
   static final BorderRadius radius15 = BorderRadius.circular(15.0);
   static final BorderRadius radius16 = BorderRadius.circular(16.0);
   static final BorderRadius radius20 = BorderRadius.circular(20.0);

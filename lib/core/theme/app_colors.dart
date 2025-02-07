@@ -42,6 +42,7 @@ abstract class AppColors {
       Color(0xFFFFC529),
       Color(0xFFFCC842),
       Color(0xFFF9CA56),
+
     ],
     stops: [0.0, 0.55, 1.0],
     begin: Alignment.topLeft,
