@@ -10,6 +10,7 @@ import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -22,6 +23,27 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool valueSwitchButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemePreference();
+  }
+
+  // Загрузка состояния темы из SharedPreferences
+  Future<void> _loadThemePreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isDarkTheme = prefs.getBool('isDarkTheme') ?? false; // По умолчанию светлая тема
+    setState(() {
+      valueSwitchButton = isDarkTheme;
+    });
+  }
+
+  // Сохранение состояния темы в SharedPreferences
+  Future<void> _saveThemePreference(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkTheme', value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +85,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
-                            // color: isDarkTheme ? AppColors.white : AppColors.black,
                           ),
                         ),
                       ),
@@ -106,6 +127,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: 'Темная тема',
                   onTap: () {
                     themeNotifier.toggleTheme();
+                    setState(() {
+                      valueSwitchButton = !valueSwitchButton;
+                    });
+                    _saveThemePreference(valueSwitchButton); // Сохраняем новый выбор темы
                   },
                   isDarkTheme: isDarkTheme,
                 ),
@@ -223,6 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
             setState(() {
               valueSwitchButton = value;
             });
+            _saveThemePreference(value); // Сохраняем новый выбор темы
           },
           activeColor: AppColors.orange100,
           trackColor: AppColors.gray.shade30,

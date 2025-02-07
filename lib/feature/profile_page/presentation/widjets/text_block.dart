@@ -6,14 +6,17 @@ class TextBlockWidget extends StatelessWidget {
   final String hintText;
 
   const TextBlockWidget({super.key, this.text, this.hintText = ''});
+
   @override
   Widget build(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark; // Проверяем текущую тему
+
     return Container(
       width: double.infinity,
       height: 60,
       margin: const EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
-        color: AppColors.gray.shade30,
+        color: isDarkTheme ? AppColors.gray.shade90 : AppColors.gray.shade30, // Цвет фона зависит от темы
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -44,11 +47,11 @@ class TextBlockWidget extends StatelessWidget {
             ),
             hintText: text == null || text!.isEmpty ? hintText : '',
             hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey, // Цвет хинта
+              color: isDarkTheme ? Colors.white70 : Colors.grey, // Цвет подсказки зависит от темы
             ),
           ),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.black, // Цвет введенного текста
+            color: isDarkTheme ? Colors.white : Colors.black, // Цвет текста зависит от темы
           ),
           controller: TextEditingController(text: text),
         ),
