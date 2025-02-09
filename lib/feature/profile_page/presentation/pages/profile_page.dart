@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -66,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: AnimatedListItems(
-              duration: const Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 400),
               verticalOffset: 50.0,
               children: [
                 Center(
@@ -154,17 +156,23 @@ class _ProfilePageState extends State<ProfilePage> {
                   isDarkTheme: isDarkTheme,
                 ),
                 const SizedBox(height: 30),
-                _buildOptionRow(
-                  onTap: () {
-                    ApeironSpaceDialog.showActionDialog(context,
-                        title: "Вы уверены что хотите выйти из своего аккаунта?",
-                        onPressed: () {},
-                        confirmText: "Отмена",
-                        closeText: 'Выйти');
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return _buildOptionRow(
+                      onTap: () {
+                        ApeironSpaceDialog.showActionDialog(context,
+                            title: "Вы уверены что хотите выйти из своего аккаунта?", onPressedConfirm: () {
+
+                        }, confirmText: "Отмена", closeText: 'Выйти', onPressedClosed: () { context.read<AuthBloc>().add(
+                              ExiteEvent(),
+                            );
+                            context.goNamed(RoutePath.authScreenPath); });
+                      },
+                      icon: VectorAssets.icLogout,
+                      title: 'Выйти',
+                      isDarkTheme: isDarkTheme,
+                    );
                   },
-                  icon: VectorAssets.icLogout,
-                  title: 'Выйти',
-                  isDarkTheme: isDarkTheme,
                 ),
                 const SizedBox(height: 150),
               ],

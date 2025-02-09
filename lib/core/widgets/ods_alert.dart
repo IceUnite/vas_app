@@ -145,7 +145,8 @@ class ApeironSpaceDialog extends StatelessWidget {
   static void showActionDialog(
     BuildContext context, {
     required String title,
-    required VoidCallback onPressed,
+    required VoidCallback onPressedConfirm,
+    required VoidCallback onPressedClosed,
     String? message,
     String? confirmText,
     String? closeText,
@@ -163,10 +164,12 @@ class ApeironSpaceDialog extends StatelessWidget {
           closeText: closeText,
           onConfirmTap: () {
             Navigator.of(context).pop();
-            onPressed.call();
+            onPressedConfirm.call();
           },
           onCloseTap: () {
             Navigator.of(context).pop();
+            onPressedClosed.call();
+
           },
         );
       },
@@ -458,7 +461,7 @@ class ApeironSpaceDialog extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 foregroundColor: AppColors.white,
                 backgroundColor: theme == Brightness.dark
-                    ? AppColors.green200.withOpacity(0.8) // Для темной темы
+                    ? AppColors.green300.withOpacity(0.8) // Для темной темы
                     : AppColors.green200.withOpacity(0.8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),

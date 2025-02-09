@@ -33,7 +33,8 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
       duration: const Duration(seconds: 10),
     );
 
-    _animationController.forward();
+    // Устанавливаем анимацию на повторение
+    _animationController.repeat(reverse: true); // Анимация будет повторяться бесконечно
   }
 
   @override
@@ -153,11 +154,11 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                         style: AppButtonStyle.primaryStyleOrange,
                         onPressed: () {
                           context.read<AuthBloc>().add(
-                                CheckLoginPasswordEvent(
-                                  login: _loginController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
+                            CheckLoginPasswordEvent(
+                              login: _loginController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
                         },
                         child: Text(
                           'Войти',
