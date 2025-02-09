@@ -9,6 +9,7 @@ class AuthState extends Equatable {
     this.password,
     this.trueLogin,
     this.truePassword,
+    this.isAuth,
   });
 
   final int? cellResponse;
@@ -17,20 +18,15 @@ class AuthState extends Equatable {
   final String? password;
   final String? trueLogin;
   final String? truePassword;
+  final bool? isAuth;
 
   @override
-  List<Object?> get props => <Object?>[
-        cellResponse,
-        login,
-        password,
-        trueLogin,
-        truePassword,
-        isCorrect,
-      ];
+  List<Object?> get props => <Object?>[cellResponse, login, password, trueLogin, truePassword, isCorrect, isAuth];
 
   AuthState copyWith({
     int? cellResponse,
     bool? isCorrect,
+    bool? isAuth,
     String? login,
     String? password,
     String? trueLogin,
@@ -43,11 +39,13 @@ class AuthState extends Equatable {
       password: password ?? this.password,
       trueLogin: trueLogin ?? this.trueLogin,
       truePassword: truePassword ?? this.truePassword,
+      isAuth: isAuth ?? this.isAuth,
     );
   }
 }
 
 final class AuthInitial extends AuthState {
+
   const AuthInitial()
       : super(
           isCorrect: true,
@@ -56,5 +54,6 @@ final class AuthInitial extends AuthState {
           truePassword: '1111',
           login: '',
           password: '',
+          isAuth: false,
         );
 }

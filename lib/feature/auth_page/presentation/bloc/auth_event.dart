@@ -12,3 +12,7 @@ class  CheckLoginPasswordEvent extends AuthEvent {
   final String? login;
   final String? password;
 }
+class  ExiteEvent extends AuthEvent {
+  ExiteEvent();
+
+}

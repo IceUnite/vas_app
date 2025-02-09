@@ -16,7 +16,13 @@ class HistoryPage extends StatelessWidget {
         'title': 'Справка о составе семьи',
         'description':
         'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-        'status': OrderStatus.inProgress,
+        'status': OrderStatus.ready,
+      },
+      {
+        'title': 'Справка о составе семьи',
+        'description':
+        'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
+        'status': OrderStatus.rejected
       },
       {
         'title': 'Справка о составе семьи',
@@ -28,7 +34,7 @@ class HistoryPage extends StatelessWidget {
         'title': 'Справка о составе семьи',
         'description':
         'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-        'status': OrderStatus.inProgress,
+        'status': OrderStatus.errored,
       },
     ];
 

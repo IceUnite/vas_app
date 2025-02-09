@@ -6,7 +6,7 @@ import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
 import 'package:vas_app/feature/order_page/presentation/pages/order_page.dart';
 
-enum OrderStatus { ready, rejected, inProgress, doOrder }
+enum OrderStatus { ready, rejected, inProgress, doOrder, errored }
 
 class OrderTicketWidget extends StatelessWidget {
   final String titleText;
@@ -29,6 +29,8 @@ class OrderTicketWidget extends StatelessWidget {
         return AppColors.green200;
       case OrderStatus.rejected:
         return AppColors.red;
+      case OrderStatus.errored:
+        return AppColors.red;
       case OrderStatus.inProgress:
         return AppColors.orange200;
       case OrderStatus.doOrder:
@@ -42,6 +44,8 @@ class OrderTicketWidget extends StatelessWidget {
         return 'Выполнено';
       case OrderStatus.rejected:
         return 'Отменено';
+      case OrderStatus.errored:
+        return 'Ошибка';
       case OrderStatus.inProgress:
         return 'В обработке';
       case OrderStatus.doOrder:
@@ -57,7 +61,7 @@ class OrderTicketWidget extends StatelessWidget {
           onTap: () {
             getDocuments();
             ApeironSpaceDialog.showActionDialog(context,
-                title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressed: () {});
+                title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressedConfirm: () {}, onPressedClosed: () {  });
             // verticalMargin: MediaQuery.of(context).size.height * 0.32);
           },
           child: IntrinsicHeight(
