@@ -1,12 +1,16 @@
 import 'dart:async';
-
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:vas_app/core/internal/api_constants.dart';
 import 'package:vas_app/core/internal/di/sl.config.dart';
+import 'package:vas_app/core/repositories/auth_data_repository_impl.dart';
+import 'package:vas_app/feature/auth_page/data/api/auth_api.dart';
+import 'package:vas_app/feature/auth_page/data/api/service/auth_service_api.dart';
 
 final getIt = GetIt.instance;
 
@@ -22,36 +26,39 @@ const String apiVersionAuth = 'v1';
 
 Completer<bool>? setupCompleter;
 // final StreamController<RefreshTokenResult> _refreshTokenStreamController =
-//     StreamController<RefreshTokenResult>.broadcast();
-
-// Stream<RefreshTokenResult>? refreshTokenStream;
+// StreamController<RefreshTokenResult>.broadcast();
 
 Completer<bool>? refreshCompleter;
-// final ReferenceWrapper<JwtTokensModel?>? _token = ReferenceWrapper<JwtTokensModel?>(value: null);
 
 @module
 abstract class RegisterModule {
   @lazySingleton
   Dio get dio {
+    AuthDataRepositoryImpl authDataRepositoryImpl = AuthDataRepositoryImpl();
     setupCompleter = Completer<bool>();
-
-    // AuthDataRepositoryImpl authDataRepositoryImpl = AuthDataRepositoryImpl();
-    // AppSettingsRepositoryImpl appSettingsRepositoryImpl = AppSettingsRepositoryImpl();
-    // EnvironmentDataRepositoryImpl environmentDataRepositoryImpl = EnvironmentDataRepositoryImpl();
-    setupCompleter = Completer<bool>();
-    // authDataRepositoryImpl.setRefreshTokenResultStream(_refreshTokenStreamController.stream);
     // refreshTokenStream = _refreshTokenStreamController.stream;
-    // Dio dio = Dio(
+
+    Dio dio = Dio(
+      BaseOptions(
+        baseUrl: localGatewayServerUrl,
+        connectTimeout: const Duration(milliseconds: 15000),
+
+      ),
+    );
+    // _setupAuthDio();
+    // dio = Dio(
     //   BaseOptions(
-    //     baseUrl: environmentDataRepositoryImpl.getServerTypeString(),
-    //     connectTimeout: const Duration(milliseconds: 15000),
+    //     baseUrl: 'http://0.0.0.0:8000',
     //   ),
     // );
-
+    // dio.interceptors.add(RefreshTokenInterceptor(
+    //     token: authDataRepositoryImpl.token,
+    //     refreshToken: refreshToken,
+    //     dio: dio,
+    //     refreshTokenStatusCallback: (RefreshTokenResult refreshTokenResult) {
+    //       refreshToken();
+    //     }));
     // dio.interceptors.clear();
-    // dio.interceptors.add(
-    //   // DynamicUrlInterceptor(),
-    // );
     // dio.interceptors.add(InterceptorsWrapper(
     //   onRequest: (RequestOptions options, RequestInterceptorHandler? handler) {
     //     options.headers.addAll(<String, dynamic>{
@@ -64,14 +71,7 @@ abstract class RegisterModule {
     //     return handler?.next(options);
     //   },
     // ));
-    // dio.interceptors.add(RefreshTokenInterceptor(
-    //     token: _token,
-    //     refreshToken: refreshToken,
-    //     dio: dio,
-    //     refreshTokenStatusCallback: (RefreshTokenResult refreshTokenResult) {
-    //       _refreshTokenStreamController.add(refreshTokenResult);
-    //     }));
-    //
+
     // dio.interceptors.add(MadInspector.network.dioInterceptor());
     // dio.interceptors.add(ErrorInterceptor());
 
@@ -82,37 +82,32 @@ abstract class RegisterModule {
         responseHeader: true,
       ));
     }
-
-    if (setupCompleter?.isCompleted == true) return dio;
-    setupCompleter?.complete(true);
+    // if (setupCompleter?.isCompleted == true) return;
+    // setupCompleter?.complete(true);
     return dio;
   }
 
+  @lazySingleton
+  AuthApi authApi(Dio dio) => AuthApiDioService(dio);
+
   // @lazySingleton
-  // AuthApi authApi() => AuthApiDioService(dio);
-  //
-  // @lazySingleton
-  // HotelApi breakfastServiceApi() => HotelsApiDioService(dio);
-  //
-  // @lazySingleton
-  // LuggageApi luggageApiDioService() => LuggageApiDioService(dio);
+  // BreakfastApi breakfastServiceApi(Dio dio) => BreakfastOrdersApiDioService(dio);
 }
 
 // Future<RefreshTokenResult?> refreshToken({bool? forceRefresh}) async {
+//   // await setupComplete();
 //   AuthDataRepositoryImpl authDataRepositoryImpl = AuthDataRepositoryImpl();
 //
-//   await setupComplete();
 //   // await refreshComplete();
 //   refreshCompleter = Completer<bool>();
 //   try {
 //     final JwtTokensModel? oAuth2Token = await authDataRepositoryImpl.getTokenAccess();
+//     print('TOOOOOOKEN ${oAuth2Token?.refreshToken}');
 //
 //     if (oAuth2Token == null) {
 //       _refreshTokenStreamController.add(RefreshTokenResult.noToken);
 //       return RefreshTokenResult.noToken;
 //     }
-//
-//     _token?.value = oAuth2Token;
 //
 //     final int currentTimestampSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 //     final int expiresInSinceEpoch = oAuth2Token.expiresIn ?? 0 - const Duration(minutes: 1).inMilliseconds;
@@ -132,6 +127,7 @@ abstract class RegisterModule {
 //       }
 //     }
 //
+//     authDataRepositoryImpl.token.value = oAuth2Token;
 //     _refreshTokenStreamController.add(RefreshTokenResult.stillValid);
 //     refreshCompleter?.complete(true);
 //     return RefreshTokenResult.stillValid;
@@ -153,19 +149,22 @@ abstract class RegisterModule {
 // }
 
 // Future<int?> requestNewToken(JwtTokensModel token) async {
-//   final Dio _dio = getIt<Dio>();
+//   final Dio _dio = getIt<Dio>(); // Глобальный Dio для логирования/настроек
+//   final EnvironmentDataRepositoryImpl environmentDataRepositoryImpl = EnvironmentDataRepositoryImpl();
 //   AuthDataRepositoryImpl authDataRepositoryImpl = AuthDataRepositoryImpl();
-//   EnvironmentDataRepositoryImpl environmentDataRepositoryImpl = EnvironmentDataRepositoryImpl();
+//   final JwtTokensModel? tokens = await authDataRepositoryImpl.getTokenAccess();
+//   print('authDataRepositoryImpl ${tokens?.accessToken}');
 //
 //   //  Dio клиент для запроса обновления токена
-//   //TODO поменять при выпуске на дефолтный прод сервер
-//   String? serverType = prefs.getString('selectServerString');
-//   final Dio client = Dio(BaseOptions(baseUrl: environmentDataRepositoryImpl.getServerTypeString()));
+//   final Dio client = Dio(BaseOptions(
+//     baseUrl: 'https://gw.test.apeironspace.ru/',
+//   ));
 //
 //   // Установка заголовков для запроса
 //   client.options.headers.addAll(<String, String>{
 //     'Authorization': 'Bearer ${token.accessToken}',
 //   });
+//   print('TOKENN:${token.accessToken}');
 //
 //   // Добавление PrettyDioLogger только в режиме отладки
 //   if (!kReleaseMode) {
@@ -176,7 +175,7 @@ abstract class RegisterModule {
 //   try {
 //     // Выполнение запроса на обновление токена
 //     final Response<Map<String, dynamic>> res = await client.post<Map<String, dynamic>>(
-//       '/identity-service/api/v1/Auth/RefreshToken',
+//       'api/$apiVersionAuth/Auth/RefreshToken',
 //       data: SignRefreshRequest((SignRefreshRequestBuilder b) => b..refreshToken = token.refreshToken).toJson(),
 //       options: Options(contentType: Headers.jsonContentType),
 //     );
@@ -184,27 +183,18 @@ abstract class RegisterModule {
 //     // Обработка ответа
 //     final SignResponse? sign = SignResponse.fromJson(res.data!);
 //     if (sign != null) {
-//       _token?.value = JwtTokensModel(
+//       authDataRepositoryImpl.token.value = JwtTokensModel(
 //         accessToken: sign.accessToken,
 //         refreshToken: sign.refreshToken,
 //         expiresIn: sign.expiresIn,
 //         tokenType: 'Bearer',
 //       );
-//       authDataRepositoryImpl.saveTokenAccess(_token!.value!);
 //     }
 //
 //     return res.statusCode;
 //   } catch (e) {
 //     return null;
 //   }
-// }
-//
-// Future<bool> logout() async {
-//   final Dio dio = getIt<Dio>();
-//   final Response<Map<String, dynamic>> res =
-//       await dio.post<Map<String, dynamic>>('/identity-service/api/v1/Auth/RefreshToken');
-//   // _persist?.clearAll();
-//   return res.statusCode == successCode;
 // }
 
 Future<bool?> setupComplete() async {
