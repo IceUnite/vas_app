@@ -23,15 +23,15 @@ class _InitScreenState extends State<InitScreen> {
     super.didChangeDependencies();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final authState = context.read<AuthBloc>().state;
-    bool isAuth = prefs.getBool('isAuth') ?? false;
-    if (authState.isAuth == true || isAuth == true) {
-      // Если авторизован, переходим на основной экран
-      Future.microtask(() => context.goNamed(RoutePath.mainScreenPath));
-    } else {
-      // Если не авторизован, переходим на экран авторизации
+    // final authState = context.read<AuthBloc>().state;
+    // bool isAuth = prefs.getBool('isAuth') ?? false;
+    // if (authState.isAuth == true || isAuth == true) {
+    //   // Если авторизован, переходим на основной экран
+    //   Future.microtask(() => context.goNamed(RoutePath.mainScreenPath));
+    // } else {
+    //   // Если не авторизован, переходим на экран авторизации
       Future.microtask(() => context.goNamed(RoutePath.authScreenPath));
-    }
+    // }
   }
 
   @override
