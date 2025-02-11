@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:vas_app/core/internal/api_constants.dart';
+import 'package:vas_app/core/internal/di/api_error_interceptor.dart';
 import 'package:vas_app/core/internal/di/sl.config.dart';
 import 'package:vas_app/core/repositories/auth_data_repository_impl.dart';
 import 'package:vas_app/feature/auth_page/data/api/auth_api.dart';
@@ -40,7 +41,7 @@ abstract class RegisterModule {
 
     Dio dio = Dio(
       BaseOptions(
-        baseUrl: localGatewayServerUrl,
+        baseUrl: netGatewayServerUrl,
         connectTimeout: const Duration(milliseconds: 15000),
 
       ),
@@ -82,6 +83,7 @@ abstract class RegisterModule {
         responseHeader: true,
       ));
     }
+    dio.interceptors.add(ApiErrorInterceptor());
     // if (setupCompleter?.isCompleted == true) return;
     // setupCompleter?.complete(true);
     return dio;

@@ -55,7 +55,8 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
           backgroundColor: isDarkTheme ? AppColors.black : AppColors.white,
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state.isCorrect == true) {
+              //TODO переделать на токен
+              if (state is AuthSuccess) {
                 context.goNamed(RoutePath.mainScreenPath);
               }
             },

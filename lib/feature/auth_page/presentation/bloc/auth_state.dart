@@ -3,57 +3,48 @@ part of 'auth_bloc.dart';
 @immutable
 class AuthState extends Equatable {
   const AuthState({
-    this.cellResponse,
-    this.isCorrect,
     this.login,
     this.password,
-    this.trueLogin,
-    this.truePassword,
-    this.isAuth,
+    this.token,
+    this.errorMessage,
   });
 
-  final int? cellResponse;
-  final bool? isCorrect;
   final String? login;
   final String? password;
-  final String? trueLogin;
-  final String? truePassword;
-  final bool? isAuth;
+  final String? token;
+  final String? errorMessage;
 
   @override
-  List<Object?> get props => <Object?>[cellResponse, login, password, trueLogin, truePassword, isCorrect, isAuth];
+  List<Object?> get props => [login, password, token, errorMessage];
 
   AuthState copyWith({
-    int? cellResponse,
-    bool? isCorrect,
-    bool? isAuth,
     String? login,
     String? password,
-    String? trueLogin,
-    String? truePassword,
+    String? token,
+    String? errorMessage,
   }) {
     return AuthState(
-      cellResponse: cellResponse ?? this.cellResponse,
-      isCorrect: isCorrect ?? this.isCorrect,
       login: login ?? this.login,
       password: password ?? this.password,
-      trueLogin: trueLogin ?? this.trueLogin,
-      truePassword: truePassword ?? this.truePassword,
-      isAuth: isAuth ?? this.isAuth,
+      token: token ?? this.token,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
 
 final class AuthInitial extends AuthState {
+  const AuthInitial() : super(login: '', password: '');
+}
 
-  const AuthInitial()
-      : super(
-          isCorrect: true,
-          cellResponse: null,
-          trueLogin: '1111',
-          truePassword: '1111',
-          login: '',
-          password: '',
-          isAuth: false,
-        );
+final class AuthLoading extends AuthState {
+  const AuthLoading();
+}
+
+final class AuthSuccess extends AuthState {
+  const AuthSuccess({required String token}) : super(token: token);
+}
+
+final class AuthFailure extends AuthState {
+  const AuthFailure({required String errorMessage})
+      : super(errorMessage: errorMessage);
 }

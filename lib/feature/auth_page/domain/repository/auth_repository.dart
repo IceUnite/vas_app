@@ -1,9 +1,8 @@
 
-
-import 'package:vas_app/feature/auth_page/data/models/token_model.dart';
+import 'package:vas_app/feature/auth_page/domain/entities/refresh_token_entitie.dart';
 
 abstract class AuthRepository {
-  Future<TokenModel> loginCommand({
+  Future<TokenEntity> loginCommand({
     required String userName,
     required String password,
   });

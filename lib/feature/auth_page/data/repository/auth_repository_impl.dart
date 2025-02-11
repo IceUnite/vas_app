@@ -1,7 +1,6 @@
-
 import 'package:injectable/injectable.dart';
 import 'package:vas_app/feature/auth_page/data/api/service/auth_service_api.dart';
-import 'package:vas_app/feature/auth_page/data/models/token_model.dart';
+import 'package:vas_app/feature/auth_page/domain/entities/refresh_token_entitie.dart';
 import 'package:vas_app/feature/auth_page/domain/repository/auth_repository.dart';
 
 @LazySingleton(as: AuthRepository)
@@ -11,11 +10,16 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthApiDioService authServiceApi;
 
   @override
-  Future<TokenModel> loginCommand({
+  Future<TokenEntity> loginCommand({
     required String userName,
     required String password,
   }) async {
-    return await authServiceApi.loginCommand(userName: userName, password: password);
+    final tokenModel = await authServiceApi.loginCommand(userName: userName, password: password);
+    return TokenEntity(
+      code: tokenModel.code,
+      id: tokenModel.id,
+      token: tokenModel.token,
+    );
   }
 
   @override
@@ -29,11 +33,4 @@ class AuthRepositoryImpl extends AuthRepository {
     // TODO: implement refreshToken
     throw UnimplementedError();
   }
-
-
-  // @override
-  // Future<JwtTokensDTOEntity?> refreshToken({required RefreshTokenEntitie refreshToken}) {
-  //   // TODO: implement refreshToken
-  //   throw UnimplementedError();
-  // }
 }

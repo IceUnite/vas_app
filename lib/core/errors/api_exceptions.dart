@@ -87,6 +87,7 @@ class FailedRequestException extends ApiException {
   final bool? showHelpPhone;
   final String? confirmButtonText;
   final String? closeButtonText;
+
 }
 
 class ServerError extends ApiException {

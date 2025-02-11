@@ -6,9 +6,13 @@ part 'token_model.g.dart';
 @immutable
 @JsonSerializable()
 class TokenModel {
+  final int code;
+  final int id;
   final String token;
 
   const TokenModel({
+    required this.code,
+    required this.id,
     required this.token,
   });
 

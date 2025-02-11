@@ -16,14 +16,12 @@ class AuthApiDioService implements AuthApi {
   }) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
-        '/default/log_user_login_post',
-        data: {
-          "username": userName,
+        '/login',
+        queryParameters: {
+          "log": userName,
           "password": password,
         },
       );
-
-      // Проверяем успешный ответ
       if (response.statusCode == 200 && response.data != null) {
         return TokenModel.fromJson(response.data!);
       } else {
