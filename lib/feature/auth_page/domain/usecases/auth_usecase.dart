@@ -35,7 +35,20 @@ class AuthUseCase {
   /// Выход из системы
   Future<void> logOut() async => authRepository.logout();
 
-/// Обновление токена
+  Future<void> checkToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await authRepository.checkToken(userId: userId, token: token);
+    } on DioException catch (e) {
+      Exception exception = ServerException(e.message.toString());
+      Failure failure = ErrorHandler.handleException(exception);
+      throw failure;
+    }
+  }
+
+  /// Обновление токена
 // Future<JwtTokensDTOEntity?> refreshToken({
 //   required RefreshTokenEntitie refreshToken,
 // }) async =>

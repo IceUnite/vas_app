@@ -59,7 +59,6 @@ class OrderTicketWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
           onTap: () {
-            getDocuments();
             ApeironSpaceDialog.showActionDialog(context,
                 title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressedConfirm: () {}, onPressedClosed: () {  });
             // verticalMargin: MediaQuery.of(context).size.height * 0.32);

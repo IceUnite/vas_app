@@ -33,4 +33,18 @@ class AuthRepositoryImpl extends AuthRepository {
     // TODO: implement refreshToken
     throw UnimplementedError();
   }
+
+  // Новый метод для проверки токена
+  @override
+  Future<void> checkToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await authServiceApi.checkToken(userId: userId, token: token);
+      print("Токен действителен");
+    } catch (e) {
+      throw Exception('Ошибка проверки токена: $e');
+    }
+  }
 }

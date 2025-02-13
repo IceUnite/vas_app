@@ -23,15 +23,27 @@ class _InitScreenState extends State<InitScreen> {
     super.didChangeDependencies();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // final authState = context.read<AuthBloc>().state;
-    // bool isAuth = prefs.getBool('isAuth') ?? false;
-    // if (authState.isAuth == true || isAuth == true) {
-    //   // Если авторизован, переходим на основной экран
-    //   Future.microtask(() => context.goNamed(RoutePath.mainScreenPath));
-    // } else {
-    //   // Если не авторизован, переходим на экран авторизации
+    final userId = prefs.getInt('userId');
+    final token = prefs.getString('accessToken');
+
+    if (userId != null && token != null) {
+      // Вызов события для проверки токена
+      context.read<AuthBloc>().add(CheckTokenEvent(userId: userId, token: token));
+
+      // Слушаем изменения состояния блока
+      context.read<AuthBloc>().stream.listen((state) {
+        if (state is AuthSuccess) {
+          // Если токен валидный, переходим на основной экран
+          Future.microtask(() => context.goNamed(RoutePath.mainScreenPath));
+        } else if (state is AuthUnauthorized || state is AuthFailure) {
+          // Если не авторизован, переходим на экран авторизации
+          Future.microtask(() => context.goNamed(RoutePath.authScreenPath));
+        }
+      });
+    } else {
+      // Если нет токена или userId, сразу переходим на экран авторизации
       Future.microtask(() => context.goNamed(RoutePath.authScreenPath));
-    // }
+    }
   }
 
   @override

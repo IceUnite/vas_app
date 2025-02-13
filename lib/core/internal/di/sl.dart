@@ -92,6 +92,7 @@ abstract class RegisterModule {
   @lazySingleton
   AuthApi authApi(Dio dio) => AuthApiDioService(dio);
 
+
   // @lazySingleton
   // BreakfastApi breakfastServiceApi(Dio dio) => BreakfastOrdersApiDioService(dio);
 }

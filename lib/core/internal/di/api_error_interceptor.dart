@@ -23,26 +23,12 @@ class ApiErrorInterceptor extends Interceptor {
         );
       }
 
-      // Обработка ошибки 401: Неавторизованный доступ
-      else if (statusCode == 401) {
-        if (statusCode == 422) {
-          GetIt.I<BotToastDi>().showNotification(
-            icon: null,
-            title: '${err.message}',
-          );
-        throw UnauthorizedRequestException(
-          requestOptions: err.requestOptions,
-          error: err.error,
-        );
-      }
-
       // Обработка ошибки 500: Ошибка на сервере
       else if (statusCode == 500) {
-          GetIt.I<BotToastDi>().showNotification(
-            icon: null,
-            title: '${err.message}',
-          );
-        }
+        GetIt.I<BotToastDi>().showNotification(
+          icon: null,
+          title: '${err.message}',
+        );
         throw ServerError(
           requestOptions: err.requestOptions,
           error: err.error,
@@ -63,7 +49,10 @@ class ApiErrorInterceptor extends Interceptor {
         );
       }
     } else {
-      // Обработка ошибок сетевого уровня
+      GetIt.I<BotToastDi>().showNotification(
+        icon: null,
+        title: '${err.message}',
+      );
       throw UnknownException(
         requestOptions: err.requestOptions,
         error: err.error,

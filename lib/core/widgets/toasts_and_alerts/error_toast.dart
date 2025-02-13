@@ -52,7 +52,7 @@ class ErrorToast extends StatelessWidget {
               style: AppTypography.font16Regular.copyWith(
                 color: AppColors.black,
               ),
-              maxLines: 3,
+              maxLines: 30,
             ),
           ),
           Spacer(),

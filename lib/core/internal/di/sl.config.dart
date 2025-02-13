@@ -23,6 +23,13 @@ import '../../../feature/auth_page/domain/usecases/auth_usecase.dart' as _i199;
 import '../../../feature/auth_page/presentation/bloc/auth_bloc.dart' as _i185;
 import '../../../feature/main_page/presentation/bloc/profile_bloc.dart'
     as _i1013;
+import '../../../feature/order_page/data/api/service/order_service_api.dart'
+    as _i326;
+import '../../../feature/order_page/data/repository/order_reository_impl.dart'
+    as _i91;
+import '../../../feature/order_page/domain/usecases/order_usecase.dart'
+    as _i397;
+import '../../../feature/order_page/presentation/bloc/order_bloc.dart' as _i901;
 import '../../../feature/profile_page/presentation/bloc/profile_bloc.dart'
     as _i1046;
 import '../../errors/bot_toast.dart' as _i959;
@@ -48,8 +55,16 @@ _i174.GetIt $initGetIt(
       () => registerModule.authApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i785.AuthApiDioService>(
       () => _i785.AuthApiDioService(gh<_i361.Dio>()));
+  gh.lazySingleton<_i326.OrderServiceApi>(
+      () => _i326.OrderServiceApi(gh<_i361.Dio>()));
+  gh.lazySingleton<_i91.OrdersRepositoryImpl>(() =>
+      _i91.OrdersRepositoryImpl(orderServiceApi: gh<_i326.OrderServiceApi>()));
+  gh.lazySingleton<_i397.OrdersUseCase>(() =>
+      _i397.OrdersUseCase(ordersRepository: gh<_i91.OrdersRepositoryImpl>()));
   gh.lazySingleton<_i472.AuthRepository>(() =>
       _i458.AuthRepositoryImpl(authServiceApi: gh<_i785.AuthApiDioService>()));
+  gh.lazySingleton<_i901.OrderBloc>(
+      () => _i901.OrderBloc(orderUseCase: gh<_i397.OrdersUseCase>()));
   gh.lazySingleton<_i199.AuthUseCase>(
       () => _i199.AuthUseCase(authRepository: gh<_i472.AuthRepository>()));
   gh.lazySingleton<_i185.AuthBloc>(

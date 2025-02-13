@@ -22,7 +22,7 @@ class AuthApiDioService implements AuthApi {
           "password": password,
         },
       );
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.data != null) {
         return TokenModel.fromJson(response.data!);
       } else {
         throw Exception('Ошибка авторизации');
@@ -31,4 +31,27 @@ class AuthApiDioService implements AuthApi {
       throw Exception('Ошибка при выполнении запроса: $e');
     }
   }
+
+  Future<void> checkToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/check_token',
+        queryParameters: {
+          "id": userId,
+          "token": token,
+        },
+      );
+      if (response.statusCode == 204) {
+        print("Токен действителен");
+      } else {
+        throw Exception('Ошибка проверки токена');
+      }
+    } catch (e) {
+      throw Exception('Ошибка при выполнении запроса: $e');
+    }
+  }
+
 }
