@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/order_ticket_widget.dart';
@@ -18,6 +19,7 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  @override
   void initState() {
     super.initState();
     final userId = context.read<AuthBloc>().state.userId;
@@ -27,67 +29,46 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<Map<String, dynamic>> _items = [
-    //   {
-    //     'title': 'Справка о составе семьи',
-    //     'description':
-    //     'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-    //     'status': OrderStatus.ready,
-    //   },
-    //   {
-    //     'title': 'Справка о составе семьи',
-    //     'description':
-    //     'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-    //     'status': OrderStatus.rejected
-    //   },
-    //   {
-    //     'title': 'Справка о составе семьи',
-    //     'description':
-    //     'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-    //     'status': OrderStatus.inProgress,
-    //   },
-    //   {
-    //     'title': 'Справка о составе семьи',
-    //     'description':
-    //     'Получить данную справку можно в течение 1-2 дней (добавим либо инфу о том, сколько получать, либо краткое описание документа)',
-    //     'status': OrderStatus.errored,
-    //   },
-    // ];
-
     return BlocBuilder<HistoryOrderBloc, HistoryOrderState>(
-  builder: (context, state) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'История заказов',
-          style: AppTypography.font26Regular.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemCount: state.historyOrderData?.length ?? 0,
-        itemBuilder: (context, index) {
-          final item = state.historyOrderData?[index];
-          return AnimatedListItems(
-            verticalOffset: 50.0,
-            duration: const Duration(milliseconds: 600),
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
-                child: OrderTicketWidget(
-                  titleText: state.historyOrderData?[index]?.document?.name ?? '',
-                  description: state.historyOrderData?[index]?.document?.description  ?? '',
-                  status: state.historyOrderData?[index]?.status ?? '',
-                ),
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'История заказов',
+              style: AppTypography.font26Regular.copyWith(
+                fontWeight: FontWeight.w700,
               ),
-            ],
-          );
-        },
-      ),
+            ),
+            centerTitle: true,
+          ),
+          body: state is HistoryOrderLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.orange200,
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: state.historyOrderData?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final item = state.historyOrderData?[index];
+                    return AnimatedListItems(
+                      verticalOffset: 50.0,
+                      duration: const Duration(milliseconds: 600),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
+                          child: OrderTicketWidget(
+                            titleText: state.historyOrderData?[index]?.document?.name ?? '',
+                            description: state.historyOrderData?[index]?.document?.description ?? '',
+                            status: state.historyOrderData?[index]?.status ?? '',
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+        );
+      },
     );
-  },
-);
   }
 }

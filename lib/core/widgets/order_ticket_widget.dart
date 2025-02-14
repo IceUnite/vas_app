@@ -6,7 +6,7 @@ import 'package:vas_app/core/widgets/ods_alert.dart';
 class OrderTicketWidget extends StatefulWidget {
   final String titleText;
   final String description;
-  final String status;  // Изменяем тип на String
+  final String status;
   final String? orderTime;
   VoidCallback? onTap;
 
@@ -37,7 +37,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
       case "completed":
         return AppColors.green200;
       default:
-        return AppColors.orange200;  // Добавляем дефолтный цвет
+        return AppColors.orange200;
     }
   }
 
@@ -53,7 +53,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
         return 'В обработке';
       case "completed":
         return 'Завершено';
-        case "hours":
+      case "hours":
         return 'часов';
       default:
         return '';
@@ -112,21 +112,20 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                           ),
                         ),
                       ),
-                 SizedBox(width: 20,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Column(
                         children: [
                           if (widget.status == 'hours')
                             Text(
                               'Время выполнения',
-                              style: AppTypography.font10Regular.copyWith(
-                                  fontWeight: FontWeight.bold),
+                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
                             ),
                           Container(
-                            constraints: widget.status == 'hours'
-                                ? const BoxConstraints(minWidth: 100)
-                                : const BoxConstraints(minWidth: 120),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
+
+                            width: 95,
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
                             margin: const EdgeInsets.only(top: 5),
                             decoration: BoxDecoration(
                               color: getColor(widget.status),
@@ -134,11 +133,9 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                             ),
                             child: Center(
                               child: Text(
-                                  '${widget.orderTime ?? ''} ${getText(widget.status)}',
-                                style: AppTypography.font16Regular.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.black
-                                ),
+                                '${widget.orderTime ?? ''} ${getText(widget.status)}',
+                                style: AppTypography.font12Regular
+                                    .copyWith(fontWeight: FontWeight.w700, color: AppColors.black),
                               ),
                             ),
                           ),
@@ -148,7 +145,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    maxLines: 4,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     widget.description,
                     style: AppTypography.font14Regular,

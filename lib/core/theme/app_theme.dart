@@ -81,13 +81,13 @@ class Themes {
         ),
       ),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme:  AppBarTheme(
       elevation: 0,
       // systemOverlayStyle: SystemUiOverlayStyle(
       //   statusBarColor: AppColors.black, // Черный статус-бар
       //   statusBarIconBrightness: Brightness.light, // Светлые значки
       // ),
-      backgroundColor: AppColors.black100,
+      backgroundColor: AppColors.gray.shade90,
       shadowColor: AppColors.black100,
       centerTitle: true,
     ),
