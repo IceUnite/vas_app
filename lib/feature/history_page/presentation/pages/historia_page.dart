@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/order_ticket_widget.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
+import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
+import 'package:vas_app/feature/history_page/presentation/bloc/history_order_bloc.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
 
   static String name = RoutePath.historyScreenPath;
+
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  void initState() {
+    super.initState();
+    final userId = context.read<AuthBloc>().state.userId;
+    final token = context.read<AuthBloc>().state.token;
+    context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId, token: token));
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -94,8 +94,9 @@ class OrderTicketWidget extends StatelessWidget {
                       children: [
                         Flexible(
                           child: Text(
+                            textAlign: TextAlign.start,
                             titleText,
-                            style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
+                            style: AppTypography.font14Regular.copyWith(fontWeight: FontWeight.w700,),
                           ),
                         ),
                         const SizedBox(width: 15),
@@ -129,7 +130,7 @@ class OrderTicketWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      maxLines: 6,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       description,
                       style: AppTypography.font14Regular,

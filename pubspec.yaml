@@ -93,3 +93,8 @@ flutter:
 flutter_intl:
   enabled: true
   class_name: Locales
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"  # Путь к иконке (512x512 или 1024x1024)
