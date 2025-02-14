@@ -137,6 +137,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                                   '${widget.orderTime ?? ''} ${getText(widget.status)}',
                                 style: AppTypography.font16Regular.copyWith(
                                   fontWeight: FontWeight.w700,
+                                  color: AppColors.black
                                 ),
                               ),
                             ),
