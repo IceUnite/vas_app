@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/order_ticket_widget.dart';
@@ -19,7 +20,6 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-
   @override
   void initState() {
     final userId = context.read<AuthBloc>().state.userId;
@@ -30,46 +30,55 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<OrderBloc, OrderState>(
-  builder: (context, state) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Заказ документа',
-          style: AppTypography.font26Regular.copyWith(
-            fontWeight: FontWeight.w700,
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Заказ документа',
+              style: AppTypography.font26Regular.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            centerTitle: true,
           ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListView.builder(
-          itemCount: state.documents?.length ?? 0,
-          itemBuilder: (context, index) {
-            return AnimatedListItems(
-              verticalOffset: 50.0,
-              duration: const Duration(milliseconds: 600),
-              children: [
-                OrderTicketWidget(
-                  titleText: state.documents?[index]?.name ?? '',
-                  description:state.documents?[index]?.description ?? '',
-                  status: 'hours',
-                  orderTime: state.documents?[index]?.minTime ,
-                  onTap: () {
-                    final userId = context.read<AuthBloc>().state.userId;
-                    final token = context.read<AuthBloc>().state.token;
-                    context.read<OrderBloc>().add(RegisterApplicationEvent(userId: userId ?? 0, token: token ?? '', docId: state.documents?[index]?.id ?? -1));
-                    context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''));                  },
+          body: state is OrderLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.orange200,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ListView.builder(
+                    itemCount: state.documents?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return AnimatedListItems(
+                        verticalOffset: 50.0,
+                        duration: const Duration(milliseconds: 600),
+                        children: [
+                          OrderTicketWidget(
+                            titleText: state.documents?[index]?.name ?? '',
+                            description: state.documents?[index]?.description ?? '',
+                            status: 'hours',
+                            orderTime: state.documents?[index]?.minTime,
+                            onTap: () {
+                              final userId = context.read<AuthBloc>().state.userId;
+                              final token = context.read<AuthBloc>().state.token;
+                              context.read<OrderBloc>().add(RegisterApplicationEvent(
+                                  userId: userId ?? 0, token: token ?? '', docId: state.documents?[index]?.id ?? -1));
+                              context
+                                  .read<HistoryOrderBloc>()
+                                  .add(GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''));
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ],
-            );
-          },
-        ),
-      ),
+        );
+      },
     );
-  },
-);
   }
 }
