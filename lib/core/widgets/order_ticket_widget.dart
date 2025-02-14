@@ -70,7 +70,9 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
             context,
             title: "Подтверждение заказа документа",
             confirmText: 'Подтвердить',
-            onPressedConfirm: () {},
+            onPressedConfirm: () {
+              widget.onTap?.call();
+            },
             onPressedClosed: () {},
           );
         },
@@ -123,7 +125,6 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                               style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
                             ),
                           Container(
-
                             width: 95,
                             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
                             margin: const EdgeInsets.only(top: 5),

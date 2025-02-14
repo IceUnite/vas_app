@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:vas_app/feature/order_page/data/api/service/order_service_api.dart';
 import 'package:vas_app/feature/order_page/domain/entities/document_entity.dart';
+import 'package:vas_app/feature/order_page/domain/entities/reg_application_entity.dart';
 
 @LazySingleton()
 class OrdersRepositoryImpl {
@@ -19,5 +20,21 @@ class OrdersRepositoryImpl {
       description: doc.description,
       minTime: doc.minTime,
     )).toList();
+  }
+
+  Future<RegApplicationEntity> registerApplication({
+    required int userId,
+    required String token,
+    required int docId,
+    String date = "48",
+  }) async {
+    final regApplicationModel = await orderServiceApi.regApplication(
+      userId: userId,
+      token: token,
+      docId: docId,
+      date: date,
+    );
+
+    return RegApplicationEntity(message: regApplicationModel.message);
   }
 }

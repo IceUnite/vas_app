@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:vas_app/feature/order_page/data/models/reg_application_model.dart';
 
 import '../../models/document_model.dart';
 
@@ -32,4 +33,33 @@ class OrderServiceApi {
       throw Exception('Ошибка при выполнении запроса: $e');
     }
   }
+
+  /// Регистрация новой заявки на документ
+  Future<RegApplicationModel> regApplication({
+    required int userId,
+    required String token,
+    required int docId,
+    String date = "48",
+  }) async {
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        '/reg_application',
+        queryParameters: {
+          "id_user": userId,
+          "token": token,
+          "id_doc": docId,
+          "date": date,
+        },
+      );
+
+      if (response.statusCode == 201 && response.data != null) {
+        return RegApplicationModel.fromJson(response.data!);
+      } else {
+        throw Exception('Ошибка регистрации заявки');
+      }
+    } catch (e) {
+      throw Exception('Ошибка при выполнении запроса: $e');
+    }
+  }
+
 }
