@@ -10,7 +10,7 @@ class HistoryOrderState extends Equatable {
 
   final String? errorMessage;
   final bool isLoading;
-  final List<DocumentEntity>? historyOrderData;
+  final List<HistoryDocumentEntity?>? historyOrderData;
 
   @override
   List<Object?> get props => [ errorMessage, isLoading,historyOrderData];
@@ -36,7 +36,7 @@ final class HistoryOrderLoading extends HistoryOrderState {
 }
 
 final class HistoryOrderSuccess extends HistoryOrderState {
-  const HistoryOrderSuccess({required List<DocumentEntity> historyOrderData})
+  const HistoryOrderSuccess({required List<HistoryDocumentEntity?>? historyOrderData})
       : super(historyOrderData: historyOrderData);
 }
 

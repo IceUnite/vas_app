@@ -4,9 +4,5 @@ abstract class HistoryOrderServiceApi {
   Future<List<DocumentModel>> getApplications({
     required int? userId,
     required String? token,
-    String? status,
-    String? description,
-    String? startDate,
-    String? endDate,
   });
 }

@@ -12,7 +12,7 @@ class OrdersUseCase {
 
   const OrdersUseCase({required this.ordersRepository});
 
-  Future<List<DocumentEntity>> getDocuments({
+  Future<List<DocumentEntity?>?>? getDocuments({
     required int userId,
     required String token,
   }) async {

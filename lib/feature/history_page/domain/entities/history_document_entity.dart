@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:vas_app/feature/history_page/data/models/document_model.dart';
 
 class HistoryDocumentListEntity extends Equatable {
   final int? code;
@@ -21,6 +22,7 @@ class HistoryDocumentEntity extends Equatable {
   final String? date;
   final String? createdAt;
   final String? updatedAt;
+  final DocumentEntity? document;
 
   const HistoryDocumentEntity({
     this.id,
@@ -30,6 +32,7 @@ class HistoryDocumentEntity extends Equatable {
     this.date,
     this.createdAt,
     this.updatedAt,
+    this.document,
   });
 
   HistoryDocumentEntity copyWith({
@@ -40,6 +43,7 @@ class HistoryDocumentEntity extends Equatable {
     String? date,
     String? createdAt,
     String? updatedAt,
+    DocumentEntity? document,
   }) {
     return HistoryDocumentEntity(
       id: id ?? this.id,
@@ -49,6 +53,7 @@ class HistoryDocumentEntity extends Equatable {
       date: date ?? this.date,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      document: document ?? this.document,
     );
   }
 
@@ -61,5 +66,42 @@ class HistoryDocumentEntity extends Equatable {
     date,
     createdAt,
     updatedAt,
+    document,
   ];
 }
+
+class DocumentListEntity extends Equatable {
+  final int? code;
+  final List<DocumentEntity?>? data;
+
+  const DocumentListEntity({
+    this.code,
+    this.data,
+  });
+
+  @override
+  List<Object?> get props => [code, data];
+}
+class DocumentEntity {
+  final int? id;
+  final String? name;
+  final String? description;
+  final String? minTime;
+
+  const DocumentEntity({
+    this.id,
+    this.name,
+    this.description,
+    this.minTime,
+  });
+
+  factory DocumentEntity.fromDocumentModel(DocumentModel documentModel) {
+    return DocumentEntity(
+      id: documentModel.id,
+      name: documentModel.name,
+      description: documentModel.description,
+      minTime: documentModel.minTime,
+    );
+  }
+}
+

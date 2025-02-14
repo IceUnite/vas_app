@@ -45,16 +45,17 @@ class _OrderPageState extends State<OrderPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView.builder(
-          itemCount: state.documents.length,
+          itemCount: state.documents?.length ?? 0,
           itemBuilder: (context, index) {
             return AnimatedListItems(
               verticalOffset: 50.0,
               duration: const Duration(milliseconds: 600),
               children: [
                 OrderTicketWidget(
-                  titleText: state.documents[index].name ?? '',
-                  description:state.documents[index].description ?? '',
-                  status: OrderStatus.doOrder,
+                  titleText: state.documents?[index]?.name ?? '',
+                  description:state.documents?[index]?.description ?? '',
+                  status: 'hours',
+                  orderTime: state.documents?[index]?.minTime ,
                   onTap: () {
                   },
                 ),

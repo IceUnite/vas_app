@@ -8,7 +8,7 @@ class OrderState extends Equatable {
     this.isLoading = false,
   });
 
-  final List<DocumentEntity> documents;
+  final List<DocumentEntity?>? documents;
   final String? errorMessage;
   final bool isLoading;
 
@@ -16,7 +16,7 @@ class OrderState extends Equatable {
   List<Object?> get props => [documents, errorMessage, isLoading];
 
   OrderState copyWith({
-    List<DocumentEntity>? documents,
+    List<DocumentEntity?>? documents,
     String? errorMessage,
     bool? isLoading,
   }) {
@@ -37,7 +37,7 @@ final class OrderLoading extends OrderState {
 }
 
 final class OrderSuccess extends OrderState {
-  const OrderSuccess({required List<DocumentEntity> documents})
+  const OrderSuccess({required List<DocumentEntity?>? documents})
       : super(documents: documents);
 }
 

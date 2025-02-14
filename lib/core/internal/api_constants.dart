@@ -1,7 +1,7 @@
 const bool isDevServer = bool.fromEnvironment('isDev');
 const bool isProdServer = !isDevServer;
 
-const String localGatewayServerUrl = 'http://127.0.0.1:8000/docs#/';
+const String localGatewayServerUrl = 'http://192.168.31.100:8000/';
 const String netGatewayServerUrl = 'https://messenger-v-dooctor.amvera.io/';
 
 // const String testGWGatewayServerUrl = 'https://gw.test.apeironspace.ru/';

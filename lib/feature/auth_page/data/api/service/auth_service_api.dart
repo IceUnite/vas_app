@@ -44,7 +44,7 @@ class AuthApiDioService implements AuthApi {
           "token": token,
         },
       );
-      if (response.statusCode == 204) {
+      if (response.statusCode == 204 || response.statusCode == 200 ) {
         print("Токен действителен");
       } else {
         throw Exception('Ошибка проверки токена');

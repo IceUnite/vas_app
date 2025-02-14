@@ -22,9 +22,10 @@ class _InitScreenState extends State<InitScreen> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final userId = prefs.getInt('userId');
     final token = prefs.getString('accessToken');
+    print('userId ${userId}');
+    print('token ${token}');
 
     if (userId != null && token != null) {
       // Вызов события для проверки токена

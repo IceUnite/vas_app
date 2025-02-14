@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vas_app/feature/order_page/data/models/document_model.dart';
+import 'package:vas_app/feature/history_page/data/models/history_data_model.dart'; // Убедитесь, что импортируется правильная модель
+import 'package:vas_app/feature/history_page/data/models/history_document_model.dart';
 
 @lazySingleton
 class HistoryOrderServiceApi {
@@ -8,26 +9,30 @@ class HistoryOrderServiceApi {
 
   HistoryOrderServiceApi(this.dio);
 
-  Future<List<DocumentModel>> getApplications({
+  Future<HistoryDocumentModel> getApplications({
     required int? userId,
     required String? token,
-    String? status,
-    String? description,
-    String? startDate,
-    String? endDate,
   }) async {
     try {
       final response = await dio.get<Map<String, dynamic>>(
         '/get_applications',
         queryParameters: {
-          "token": token,  // Оставляем только token
-          "id_user": userId, // Убираем id_user, так как это автоматически вычисляется
+          "id_user": userId,
+          "token": token,
         },
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        final data = response.data!["data"] as List<dynamic>;
-        return data.map((json) => DocumentModel.fromJson(json)).toList();
+        final code = response.data?['code'] as int?;
+        final data = response.data?['data'] as List<dynamic>?;
+
+        // Теперь создаем список с объектами HistoryDataModel
+        final dataModels = data?.map((json) => HistoryDataModel.fromJson(json)).toList() ?? [];
+
+        return HistoryDocumentModel(
+          code: code ?? 0,
+          data: dataModels,
+        );
       } else {
         throw Exception('Ошибка получения заявок');
       }
