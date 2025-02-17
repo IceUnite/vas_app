@@ -3,7 +3,7 @@ abstract class Failure {
   Failure([this.properties = const<dynamic>[]]);
 
   @override
-  String toString() => '${this.runtimeType}(${properties.join(', ')})';
+  String toString() => '$runtimeType(${properties.join(', ')})';
 }
 
 class ServerFailure extends Failure {

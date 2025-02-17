@@ -1,20 +1,15 @@
-import 'dart:io';
-import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
-import 'package:vas_app/core/repositories/auth_data_repository_impl.dart';
 import 'package:vas_app/core/utils/shared_preference.dart';
-import 'package:vas_app/feature/auth_page/domain/usecases/auth_usecase.dart';
-import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 import 'package:vas_app/feature/order_page/domain/entities/document_entity.dart';
 import 'package:vas_app/feature/order_page/domain/entities/reg_application_entity.dart';
 import 'package:vas_app/feature/order_page/domain/usecases/order_usecase.dart';
 import 'package:vas_app/main.dart';
 
 part 'order_event.dart';
+
 part 'order_state.dart';
 
 @lazySingleton
@@ -41,27 +36,23 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   /// Обработка события регистрации заявки
-  Future<void> _onRegisterApplication(
-      RegisterApplicationEvent event, Emitter<OrderState> emit) async {
-
+  Future<void> _onRegisterApplication(RegisterApplicationEvent event, Emitter<OrderState> emit) async {
     try {
       final response = await orderUseCase.registerApplication(
-        userId: event.userId ?? 0,
-        token: event.token ?? '',
-        docId: event.docId ?? 0,
+        userId: event.userId,
+        token: event.token,
+        docId: event.docId,
       );
 
       emit(state.copyWith(
-        regApplicationEntity: response, // Обновляем только regApplicationEntity
-        isLoading: false,  // Убираем флаг загрузки
+        regApplicationEntity: response,
+        isLoading: false,
       ));
     } catch (e) {
       emit(state.copyWith(
-        regApplicationEntity: null, // При ошибке делаем regApplicationEntity null
-        errorMessage: e.toString(), // Убираем флаг загрузки
+        regApplicationEntity: null,
+        errorMessage: e.toString(),
       ));
     }
   }
-
-
 }

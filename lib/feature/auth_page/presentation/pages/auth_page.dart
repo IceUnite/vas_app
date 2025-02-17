@@ -6,12 +6,10 @@ import 'package:vas_app/core/resources/assets/resources.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/button_style.dart';
 import 'package:vas_app/core/theme/typography.dart';
-import 'package:vas_app/core/utils/shared_preference.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:vas_app/core/theme/theme_notifier.dart';
-import 'package:vas_app/main.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -92,7 +90,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                                       ..setEntry(3, 2, 0.001) // Перспектива
                                       ..rotateY(angle), // Вращение вокруг оси Y
                                     alignment: Alignment.center,
-                                    child: Container(
+                                    child: SizedBox(
                                       width: logoSize,
                                       height: logoSize,
                                       child: SvgPicture.asset(
@@ -171,7 +169,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                               );
                             },
                             child: state is AuthLoading
-                                ? CircularProgressIndicator()
+                                ? const CircularProgressIndicator()
                                 : Text(
                             'Войти',
                             style: AppTypography.font24Regular.copyWith(

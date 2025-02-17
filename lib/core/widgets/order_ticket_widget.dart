@@ -114,7 +114,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Column(
@@ -146,7 +146,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    maxLines: 3,
+                    maxLines: 20,
                     overflow: TextOverflow.ellipsis,
                     widget.description,
                     style: AppTypography.font14Regular,

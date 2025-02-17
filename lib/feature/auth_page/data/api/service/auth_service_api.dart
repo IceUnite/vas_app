@@ -32,6 +32,7 @@ class AuthApiDioService implements AuthApi {
     }
   }
 
+  @override
   Future<void> checkToken({
     required String userId,
     required String token,

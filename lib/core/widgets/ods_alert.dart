@@ -1,13 +1,11 @@
 import 'dart:collection';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
 class ApeironSpaceDialog extends StatelessWidget {
-  const ApeironSpaceDialog({
+  const ApeironSpaceDialog({super.key, 
     this.title,
     this.message,
     this.confirmText,
@@ -109,7 +107,7 @@ class ApeironSpaceDialog extends StatelessWidget {
               message: message,
               confirmText: showHelp ? "contactTheHotel" : "ok",
               onConfirmTap: showHelp
-                  ? () => null
+                  ? () {}
                   : () {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
@@ -366,7 +364,6 @@ class ApeironSpaceDialog extends StatelessWidget {
 
   static Future<void> _handleDialogQueue(
       {required BuildContext context,
-      Color? barrierColor,
       required WidgetBuilder builder,
       bool dismissible = true,
       String? idToCompare}) async {
@@ -420,14 +417,14 @@ class ApeironSpaceDialog extends StatelessWidget {
       // Центрирование
       child: Container(
         margin: EdgeInsets.symmetric(  horizontal: screenWidth < 350 ? 20 :(screenWidth - 350) /2 ),
-        constraints: BoxConstraints(maxHeight: 250),
-        padding: EdgeInsets.all(20),
+        constraints: const BoxConstraints(maxHeight: 250),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: theme == Brightness.dark
               ? AppColors.gray.shade90 // Для темной темы
               : AppColors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 10,
@@ -454,9 +451,9 @@ class ApeironSpaceDialog extends StatelessWidget {
                       color: AppColors.black,
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
 
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: AppColors.white,
@@ -473,14 +470,14 @@ class ApeironSpaceDialog extends StatelessWidget {
                 // onCancel!();
               },
               child: Text(
-                this.confirmText ?? 'Подтвердить',
+                confirmText ?? 'Подтвердить',
                 style: AppTypography.font16Regular.copyWith(
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
@@ -497,7 +494,7 @@ class ApeironSpaceDialog extends StatelessWidget {
               },
               // onPressed: null,
               child: Text(
-                this.closeText ?? 'Отмена',
+                closeText ?? 'Отмена',
                 style: AppTypography.font16Regular.copyWith(
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,

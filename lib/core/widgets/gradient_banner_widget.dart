@@ -36,7 +36,7 @@ class GradientBannerWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 180,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFFE1E1E6),
         borderRadius: BorderRadius.all(Radius.circular(12)),
         boxShadow: [

@@ -55,12 +55,12 @@ class ErrorToast extends StatelessWidget {
               maxLines: 30,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
             onPressed: () {
               onCancel!();
             },
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
           )
         ],
       ),

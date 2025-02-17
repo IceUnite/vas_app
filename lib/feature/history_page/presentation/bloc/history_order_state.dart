@@ -22,7 +22,7 @@ class HistoryOrderState extends Equatable {
     return HistoryOrderState(
       errorMessage: errorMessage ?? this.errorMessage,
       isLoading: isLoading ?? this.isLoading,
-      historyOrderData: historyOrderData ?? this.historyOrderData,
+      historyOrderData: historyOrderData ?? historyOrderData,
     );
   }
 }

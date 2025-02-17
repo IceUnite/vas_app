@@ -1,4 +1,3 @@
-import 'package:vas_app/feature/history_page/data/models/document_model.dart';
 
 import '../entities/history_document_entity.dart';
 

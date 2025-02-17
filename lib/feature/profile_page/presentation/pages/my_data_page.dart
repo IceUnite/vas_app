@@ -77,14 +77,14 @@ class MyDataPage extends StatelessWidget {
                             color: AppColors.blue200,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         const TextBlockWidget(text: 'Никита', hintText: 'Имя',),
                         const TextBlockWidget(text: 'Алексеевич', hintText: 'Фамилия',),
                         const TextBlockWidget(text: '8 903 00 00 338', hintText: 'Телефон',),
                         const TextBlockWidget(text: '', hintText: 'email',),
-                        SizedBox(height: 50,),
+                        const SizedBox(height: 50,),
                         ElevatedButton(
                           onPressed: (){},
                           style: AppButtonStyle.primaryStyleOrange.copyWith(

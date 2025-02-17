@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 
@@ -145,7 +144,7 @@ class ContainerDecorations extends ThemeExtension<ContainerDecorations> {
   @override
   ContainerDecorations copyWith({BoxDecoration? containerDecoration}) {
     return ContainerDecorations(
-      containerDecorationShadow: containerDecoration ?? this.containerDecorationShadow,
+      containerDecorationShadow: containerDecoration ?? containerDecorationShadow,
     );
   }
 
