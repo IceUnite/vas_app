@@ -16,7 +16,7 @@ class OrderServiceApi {
   }) async {
     try {
       final response = await dio.get<Map<String, dynamic>>(
-        '/get_documents',
+        '/documents/get_documents',
         queryParameters: {
           "id_user": userId,
           "token": token,
@@ -43,7 +43,7 @@ class OrderServiceApi {
   }) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
-        '/reg_application',
+        '/applications/reg_application',
         queryParameters: {
           "id_user": userId,
           "token": token,

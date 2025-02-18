@@ -15,7 +15,7 @@ class HistoryOrderServiceApi {
   }) async {
     try {
       final response = await dio.get<Map<String, dynamic>>(
-        '/get_applications',
+        '/applications/get_applications',
         queryParameters: {
           "id_user": userId,
           "token": token,

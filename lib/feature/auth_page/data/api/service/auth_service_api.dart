@@ -16,7 +16,7 @@ class AuthApiDioService implements AuthApi {
   }) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
-        '/login',
+        '/users/login',
         queryParameters: {
           "log": userName,
           "password": password,
@@ -39,7 +39,7 @@ class AuthApiDioService implements AuthApi {
   }) async {
     try {
       final response = await dio.post(
-        '/check_token',
+        '/users/check_token',
         queryParameters: {
           "id": userId,
           "token": token,
