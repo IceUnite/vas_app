@@ -7,19 +7,19 @@ part 'history_data_model.g.dart';
 @immutable
 @JsonSerializable()
 class HistoryDataModel {
-  final int id;
+  final int? id;
   @JsonKey(name: 'id_user')
-  final int idUser;
+  final int? idUser;
   @JsonKey(name: 'id_doc')
-  final int idDoc;
-  final String status;
-  final String description;
-  final String date;
+  final int? idDoc;
+  final String? status;
+  final String? description;
+  final String? date;
   @JsonKey(name: 'created_at')
-  final String createdAt;
+  final String? createdAt;
   @JsonKey(name: 'updated_at')
-  final String updatedAt;
-  final DocumentModel document;
+  final String? updatedAt;
+  final DocumentModel? document;
 
   const HistoryDataModel({
     required this.id,

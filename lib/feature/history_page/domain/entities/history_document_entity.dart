@@ -17,6 +17,7 @@ class HistoryDocumentListEntity extends Equatable {
 class HistoryDocumentEntity extends Equatable {
   final int? id;
   final int? idUser;
+  final int? idDoc;
   final String? status;
   final String? description;
   final String? date;
@@ -27,6 +28,7 @@ class HistoryDocumentEntity extends Equatable {
   const HistoryDocumentEntity({
     this.id,
     this.idUser,
+    this.idDoc,
     this.status,
     this.description,
     this.date,
@@ -38,6 +40,7 @@ class HistoryDocumentEntity extends Equatable {
   HistoryDocumentEntity copyWith({
     int? id,
     int? idUser,
+    int? idDoc,
     String? status,
     String? description,
     String? date,
@@ -47,6 +50,7 @@ class HistoryDocumentEntity extends Equatable {
   }) {
     return HistoryDocumentEntity(
       id: id ?? this.id,
+      idDoc: idDoc ?? this.idDoc,
       idUser: idUser ?? this.idUser,
       status: status ?? this.status,
       description: description ?? this.description,
@@ -61,6 +65,7 @@ class HistoryDocumentEntity extends Equatable {
   List<Object?> get props => [
     id,
     idUser,
+    idDoc,
     status,
     description,
     date,
@@ -95,13 +100,13 @@ class DocumentEntity {
     this.minTime,
   });
 
-  factory DocumentEntity.fromDocumentModel(DocumentModel documentModel) {
-    return DocumentEntity(
-      id: documentModel.id,
-      name: documentModel.name,
-      description: documentModel.description,
-      minTime: documentModel.minTime,
-    );
+  factory DocumentEntity.fromDocumentModel(DocumentModel? documentModel) {
+      return DocumentEntity(
+        id: documentModel?.id,
+        name: documentModel?.name,
+        description: documentModel?.description,
+        minTime: documentModel?.minTime,
+      );
+    }
   }
-}
 

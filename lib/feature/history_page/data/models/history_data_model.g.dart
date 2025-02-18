@@ -8,16 +8,17 @@ part of 'history_data_model.dart';
 
 HistoryDataModel _$HistoryDataModelFromJson(Map<String, dynamic> json) =>
     HistoryDataModel(
-      id: (json['id'] as num).toInt(),
-      idUser: (json['id_user'] as num).toInt(),
-      idDoc: (json['id_doc'] as num).toInt(),
-      status: json['status'] as String,
-      description: json['description'] as String,
-      date: json['date'] as String,
-      createdAt: json['created_at'] as String,
-      updatedAt: json['updated_at'] as String,
-      document:
-          DocumentModel.fromJson(json['document'] as Map<String, dynamic>),
+      id: (json['id'] as num?)?.toInt(),
+      idUser: (json['id_user'] as num?)?.toInt(),
+      idDoc: (json['id_doc'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      description: json['description'] as String?,
+      date: json['date'] as String?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      document: json['document'] == null
+          ? null
+          : DocumentModel.fromJson(json['document'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$HistoryDataModelToJson(HistoryDataModel instance) =>
