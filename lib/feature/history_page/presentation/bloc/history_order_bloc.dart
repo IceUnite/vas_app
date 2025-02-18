@@ -32,9 +32,11 @@ class HistoryOrderBloc extends Bloc<HistoryOrderEvent,HistoryOrderState> {
         token: event.token ?? '',
       );
 
+      print('data : $data');
       emit(HistoryOrderSuccess(historyOrderData: data));
 
     } catch (e) {
+      print(' e.toString() $e');
       emit(HistoryOrderFailure(errorMessage: e.toString()));
     }
   }
