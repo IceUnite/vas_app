@@ -52,15 +52,15 @@ class ErrorToast extends StatelessWidget {
               style: AppTypography.font16Regular.copyWith(
                 color: AppColors.black,
               ),
-              maxLines: 3,
+              maxLines: 30,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
             onPressed: () {
               onCancel!();
             },
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
           )
         ],
       ),

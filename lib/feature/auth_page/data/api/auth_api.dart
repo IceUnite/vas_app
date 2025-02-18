@@ -5,4 +5,9 @@ abstract class AuthApi {
     required String userName,
     required String password,
   });
+
+  Future<void> checkToken({
+    required String userId,
+    required String token,
+  });
 }

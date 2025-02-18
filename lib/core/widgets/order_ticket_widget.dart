@@ -1,55 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:vas_app/core/errors/bot_toast.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
-import 'package:vas_app/feature/order_page/presentation/pages/order_page.dart';
 
-enum OrderStatus { ready, rejected, inProgress, doOrder, errored }
-
-class OrderTicketWidget extends StatelessWidget {
+class OrderTicketWidget extends StatefulWidget {
   final String titleText;
   final String description;
-  final OrderStatus status;
+  final String status;
   final String? orderTime;
   VoidCallback? onTap;
 
-  OrderTicketWidget(
-      {super.key,
-      required this.titleText,
-      required this.description,
-      required this.status,
-      this.orderTime,
-      this.onTap});
+  OrderTicketWidget({
+    super.key,
+    required this.titleText,
+    required this.description,
+    required this.status,
+    this.orderTime,
+    this.onTap,
+  });
 
-  Color getColor(OrderStatus status) {
+  @override
+  State<OrderTicketWidget> createState() => _OrderTicketWidgetState();
+}
+
+class _OrderTicketWidgetState extends State<OrderTicketWidget> {
+  Color getColor(String status) {
     switch (status) {
-      case OrderStatus.ready:
+      case "ready":
         return AppColors.green200;
-      case OrderStatus.rejected:
+      case "cancelled":
         return AppColors.red;
-      case OrderStatus.errored:
+      case "error":
         return AppColors.red;
-      case OrderStatus.inProgress:
+      case "in work":
         return AppColors.orange200;
-      case OrderStatus.doOrder:
+      case "completed":
+        return AppColors.green200;
+      default:
         return AppColors.orange200;
     }
   }
 
-  String getText(OrderStatus status) {
+  String getText(String status) {
     switch (status) {
-      case OrderStatus.ready:
+      case "ready":
         return 'Выполнено';
-      case OrderStatus.rejected:
+      case "cancelled":
         return 'Отменено';
-      case OrderStatus.errored:
+      case "error":
         return 'Ошибка';
-      case OrderStatus.inProgress:
+      case "in work":
         return 'В обработке';
-      case OrderStatus.doOrder:
-        return orderTime ?? '48 часов';
+      case "completed":
+        return 'Завершено';
+      case "hours":
+        return 'часов';
+      default:
+        return '';
     }
   }
 
@@ -58,88 +65,98 @@ class OrderTicketWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
-          onTap: () {
-            getDocuments();
-            ApeironSpaceDialog.showActionDialog(context,
-                title: "Подтверждение заказа документа", confirmText: 'Подтвердить', onPressedConfirm: () {}, onPressedClosed: () {  });
-            // verticalMargin: MediaQuery.of(context).size.height * 0.32);
-          },
-          child: IntrinsicHeight(
-            child: Container(
-              constraints: const BoxConstraints(
-                minHeight: 180.0,
-                maxHeight: 240.0,
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.gray.shade90 // Для темной темы
-                    : AppColors.gray.shade40,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    offset: const Offset(4, 4),
-                    blurRadius: 5.0,
-                    spreadRadius: 0.25,
+        onTap: () {
+          ApeironSpaceDialog.showActionDialog(
+            context,
+            title: "Подтверждение заказа документа",
+            confirmText: 'Подтвердить',
+            onPressedConfirm: () {
+              widget.onTap?.call();
+            },
+            onPressedClosed: () {},
+          );
+        },
+        child: IntrinsicHeight(
+          child: Container(
+            constraints: const BoxConstraints(
+              minHeight: 180.0,
+              maxHeight: 240.0,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.gray.shade90 // Для темной темы
+                  : AppColors.gray.shade40,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  offset: const Offset(4, 4),
+                  blurRadius: 5.0,
+                  spreadRadius: 0.25,
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          widget.titleText,
+                          style: AppTypography.font16Regular.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        children: [
+                          if (widget.status == 'hours')
+                            Text(
+                              'Время выполнения',
+                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          Container(
+                            width: 95,
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            margin: const EdgeInsets.only(top: 5),
+                            decoration: BoxDecoration(
+                              color: getColor(widget.status),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${widget.orderTime ?? ''} ${getText(widget.status)}',
+                                style: AppTypography.font12Regular
+                                    .copyWith(fontWeight: FontWeight.w700, color: AppColors.black),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    maxLines: 20,
+                    overflow: TextOverflow.ellipsis,
+                    widget.description,
+                    style: AppTypography.font14Regular,
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            titleText,
-                            style: AppTypography.font18Regular.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        Column(
-                          children: [
-                            if (status.name == 'doOrder')
-                              Text(
-                                'Время выполнения',
-                                style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            Container(
-                              constraints: status.name == 'doOrder'
-                                  ? const BoxConstraints(minWidth: 100)
-                                  : const BoxConstraints(minWidth: 120),
-                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                              margin: const EdgeInsets.only(top: 5),
-                              decoration: BoxDecoration(
-                                color: getColor(status),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  getText(status),
-                                  style: AppTypography.font16Regular.copyWith(fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      maxLines: 6,
-                      overflow: TextOverflow.ellipsis,
-                      description,
-                      style: AppTypography.font14Regular,
-                    ),
-                  ],
-                ),
-              ),
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

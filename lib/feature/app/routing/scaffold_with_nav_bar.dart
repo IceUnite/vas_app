@@ -1,7 +1,6 @@
 part of 'path_files.dart';
 
 class ScaffoldWithNavBar extends StatefulWidget {
-  /// Constructs an [ScaffoldWithNavBar].
   const ScaffoldWithNavBar({
     Key? key,
     required this.body,
@@ -22,15 +21,11 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(
-        milliseconds: 0,
-      ),
+      duration: const Duration(milliseconds: 0),
     );
 
     alpha = Tween<double>(begin: 1, end: 1).animate(_controller);
-
     _controller.forward();
-
     super.initState();
   }
 
@@ -41,210 +36,151 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
   }
 
   @override
-  void didUpdateWidget(covariant ScaffoldWithNavBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  String prevLocation = '';
-
-  @override
   Widget build(BuildContext context) {
     final StatefulShellRouteState shellState = StatefulShellRoute.of(context);
-    _appRouteSingleTone.showBottomNavigationBar(alpha.value);
-
     final data = MediaQuery.of(context);
+    final bottomPadding = MediaQuery.of(context).viewPadding.bottom; // Отступ для панели навигации
+
+    final double screenHeight = data.size.height;
+    final double navBarHeight = bottomPadding > 0 ? 56.0 + bottomPadding : 56.0; // Учитываем высоту панели навигации
+    final double availableHeight = screenHeight - navBarHeight; // Доступная высота для контента
+
+    // Получаем реальный отступ от клавиатуры
+    final double keyboardHeight = data.viewInsets.bottom;
 
     return MediaQuery(
       data: data.copyWith(
         textScaler: TextScaler.linear(data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor),
       ),
       child: Scaffold(
-        body: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, _) {
-            return Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewPadding.bottom,
+        body: Stack(
+          children: [
+            // Основной контент, выровненный по вертикали с учетом панели навигации и клавиатуры
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: navBarHeight + keyboardHeight), // Чтобы контент не перекрывался панелью и клавиатурой
+                child: Container(
+                  height: availableHeight - keyboardHeight, // Ограничиваем высоту контента
+                  child: widget.body,
+                ),
               ),
-              child: widget.body,
-            );
-          },
-        ),
-        resizeToAvoidBottomInset: false,
-        extendBody: true,
-        bottomNavigationBar: _appRouteSingleTone.showValue == 0
-            ? null
-            :
-        AnimatedBuilder(
-                animation: _controller,
-                builder: (context, _) {
-                  return AnimatedOpacity(
-                    opacity: _appRouteSingleTone.showValue,
-                    duration: const Duration(milliseconds: 300),
-                    child: Container(
+            ),
 
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, .04),
-                            offset: Offset(0.0, -7.0), //(x,y)
-                            blurRadius: 14,
-                          )
-                        ],
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                        ),
-                      ),
-                      child: BottomNavigationBar(
-                        selectedLabelStyle: AppTypography.font16Regular,
-                        unselectedLabelStyle: AppTypography.font16Regular,
-                        unselectedItemColor: AppColors.gray.shade70,
-                        selectedItemColor: AppColors.orange200,
-                        backgroundColor: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.gray.shade90 // Для темной темы
-                            : AppColors.white,
-                        type: BottomNavigationBarType.fixed,
-                        items: [
-                          ScaffoldWithNavBarTabItem(
-                            rootRoutePath: RoutePath.mainScreenPath,
-                            iconActive: GestureDetector(
-                              onTap: () {
-                                HapticFeedback.lightImpact();
-                              },
-                              onDoubleTap: () {},
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    VectorAssets.icHomeActive,
-                                    // color: AppColors.green,
-                                  ),
-                                  const SizedBox(
-                                    height: 0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            icon: Column(
-                              children: [
-                                SvgPicture.asset(VectorAssets.icHomeDeactive),
-                              ],
-                            ),
-                            label: 'Главная',
-                          ),
-                          ScaffoldWithNavBarTabItem(
-
-                            rootRoutePath: RoutePath.historyScreenPath,
-                            iconActive:Column(
-                              children: [
-                                SvgPicture.asset(
-                                  VectorAssets.icNoteBookActive,
-                                  // color: AppColors.green,
-                                ),
-                                const SizedBox(
-                                  height: 0,
-                                ),
-                              ],
-                            ),
-                            icon: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(VectorAssets.icNoteBookDeactive),
-                                    const SizedBox(
-                                      height: 0,
-                                    )
-                                  ],
-                                ),
-                                // Positioned.fill(
-                                //   child: Align(
-                                //     alignment: Alignment.topRight,
-                                //     child: CircleAvatar(
-                                //       radius: 7,
-                                //       backgroundColor: AppColors.green,
-                                //       child: Center(
-                                //           child: Text(
-                                //             '2',
-                                //             style: AppTypography.font10Regular
-                                //                 .copyWith(color: AppColors.white),
-                                //           )),
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                            label: 'Заказы',
-                          ),
-                          ScaffoldWithNavBarTabItem(
-                            rootRoutePath: RoutePath.orderScreenPath,
-                            iconActive: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  VectorAssets.icHistoryActive,
-                                  // color: AppColors.green,
-                                ),
-                                const SizedBox(
-                                  height: 0,
-                                )
-                              ],
-                            ),
-                            icon: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(VectorAssets.icHistoryDeactive),
-                                    const SizedBox(
-                                      height: 0,
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            label: 'История',
-                          ),
-                          ScaffoldWithNavBarTabItem(
-                            rootRoutePath: RoutePath.profileScreenPath,
-                            iconActive: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  VectorAssets.icProfileActive,
-                                  // color: AppColors.green,
-                                ),
-                                const SizedBox(
-                                  height: 0,
-                                )
-                              ],
-                            ),
-                            icon: Column(
-                              children: [
-                                SvgPicture.asset(VectorAssets.icProfileDeactive),
-                                const SizedBox(
-                                  height: 0,
-                                )
-                              ],
-                            ),
-                            label: 'Профиль',
-                          ),
-                        ],
-                        currentIndex: shellState.currentIndex,
-                        onTap: (int tappedIndex) async {
-                          if (_bottomNavBranches[tappedIndex].name ==
-                              'profile') {}
-
-                          ///Проверка через чтобы каждый раз обновлять страницу чтобы при переключение через меню
-                          /// вручную закрыывать страницу результатов
-                          HapticFeedback.mediumImpact();
-                          return shellState.goBranch(
-                            navigatorKey:
-                                _bottomNavBranches[tappedIndex].navigatorKey,
-                          );
-                        },
-                      ),
+            // Панель навигации внизу
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: _appRouteSingleTone.showValue == 0
+                  ? Container()
+                  : AnimatedOpacity(
+                opacity: _appRouteSingleTone.showValue,
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, .04),
+                        offset: Offset(0.0, -7.0),
+                        blurRadius: 14,
+                      )
+                    ],
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
                     ),
-                  );
-                },
+                  ),
+                  child: BottomNavigationBar(
+                    selectedLabelStyle: AppTypography.font16Regular,
+                    unselectedLabelStyle: AppTypography.font16Regular,
+                    unselectedItemColor: AppColors.gray.shade70,
+                    selectedItemColor: AppColors.orange200,
+                    backgroundColor: Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.gray.shade90
+                        : AppColors.white,
+                    type: BottomNavigationBarType.fixed,
+                    items: [
+                      ScaffoldWithNavBarTabItem(
+                        rootRoutePath: RoutePath.mainScreenPath,
+                        iconActive: GestureDetector(
+                          onTap: () {
+                            HapticFeedback.lightImpact();
+                          },
+                          child: Column(
+                            children: [
+                              SvgPicture.asset(VectorAssets.icHomeActive),
+                            ],
+                          ),
+                        ),
+                        icon: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icHomeDeactive),
+                          ],
+                        ),
+                        label: 'Главная',
+                      ),
+                      ScaffoldWithNavBarTabItem(
+                        rootRoutePath: RoutePath.historyScreenPath,
+                        iconActive: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icNoteBookActive),
+                          ],
+                        ),
+                        icon: Stack(
+                          children: [
+                            Column(
+                              children: [
+                                SvgPicture.asset(VectorAssets.icNoteBookDeactive),
+                              ],
+                            ),
+                          ],
+                        ),
+                        label: 'Заказы',
+                      ),
+                      ScaffoldWithNavBarTabItem(
+                        rootRoutePath: RoutePath.orderScreenPath,
+                        iconActive: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icHistoryActive),
+                          ],
+                        ),
+                        icon: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icHistoryDeactive),
+                          ],
+                        ),
+                        label: 'История',
+                      ),
+                      ScaffoldWithNavBarTabItem(
+                        rootRoutePath: RoutePath.profileScreenPath,
+                        iconActive: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icProfileActive),
+                          ],
+                        ),
+                        icon: Column(
+                          children: [
+                            SvgPicture.asset(VectorAssets.icProfileDeactive),
+                          ],
+                        ),
+                        label: 'Профиль',
+                      ),
+                    ],
+                    currentIndex: shellState.currentIndex,
+                    onTap: (int tappedIndex) {
+                      HapticFeedback.mediumImpact();
+                      return shellState.goBranch(
+                        navigatorKey: _bottomNavBranches[tappedIndex].navigatorKey,
+                      );
+                    },
+                  ),
+                ),
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,10 +1,10 @@
 
-import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedKeyWords {
   static const accessTokenKey = 'accessToken';
    static const jwtTokensModelDTOKey = 'jwtTokensDTOModel';
+   static const userId = 'userId';
  }
 
  class SharedPrefsRawProvider {

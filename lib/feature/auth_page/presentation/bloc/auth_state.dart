@@ -3,57 +3,92 @@ part of 'auth_bloc.dart';
 @immutable
 class AuthState extends Equatable {
   const AuthState({
-    this.cellResponse,
-    this.isCorrect,
-    this.login,
-    this.password,
-    this.trueLogin,
-    this.truePassword,
-    this.isAuth,
+    required this.login,
+    required this.password,
+    required this.token,
+    required this.errorMessage,
+    required this.userId,
   });
 
-  final int? cellResponse;
-  final bool? isCorrect;
   final String? login;
   final String? password;
-  final String? trueLogin;
-  final String? truePassword;
-  final bool? isAuth;
+  final String? token;
+  final String? errorMessage;
+  final int? userId; // Теперь userId обязательный
 
   @override
-  List<Object?> get props => <Object?>[cellResponse, login, password, trueLogin, truePassword, isCorrect, isAuth];
+  List<Object?> get props => [login, password, token, errorMessage, userId];
 
   AuthState copyWith({
-    int? cellResponse,
-    bool? isCorrect,
-    bool? isAuth,
     String? login,
     String? password,
-    String? trueLogin,
-    String? truePassword,
+    String? token,
+    String? errorMessage,
+    int? userId,
   }) {
     return AuthState(
-      cellResponse: cellResponse ?? this.cellResponse,
-      isCorrect: isCorrect ?? this.isCorrect,
       login: login ?? this.login,
       password: password ?? this.password,
-      trueLogin: trueLogin ?? this.trueLogin,
-      truePassword: truePassword ?? this.truePassword,
-      isAuth: isAuth ?? this.isAuth,
+      token: token ?? this.token,
+      errorMessage: errorMessage ?? this.errorMessage,
+      userId: userId ?? this.userId,
     );
   }
 }
 
 final class AuthInitial extends AuthState {
-
   const AuthInitial()
       : super(
-          isCorrect: true,
-          cellResponse: null,
-          trueLogin: '1111',
-          truePassword: '1111',
-          login: '',
-          password: '',
-          isAuth: false,
-        );
+      login: '',
+      password: '',
+      token: '',
+      errorMessage: '',
+      userId: 0
+  );
+}
+
+final class AuthLoading extends AuthState {
+  const AuthLoading()
+      : super(
+      login: '',
+      password: '',
+      token: '',
+      errorMessage: '',
+      userId: 0
+  );
+}
+
+final class AuthSuccess extends AuthState {
+  const AuthSuccess({
+    required String token,
+    required int userId,
+  }) : super(
+    token: token,
+    errorMessage: '',
+    login: '',
+    password: '',
+    userId: userId,
+  );
+}
+
+final class AuthFailure extends AuthState {
+  const AuthFailure({required String errorMessage, required int? userId})
+      : super(
+    errorMessage: errorMessage,
+    login: '',
+    password: '',
+    token: '',
+    userId: userId,
+  );
+}
+
+final class AuthUnauthorized extends AuthState {
+  const AuthUnauthorized()
+      : super(
+      login: '',
+      password: '',
+      token: '',
+      errorMessage: '',
+      userId: null
+  );
 }

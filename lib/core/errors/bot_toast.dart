@@ -11,7 +11,7 @@ class BotToastDi {
     Widget? icon,
   }) =>
       BotToast.showCustomNotification(
-        duration: Duration(seconds: 10),
+        duration: const Duration(seconds: 10),
         align: const Alignment(0, 0.94),
         wrapToastAnimation: (controller, cancel, Widget child) => CustomAnimationWidget(
           controller: controller,
@@ -33,7 +33,7 @@ class BotToastDi {
     Widget? icon,
   }) {
     BotToast.showCustomNotification(
-      duration: Duration(hours: 5),
+      duration: const Duration(hours: 5),
       align: const Alignment(0, 0),
       wrapToastAnimation: (controller, cancel, Widget child) => Stack(
         alignment: AlignmentDirectional.center,
@@ -92,7 +92,6 @@ class _CustomAnimationWidgetState extends State<CustomAnimationWidget> {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      child: widget.child,
       animation: animation,
       builder: (BuildContext context, Widget? child) {
         return Transform.scale(
@@ -103,6 +102,7 @@ class _CustomAnimationWidgetState extends State<CustomAnimationWidget> {
           ),
         );
       },
+      child: widget.child,
     );
   }
 }
