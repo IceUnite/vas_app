@@ -87,6 +87,7 @@ class DocumentListEntity extends Equatable {
   @override
   List<Object?> get props => [code, data];
 }
+
 class DocumentEntity {
   final int? id;
   final String? name;
