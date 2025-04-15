@@ -42,30 +42,38 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           body: state is HistoryOrderLoading
               ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.orange200,
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: state.historyOrderData?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final item = state.historyOrderData?[index];
-                    return AnimatedListItems(
-                      verticalOffset: 50.0,
-                      duration: const Duration(milliseconds: 600),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
-                          child: OrderTicketWidget(
-                            titleText: state.historyOrderData?[index]?.document?.name ?? '',
-                            description: state.historyOrderData?[index]?.document?.description ?? '',
-                            status: state.historyOrderData?[index]?.status ?? '',
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
+            child: CircularProgressIndicator(
+              color: AppColors.orange200,
+            ),
+          )
+              : RefreshIndicator(
+            onRefresh: () async {
+              final userId = context.read<AuthBloc>().state.userId;
+              final token = context.read<AuthBloc>().state.token;
+              context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId, token: token));
+            },
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(), // важно для работы RefreshIndicator при пустом списке
+              itemCount: state.historyOrderData?.length ?? 0,
+              itemBuilder: (context, index) {
+                final item = state.historyOrderData?[index];
+                return AnimatedListItems(
+                  verticalOffset: 50.0,
+                  duration: const Duration(milliseconds: 600),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
+                      child: OrderTicketWidget(
+                        titleText: item?.document?.name ?? '',
+                        description: item?.document?.description ?? '',
+                        status: item?.status ?? '',
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         );
       },
     );

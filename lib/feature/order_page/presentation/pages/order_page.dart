@@ -43,39 +43,50 @@ class _OrderPageState extends State<OrderPage> {
           ),
           body: state is OrderLoading
               ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.orange200,
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.builder(
-                    itemCount: state.documents?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return AnimatedListItems(
-                        verticalOffset: 50.0,
-                        duration: const Duration(milliseconds: 600),
-                        children: [
-                          OrderTicketWidget(
-                            titleText: state.documents?[index]?.name ?? '',
-                            description: state.documents?[index]?.description ?? '',
-                            status: 'hours',
-                            orderTime: state.documents?[index]?.minTime,
-                            onTap: () {
-                              final userId = context.read<AuthBloc>().state.userId;
-                              final token = context.read<AuthBloc>().state.token;
-                              context.read<OrderBloc>().add(RegisterApplicationEvent(
-                                  userId: userId ?? 0, token: token ?? '', docId: state.documents?[index]?.id ?? -1));
-                              context
-                                  .read<HistoryOrderBloc>()
-                                  .add(GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''));
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+            child: CircularProgressIndicator(
+              color: AppColors.orange200,
+            ),
+          )
+              : RefreshIndicator(
+            onRefresh: () async {
+              final userId = context.read<AuthBloc>().state.userId;
+              final token = context.read<AuthBloc>().state.token;
+              context.read<OrderBloc>().add(GetOrdersEvent(userId: userId, token: token));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: state.documents?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return AnimatedListItems(
+                    verticalOffset: 50.0,
+                    duration: const Duration(milliseconds: 600),
+                    children: [
+                      OrderTicketWidget(
+                        titleText: state.documents?[index]?.name ?? '',
+                        description: state.documents?[index]?.description ?? '',
+                        status: 'hours',
+                        orderTime: state.documents?[index]?.minTime,
+                        onTap: () {
+                          final userId = context.read<AuthBloc>().state.userId;
+                          final token = context.read<AuthBloc>().state.token;
+                          context.read<OrderBloc>().add(RegisterApplicationEvent(
+                            userId: userId ?? 0,
+                            token: token ?? '',
+                            docId: state.documents?[index]?.id ?? -1,
+                          ));
+                          context.read<HistoryOrderBloc>().add(
+                            GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
         );
       },
     );

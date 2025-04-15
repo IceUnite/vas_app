@@ -33,6 +33,21 @@ abstract class AppTypography {
   static TextStyle get font28Regular => _nunito(fontSize: 28);
   static TextStyle get font30Regular => _nunito(fontSize: 30);
   static TextStyle get font32Regular => _nunito(fontSize: 32);
+
+
+  static TextStyle get font8Raleway => _raleway(fontSize: 8);
+  static TextStyle get font10Raleway => _raleway(fontSize: 10);
+  static TextStyle get font12Raleway => _raleway(fontSize: 12);
+  static TextStyle get font14Raleway=> _raleway(fontSize: 14);
+  static TextStyle get font16Raleway => _raleway(fontSize: 16);
+  static TextStyle get font18Raleway => _raleway(fontSize: 18);
+  static TextStyle get font20Raleway => _raleway(fontSize: 20);
+  static TextStyle get font22Raleway => _raleway(fontSize: 22);
+  static TextStyle get font24Raleway => _raleway(fontSize: 24);
+  static TextStyle get font26Raleway => _raleway(fontSize: 26);
+  static TextStyle get font28Raleway => _raleway(fontSize: 28);
+  static TextStyle get font30Raleway => _raleway(fontSize: 30);
+  static TextStyle get font32Raleway => _raleway(fontSize: 32);
   // Продолжите для других размеров шрифта аналогичным образом
 
   static TextStyle get textTitle => _nunito(fontWeight: FontWeight.w600, fontSize: 24, height: 32 / 24, letterSpacing: 0);
