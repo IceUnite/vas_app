@@ -8,6 +8,8 @@ import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 import 'package:vas_app/feature/history_page/presentation/bloc/history_order_bloc.dart';
 
+import '../../../../core/widgets/history_ticket_widget.dart';
+
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
 
@@ -63,7 +65,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
-                      child: OrderTicketWidget(
+                      child: HistoryTicketWidget(
                         titleText: item?.document?.name ?? '',
                         description: item?.document?.description ?? '',
                         status: item?.status ?? '',

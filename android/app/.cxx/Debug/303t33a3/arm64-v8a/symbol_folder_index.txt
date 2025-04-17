@@ -1,0 +1,1 @@
+/Users/artemfrancev/IdeaProjects/vas_app/build/app/intermediates/cxx/Debug/303t33a3/obj/arm64-v8a

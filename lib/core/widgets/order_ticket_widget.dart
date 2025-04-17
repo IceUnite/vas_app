@@ -8,9 +8,9 @@ class OrderTicketWidget extends StatefulWidget {
   final String description;
   final String status;
   final String? orderTime;
-  VoidCallback? onTap;
+  final VoidCallback? onTap;
 
-  OrderTicketWidget({
+  const OrderTicketWidget({
     super.key,
     required this.titleText,
     required this.description,
@@ -27,15 +27,13 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
   Color getColor(String status) {
     switch (status) {
       case "ready":
+      case "completed":
         return AppColors.green200;
       case "cancelled":
-        return AppColors.red;
       case "error":
         return AppColors.red;
       case "in work":
         return AppColors.orange200;
-      case "completed":
-        return AppColors.green200;
       default:
         return AppColors.orange200;
     }
@@ -62,30 +60,32 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = Theme.of(context).brightness == Brightness.dark
+        ? AppColors.gray.shade90
+        : AppColors.gray.shade40;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: InkWell(
-        onTap: () {
-          ApeironSpaceDialog.showActionDialog(
-            context,
-            title: "Подтверждение заказа документа",
-            confirmText: 'Подтвердить',
-            onPressedConfirm: () {
-              widget.onTap?.call();
-            },
-            onPressedClosed: () {},
-          );
-        },
-        child: IntrinsicHeight(
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            ApeironSpaceDialog.showActionDialog(
+              context,
+              title: "Подтверждение заказа документа",
+              confirmText: 'Подтвердить',
+              onPressedConfirm: () {
+                widget.onTap?.call();
+              },
+              onPressedClosed: () {},
+            );
+          },
           child: Container(
-            constraints: const BoxConstraints(
-              minHeight: 180.0,
-              maxHeight: 240.0,
-            ),
+            constraints: const BoxConstraints(minHeight: 100.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.gray.shade90 // Для темной темы
-                  : AppColors.gray.shade40,
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -96,63 +96,60 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                 ),
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          textAlign: TextAlign.start,
-                          widget.titleText,
-                          style: AppTypography.font16Regular.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        widget.titleText,
+                        style: AppTypography.font16Regular.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        children: [
-                          if (widget.status == 'hours')
-                            Text(
-                              'Время выполнения',
-                              style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          Container(
-                            width: 95,
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
-                            margin: const EdgeInsets.only(top: 5),
-                            decoration: BoxDecoration(
-                              color: getColor(widget.status),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${widget.orderTime ?? ''} ${getText(widget.status)}',
-                                style: AppTypography.font12Regular
-                                    .copyWith(fontWeight: FontWeight.w700, color: AppColors.black),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (widget.status == 'hours')
+                          Text(
+                            'Время выполнения',
+                            style: AppTypography.font10Regular.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        Container(
+                          width: 95,
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                          margin: const EdgeInsets.only(top: 5),
+                          decoration: BoxDecoration(
+                            color: getColor(widget.status),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${widget.orderTime ?? ''} ${getText(widget.status)}',
+                              style: AppTypography.font12Regular.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.black,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    maxLines: 20,
-                    overflow: TextOverflow.ellipsis,
-                    widget.description,
-                    style: AppTypography.font14Regular,
-                  ),
-                ],
-              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  widget.description,
+                  style: AppTypography.font14Regular,
+                ),
+              ],
             ),
           ),
         ),

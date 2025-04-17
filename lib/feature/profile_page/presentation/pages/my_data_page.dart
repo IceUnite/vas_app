@@ -104,6 +104,7 @@ class MyDataPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 50),
 
                       ],
                     ),

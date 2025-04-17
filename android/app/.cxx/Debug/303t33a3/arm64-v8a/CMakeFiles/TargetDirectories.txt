@@ -1,0 +1,2 @@
+/Users/artemfrancev/IdeaProjects/vas_app/android/app/.cxx/Debug/303t33a3/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/artemfrancev/IdeaProjects/vas_app/android/app/.cxx/Debug/303t33a3/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -63,6 +63,7 @@ class _ApplicationState extends State<Application> {
         supportedLocales: const [
           Locale('en'),
         ],
+        themeMode: ThemeMode.light,
       ),
     );
   }
