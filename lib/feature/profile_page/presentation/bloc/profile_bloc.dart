@@ -3,21 +3,33 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
+import '../../domain/entities/user_entity.dart';
+import '../../domain/usecases/profile_usecase.dart';
+
 part 'profile_event.dart';
 
 part 'profile_state.dart';
 
 @lazySingleton
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(ProfileInitial()) {
-    on<FinishRentEvent>(_onFinishRentEvent);
+  final ProfileUseCase profileUseCase;
+
+  ProfileBloc({required this.profileUseCase}) : super(ProfileInitial()) {
+    on<GetUserInfoEvent>(_onGetUserInfoEvent);
   }
 
   // final ProfileUseCase luggageUseCase;
 
+  Future<void> _onGetUserInfoEvent(GetUserInfoEvent event, Emitter<ProfileState> emit) async {
+    try {
+      final data = await profileUseCase.getUserInfo(
+        userId: event.userId ?? 0,
+        token: event.userToken ?? '',
+      );
 
-  Future<void> _onFinishRentEvent(FinishRentEvent event, Emitter<ProfileState> emit) async {
-
+      emit(ProfileState(userInfo: data));
+    } catch (e) {
+      rethrow;
+    }
   }
 }
-

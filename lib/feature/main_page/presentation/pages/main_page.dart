@@ -42,9 +42,9 @@ class _MainPageState extends State<MainPage> {
       return '$count документов';
     }
   }
-
   @override
   Widget build(BuildContext context) {
+    final orderBloc = context.read<OrderBloc>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -123,7 +123,7 @@ class _MainPageState extends State<MainPage> {
                   GradientBannerWidget(
                     gradient: AppColors.gradientOrangeBackground,
                     title: 'Быстрое оформление документов',
-                    description: 'Выберите из 146 образцов',
+                    description: 'Выберите из ${orderBloc.state.documents?.length ?? 0} образцов',
                     btnText: 'Выбрать',
                     imagePath: ImageAssets.saly,
                     width: 100,

@@ -14,6 +14,8 @@ import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 
+import '../bloc/profile_bloc.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -29,6 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    final userId = context.read<AuthBloc>().state.userId;
+    final token = context.read<AuthBloc>().state.token;
+    context.read<ProfileBloc>().add(GetUserInfoEvent(userId: userId, userToken: token));
     _loadThemePreference();
   }
 
@@ -53,10 +58,12 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context, themeNotifier, child) {
         final isDarkTheme = themeNotifier.isDarkTheme;
 
-        return Scaffold(
+        return BlocBuilder<ProfileBloc, ProfileState>(
+  builder: (context, state) {
+    return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Никита Алексеевич',
+              '${state.userInfo?.name ?? ''} ${state.userInfo?.middleName ?? ''}',
               style: AppTypography.font26Regular.copyWith(
                 fontWeight: FontWeight.w700,
                 color: isDarkTheme ? AppColors.white : AppColors.black,
@@ -179,6 +186,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         );
+  },
+);
       },
     );
   }

@@ -38,7 +38,7 @@ class ErrorToast extends StatelessWidget {
           icon ??
               const CircleAvatar(
                 radius: 8,
-                backgroundColor: AppColors.orange,
+                backgroundColor: AppColors.redLight,
               ),
           const SizedBox(
             width: 8,
