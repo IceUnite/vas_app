@@ -12,6 +12,7 @@ import 'package:vas_app/feature/profile_page/presentation/pages/my_data_page.dar
 
 import '../../../core/theme/typography.dart';
 import '../../history_page/presentation/pages/historia_page.dart';
+import '../../main_page/presentation/pages/get_order_page.dart';
 import '../../order_page/presentation/pages/order_page.dart';
 import '../../profile_page/presentation/pages/profile_page.dart';
 import 'route_path.dart';

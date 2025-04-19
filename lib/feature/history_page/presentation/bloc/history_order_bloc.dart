@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ part 'history_order_state.dart';
 
 @lazySingleton
 @injectable
-class HistoryOrderBloc extends Bloc<HistoryOrderEvent,HistoryOrderState> {
+class HistoryOrderBloc extends Bloc<HistoryOrderEvent, HistoryOrderState> {
   final HistoryOrdersUseCase historyOrdersUseCase;
 
   HistoryOrderBloc({required this.historyOrdersUseCase}) : super(const HistoryOrderInitial()) {
@@ -35,40 +34,43 @@ class HistoryOrderBloc extends Bloc<HistoryOrderEvent,HistoryOrderState> {
 
       final items = data ?? [];
 
-      // Функция сортировки
-      items.sort((a, b) {
-        final priority = {
-          'ready': 0,
-          'in work': 1,
-          'error': 2,
-          'cancelled': 3,
-          'completed': 4,
-        };
+      final activeStatuses = ['ready', 'in work'];
+      final archiveStatuses = ['cancelled', 'error', 'completed'];
 
-        final aPriority = priority[a.status] ?? 5;
-        final bPriority = priority[b.status] ?? 5;
+      // Первый массив: только ready и in work
+      final activeOrders = items.where((e) => activeStatuses.contains(e.status)).toList()
+        ..sort((a, b) {
+          // Сначала по статусу: ready (0), in work (1)
+          final priority = {'ready': 0, 'in work': 1};
+          final aPriority = priority[a.status] ?? 2;
+          final bPriority = priority[b.status] ?? 2;
 
-        if (aPriority != bPriority) {
-          return aPriority.compareTo(bPriority);
-        }
+          if (aPriority != bPriority) {
+            return aPriority.compareTo(bPriority);
+          }
 
-        // Если статус одинаковый, и он среди error/cancelled/completed, сортируем по дате
-        if (aPriority >= 2) {
+          // Потом по дате (сначала новые)
           final aDate = DateTime.tryParse(a.createdAt ?? '') ?? DateTime(2025);
           final bDate = DateTime.tryParse(b.createdAt ?? '') ?? DateTime(2025);
-          return bDate.compareTo(aDate); // Сортировка по убыванию
-        }
+          return bDate.compareTo(aDate);
+        });
 
-        return 0; // Для ready и in work порядок не важен
-      });
+      // Второй массив: cancelled, error, completed
+      final archivedOrders = items.where((e) => archiveStatuses.contains(e.status)).toList()
+        ..sort((a, b) {
+          final aDate = DateTime.tryParse(a.createdAt ?? '') ?? DateTime(2025);
+          final bDate = DateTime.tryParse(b.createdAt ?? '') ?? DateTime(2025);
+          return bDate.compareTo(aDate); // по убыванию
+        });
 
-      emit(HistoryOrderSuccess(historyOrderData: data));
+      emit(HistoryOrderSuccess(
+        activeOrders: activeOrders,
+        archivedOrders: archivedOrders,
+        historyOrderData: data,
+      ));
     } catch (e) {
       print('e.toString(): $e');
       emit(HistoryOrderFailure(errorMessage: e.toString()));
     }
   }
-
-
-
 }

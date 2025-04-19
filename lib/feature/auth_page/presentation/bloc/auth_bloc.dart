@@ -37,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password ?? '',
       );
 
-      emit(AuthSuccess(token: data.token, userId: data.id)); // Успешная авторизация
+      emit(AuthSuccess(token: data.token, userId: data.id, isFirstVisit: true)); // Успешная авторизация
       sharedPrefsRawProvider.setString(SharedKeyWords.accessTokenKey, data.token);
       sharedPrefsRawProvider.setInt(SharedKeyWords.userId, data.id);
     } catch (e) {

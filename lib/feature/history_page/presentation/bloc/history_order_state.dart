@@ -6,14 +6,24 @@ class HistoryOrderState extends Equatable {
     this.errorMessage,
     this.isLoading = false,
     this.historyOrderData,
+    this.activeOrders,
+    this.archivedOrders,
   });
 
   final String? errorMessage;
   final bool isLoading;
   final List<HistoryDocumentEntity?>? historyOrderData;
+  final List<HistoryDocumentEntity?>? activeOrders;
+  final List<HistoryDocumentEntity?>? archivedOrders;
 
   @override
-  List<Object?> get props => [ errorMessage, isLoading,historyOrderData];
+  List<Object?> get props => [
+        errorMessage,
+        isLoading,
+        historyOrderData,
+        activeOrders,
+        archivedOrders,
+      ];
 
   HistoryOrderState copyWith({
     String? errorMessage,
@@ -23,6 +33,8 @@ class HistoryOrderState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       isLoading: isLoading ?? this.isLoading,
       historyOrderData: historyOrderData ?? historyOrderData,
+      activeOrders: activeOrders ?? activeOrders,
+      archivedOrders: archivedOrders ?? archivedOrders,
     );
   }
 }
@@ -36,11 +48,17 @@ final class HistoryOrderLoading extends HistoryOrderState {
 }
 
 final class HistoryOrderSuccess extends HistoryOrderState {
-  const HistoryOrderSuccess({required List<HistoryDocumentEntity?>? historyOrderData})
-      : super(historyOrderData: historyOrderData);
+  const HistoryOrderSuccess({
+    required List<HistoryDocumentEntity?> historyOrderData,
+    required List<HistoryDocumentEntity?> activeOrders,
+    required List<HistoryDocumentEntity?> archivedOrders,
+  }) : super(
+    historyOrderData: historyOrderData,
+    activeOrders: activeOrders,
+    archivedOrders: archivedOrders,
+  );
 }
 
 final class HistoryOrderFailure extends HistoryOrderState {
-  const HistoryOrderFailure({required String errorMessage})
-      : super(errorMessage: errorMessage);
+  const HistoryOrderFailure({required String errorMessage}) : super(errorMessage: errorMessage);
 }

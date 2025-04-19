@@ -8,16 +8,18 @@ class AuthState extends Equatable {
     required this.token,
     required this.errorMessage,
     required this.userId,
+    this.isFirstVisit,
   });
 
   final String? login;
   final String? password;
   final String? token;
   final String? errorMessage;
-  final int? userId; // Теперь userId обязательный
+  final int? userId;
+  final bool? isFirstVisit;
 
   @override
-  List<Object?> get props => [login, password, token, errorMessage, userId];
+  List<Object?> get props => [login, password, token, errorMessage, userId, isFirstVisit];
 
   AuthState copyWith({
     String? login,
@@ -25,6 +27,7 @@ class AuthState extends Equatable {
     String? token,
     String? errorMessage,
     int? userId,
+    bool? isFirstVisit,
   }) {
     return AuthState(
       login: login ?? this.login,
@@ -32,6 +35,7 @@ class AuthState extends Equatable {
       token: token ?? this.token,
       errorMessage: errorMessage ?? this.errorMessage,
       userId: userId ?? this.userId,
+      isFirstVisit: isFirstVisit ?? this.isFirstVisit,
     );
   }
 }
@@ -39,22 +43,24 @@ class AuthState extends Equatable {
 final class AuthInitial extends AuthState {
   const AuthInitial()
       : super(
-      login: '',
-      password: '',
-      token: '',
-      errorMessage: '',
-      userId: 0
+    login: '',
+    password: '',
+    token: '',
+    errorMessage: '',
+    userId: 0,
+    isFirstVisit: true,
   );
 }
 
 final class AuthLoading extends AuthState {
   const AuthLoading()
       : super(
-      login: '',
-      password: '',
-      token: '',
-      errorMessage: '',
-      userId: 0
+    login: '',
+    password: '',
+    token: '',
+    errorMessage: '',
+    userId: 0,
+    isFirstVisit: null,
   );
 }
 
@@ -62,33 +68,37 @@ final class AuthSuccess extends AuthState {
   const AuthSuccess({
     required String token,
     required int userId,
+    bool? isFirstVisit,
   }) : super(
     token: token,
     errorMessage: '',
     login: '',
     password: '',
     userId: userId,
+    isFirstVisit: isFirstVisit,
   );
 }
 
 final class AuthFailure extends AuthState {
-  const AuthFailure({required String errorMessage, required int? userId})
+  const AuthFailure({required String errorMessage, required int? userId, bool? isFirstVisit})
       : super(
     errorMessage: errorMessage,
     login: '',
     password: '',
     token: '',
     userId: userId,
+    isFirstVisit: isFirstVisit,
   );
 }
 
 final class AuthUnauthorized extends AuthState {
   const AuthUnauthorized()
       : super(
-      login: '',
-      password: '',
-      token: '',
-      errorMessage: '',
-      userId: null
+    login: '',
+    password: '',
+    token: '',
+    errorMessage: '',
+    userId: null,
+    isFirstVisit: null,
   );
 }

@@ -138,7 +138,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                             ),
                           ],
                         ),
-                        label: 'Заказы',
+                        label: 'Мои заказы',
                       ),
                       ScaffoldWithNavBarTabItem(
                         rootRoutePath: RoutePath.orderScreenPath,

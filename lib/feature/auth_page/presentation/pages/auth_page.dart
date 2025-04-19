@@ -11,6 +11,10 @@ import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:vas_app/core/theme/theme_notifier.dart';
 
+import '../../../../main.dart';
+import '../../../history_page/presentation/bloc/history_order_bloc.dart';
+import '../../../order_page/presentation/bloc/order_bloc.dart';
+
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
