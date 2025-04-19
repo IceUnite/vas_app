@@ -88,23 +88,23 @@ class MyDataPage extends StatelessWidget {
                               height: 10,
                             ),
                             TextBlockWidget(
-                              text: '${state.userInfo?.lastName}',
+                              text: '${state.userInfo?.lastName ?? ''}',
                               hintText: 'Фамилия',
                             ),
                             TextBlockWidget(
-                              text: '${state.userInfo?.name}',
+                              text: '${state.userInfo?.name ?? ''}',
                               hintText: 'Имя',
                             ),
                             TextBlockWidget(
-                              text: '${state.userInfo?.middleName}',
+                              text: '${state.userInfo?.middleName ?? ''}',
                               hintText: 'Отчество',
                             ),
                             TextBlockWidget(
-                              text: '${state.userInfo?.phone}',
+                              text: '${state.userInfo?.phone ?? ''}',
                               hintText: 'Телефон',
                             ),
                             TextBlockWidget(
-                              text: '${state.userInfo?.login}',
+                              text: '${state.userInfo?.login ?? ''}',
                               hintText: 'Логин',
                             ),
                             const SizedBox(
