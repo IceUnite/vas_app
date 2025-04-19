@@ -27,12 +27,14 @@ class OrdersRepositoryImpl {
     required String token,
     required int docId,
     String date = "48",
+    String? description,
   }) async {
     final regApplicationModel = await orderServiceApi.regApplication(
       userId: userId,
       token: token,
       docId: docId,
       date: date,
+      description: description,
     );
 
     return RegApplicationEntity(message: regApplicationModel.message);

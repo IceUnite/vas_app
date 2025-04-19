@@ -68,7 +68,13 @@ class _HistoryPageState extends State<HistoryPage> {
                       child: HistoryTicketWidget(
                         titleText: item?.document?.name ?? '',
                         description: item?.document?.description ?? '',
+                        errorMessage: item?.description ?? '',
                         status: item?.status ?? '',
+                          createdTime: item?.createdAt ?? '',
+                          updateTime: item?.updatedAt ?? '',
+
+                          // orderTime: item?.createdAt
+
                       ),
                     ),
                   ],

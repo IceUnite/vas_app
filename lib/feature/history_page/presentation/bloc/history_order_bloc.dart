@@ -26,20 +26,49 @@ class HistoryOrderBloc extends Bloc<HistoryOrderEvent,HistoryOrderState> {
 
   Future<void> _onGetHistoryOrders(GetHistoryOrdersEvent event, Emitter<HistoryOrderState> emit) async {
     emit(const HistoryOrderLoading());
+
     try {
       final data = await historyOrdersUseCase.getApplications(
         userId: event.userId ?? 0,
         token: event.token ?? '',
       );
 
-      print('data : $data');
-      emit(HistoryOrderSuccess(historyOrderData: data));
+      final items = data ?? [];
 
+      // Функция сортировки
+      items.sort((a, b) {
+        final priority = {
+          'ready': 0,
+          'in work': 1,
+          'error': 2,
+          'cancelled': 3,
+          'completed': 4,
+        };
+
+        final aPriority = priority[a.status] ?? 5;
+        final bPriority = priority[b.status] ?? 5;
+
+        if (aPriority != bPriority) {
+          return aPriority.compareTo(bPriority);
+        }
+
+        // Если статус одинаковый, и он среди error/cancelled/completed, сортируем по дате
+        if (aPriority >= 2) {
+          final aDate = DateTime.tryParse(a.createdAt ?? '') ?? DateTime(2025);
+          final bDate = DateTime.tryParse(b.createdAt ?? '') ?? DateTime(2025);
+          return bDate.compareTo(aDate); // Сортировка по убыванию
+        }
+
+        return 0; // Для ready и in work порядок не важен
+      });
+
+      emit(HistoryOrderSuccess(historyOrderData: data));
     } catch (e) {
-      print(' e.toString() $e');
+      print('e.toString(): $e');
       emit(HistoryOrderFailure(errorMessage: e.toString()));
     }
   }
+
 
 
 }

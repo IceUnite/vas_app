@@ -40,6 +40,7 @@ class OrderServiceApi {
     required String token,
     required int docId,
     String date = "48",
+    String? description,
   }) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
@@ -49,6 +50,7 @@ class OrderServiceApi {
           "token": token,
           "id_doc": docId,
           "date": date,
+          "description": description,
         },
       );
 

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
 import 'package:vas_app/core/widgets/ods_alert.dart';
 
+import '../../feature/auth_page/presentation/bloc/auth_bloc.dart';
+import '../../feature/history_page/presentation/bloc/history_order_bloc.dart';
+import '../../feature/order_page/presentation/bloc/order_bloc.dart';
+
 class OrderTicketWidget extends StatefulWidget {
   final String titleText;
+  final int documentId;
   final String description;
   final String status;
   final String? orderTime;
@@ -13,6 +19,7 @@ class OrderTicketWidget extends StatefulWidget {
   const OrderTicketWidget({
     super.key,
     required this.titleText,
+    required this.documentId,
     required this.description,
     required this.status,
     this.orderTime,
@@ -24,6 +31,16 @@ class OrderTicketWidget extends StatefulWidget {
 }
 
 class _OrderTicketWidgetState extends State<OrderTicketWidget> {
+  late AuthBloc authBloc;
+  late OrderBloc orderBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    authBloc = BlocProvider.of<AuthBloc>(context);
+    orderBloc = BlocProvider.of<OrderBloc>(context);
+  }
+
   Color getColor(String status) {
     switch (status) {
       case "ready":
@@ -72,14 +89,28 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
+            final TextEditingController errorController = TextEditingController();
             ApeironSpaceDialog.showActionDialog(
               context,
-              title: "Подтверждение заказа документа",
-              confirmText: 'Подтвердить',
+              title: "Создать заявку на создание документа?",
+              confirmText: "Да",
+              closeText: 'Нет',
               onPressedConfirm: () {
-                widget.onTap?.call();
+                final userId = authBloc.state.userId;
+                final token = authBloc.state.token;
+                orderBloc.add(RegisterApplicationEvent(
+                  userId: userId ?? 0,
+                  token: token ?? '',
+                  docId: widget.documentId,
+                  userMessage: errorController.text,
+                ));
+                BlocProvider.of<HistoryOrderBloc>(context).add(
+                  GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''),
+                );
               },
               onPressedClosed: () {},
+              showTextField: true,
+              textFieldController: errorController,
             );
           },
           child: Container(
@@ -102,7 +133,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(

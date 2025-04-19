@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:vas_app/core/theme/app_colors.dart';
 import 'package:vas_app/core/theme/typography.dart';
+
+import '../resources/assets/resources.dart';
 
 class HistoryTicketWidget extends StatefulWidget {
   final String titleText;
   final String description;
+  final String errorMessage;
   final String status;
-  final String? orderTime;
+  final String? updateTime;
+  final String? createdTime;
   final VoidCallback? onTap;
 
   const HistoryTicketWidget({
     super.key,
     required this.titleText,
     required this.description,
+    required this.errorMessage,
     required this.status,
-    this.orderTime,
+    this.createdTime,
+    this.updateTime,
     this.onTap,
   });
 
@@ -57,6 +65,11 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
     }
   }
 
+  String cleanErrorMessage(String message) {
+    // Убираем лишние пробелы в начале и в конце строки, а также заменяем множественные пробелы и переносы на один пробел
+    return message.trim().replaceAll(RegExp(r'\s+'), ' ');
+  }
+
   @override
   Widget build(BuildContext context) {
     final backgroundColor = Theme.of(context).brightness == Brightness.dark
@@ -91,7 +104,6 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
@@ -104,15 +116,8 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
                     ),
                     const SizedBox(width: 10),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if (widget.status == 'hours')
-                          Text(
-                            'Время выполнения',
-                            style: AppTypography.font10Regular.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         Container(
                           width: 95,
                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
@@ -123,7 +128,7 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
                           ),
                           child: Center(
                             child: Text(
-                              '${widget.orderTime ?? ''} ${getText(widget.status)}',
+                              '${getText(widget.status)}',
                               style: AppTypography.font12Regular.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.black,
@@ -140,6 +145,58 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
                   widget.description,
                   style: AppTypography.font14Regular,
                 ),
+                if (widget.errorMessage.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  Container(
+                    margin: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE7DFFF),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(VectorAssets.message, width: 30, height: 30),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Сообщение от оператора: ${cleanErrorMessage(widget.errorMessage)}',
+                            style: AppTypography.font14Regular.copyWith(color: AppColors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                if (widget.createdTime != '' || widget.updateTime != '') ... [
+                  SizedBox(height: 10),
+                  Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          widget.createdTime != null && widget.createdTime!.isNotEmpty
+                              ? "Заявка создана: ${DateFormat('d MMMM y', 'ru_RU')
+                              .format(DateTime.parse(widget.createdTime!))}"
+                              : '',
+                          style: AppTypography.font10Regular.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          widget.updateTime != null && widget.updateTime!.isNotEmpty && widget.updateTime != widget.createdTime
+                              ? "Статус заявки изменен: ${DateFormat('d MMMM y', 'ru_RU')
+                              .format(DateTime.parse(widget.updateTime!))}"
+                              : '',
+                          style: AppTypography.font10Regular.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ]
               ],
             ),
           ),

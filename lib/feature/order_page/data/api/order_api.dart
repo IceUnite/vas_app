@@ -14,5 +14,6 @@ abstract class OrderServiceApi {
     required String token,
     required int docId,
     String date = "48",
+    String? description,
   });
 }

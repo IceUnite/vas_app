@@ -68,17 +68,8 @@ class _OrderPageState extends State<OrderPage> {
                         description: state.documents?[index]?.description ?? '',
                         status: 'hours',
                         orderTime: state.documents?[index]?.minTime,
+                        documentId:state.documents?[index]?.id ?? -1,
                         onTap: () {
-                          final userId = context.read<AuthBloc>().state.userId;
-                          final token = context.read<AuthBloc>().state.token;
-                          context.read<OrderBloc>().add(RegisterApplicationEvent(
-                            userId: userId ?? 0,
-                            token: token ?? '',
-                            docId: state.documents?[index]?.id ?? -1,
-                          ));
-                          context.read<HistoryOrderBloc>().add(
-                            GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''),
-                          );
                         },
                       ),
                     ],
