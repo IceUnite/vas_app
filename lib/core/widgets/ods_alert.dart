@@ -138,7 +138,7 @@ class ApeironSpaceDialog extends StatelessWidget {
         ),
         child: Container(
           margin: EdgeInsets.symmetric(
-              horizontal: screenWidth < 350 ? 20 : (screenWidth - 400) / 2),
+              horizontal: (screenWidth - 400) / 2 > 0 ? (screenWidth - 400) / 2 : 20),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: theme == Brightness.dark
