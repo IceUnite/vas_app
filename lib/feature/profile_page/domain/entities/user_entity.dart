@@ -30,7 +30,7 @@ class UserEntity extends Equatable {
   }
   // Метод преобразования из UserModel в UserEntity
   factory UserEntity.fromUserModel(UserModel? model) {
-    if (model == null) return UserEntity();
+    if (model == null) return const UserEntity();
 
     return UserEntity(
       name: model.name,

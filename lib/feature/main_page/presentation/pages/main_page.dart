@@ -68,7 +68,7 @@ class _MainPageState extends State<MainPage> {
               notifications.add(
                 CustomNotificationWidget(
                   title: 'Документы в процессе выполнения',
-                  subtitle: '${getDocumentCountText(inWorkOrders!.length)}',
+                  subtitle: getDocumentCountText(inWorkOrders!.length),
                   type: NotificationType.warning,
                   onClose: () {},
                 ),

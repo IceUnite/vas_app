@@ -267,8 +267,8 @@ class _ProfilePageState extends State<ProfilePage> {
             });
             _saveThemePreference(value); // Сохраняем новый выбор темы
           },
-          activeColor: AppColors.orange100,
-          trackColor: AppColors.gray.shade30,
+          activeTrackColor: AppColors.orange100,
+          inactiveTrackColor: AppColors.gray.shade30,
         ),
       ],
     );

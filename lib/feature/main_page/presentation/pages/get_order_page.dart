@@ -6,7 +6,6 @@ import 'package:vas_app/core/widgets/animated_list_item.dart';
 import 'package:vas_app/core/widgets/order_ticket_widget.dart';
 import 'package:vas_app/feature/app/routing/route_path.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
-import 'package:vas_app/feature/history_page/presentation/bloc/history_order_bloc.dart';
 import 'package:vas_app/feature/order_page/presentation/bloc/order_bloc.dart';
 
 class GetOrderPage extends StatefulWidget {

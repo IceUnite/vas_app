@@ -128,7 +128,7 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
                           ),
                           child: Center(
                             child: Text(
-                              '${getText(widget.status)}',
+                              getText(widget.status),
                               style: AppTypography.font12Regular.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.black,
@@ -169,7 +169,7 @@ class _HistoryTicketWidgetState extends State<HistoryTicketWidget> {
                   ),
                 ],
                 if (widget.createdTime != '' || widget.updateTime != '') ... [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Column(
                     children: [
                       Center(
