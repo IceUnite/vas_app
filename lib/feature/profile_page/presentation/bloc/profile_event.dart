@@ -10,3 +10,7 @@ class GetUserInfoEvent extends ProfileEvent {
   final int? userId;
   final String? userToken;
 }
+
+class ClearUserInfoEvent extends ProfileEvent {
+  ClearUserInfoEvent();
+}

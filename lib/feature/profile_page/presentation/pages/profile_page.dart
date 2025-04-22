@@ -170,8 +170,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         ApeironSpaceDialog.showActionDialog(context,
                             title: "Вы уверены что хотите выйти из своего аккаунта?", onPressedConfirm: () {
 
-                        }, confirmText: "Отмена", closeText: 'Выйти', onPressedClosed: () { context.read<AuthBloc>().add(
+                        }, confirmText: "Отмена", closeText: 'Выйти', onPressedClosed: () {
+
+                          context.read<AuthBloc>().add(
                               ExiteEvent(),
+                            );
+                          context.read<ProfileBloc>().add(
+                              ClearUserInfoEvent(),
                             );
                             context.goNamed(RoutePath.authScreenPath); });
                       },

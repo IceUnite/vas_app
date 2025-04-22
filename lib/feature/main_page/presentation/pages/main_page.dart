@@ -11,6 +11,7 @@ import 'package:vas_app/feature/app/routing/route_path.dart';
 import '../../../auth_page/presentation/bloc/auth_bloc.dart';
 import '../../../history_page/presentation/bloc/history_order_bloc.dart';
 import '../../../order_page/presentation/bloc/order_bloc.dart';
+// ... (импорты остаются без изменений)
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -28,8 +29,12 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     final authBloc = context.read<AuthBloc>();
     if (authBloc.state.isFirstVisit == true) {
-      context.read<OrderBloc>().add(GetOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token));
-      context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token));
+      context.read<OrderBloc>().add(
+            GetOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
+          );
+      context.read<HistoryOrderBloc>().add(
+            GetHistoryOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
+          );
     }
   }
 
@@ -42,6 +47,7 @@ class _MainPageState extends State<MainPage> {
       return '$count документов';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final orderBloc = context.read<OrderBloc>();
@@ -98,70 +104,80 @@ class _MainPageState extends State<MainPage> {
             }
           }
 
-          return SingleChildScrollView(
-            child: Padding(
+          return RefreshIndicator(
+            onRefresh: () async {
+              final authBloc = context.read<AuthBloc>();
+              context.read<OrderBloc>().add(
+                    GetOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
+                  );
+              context.read<HistoryOrderBloc>().add(
+                    GetHistoryOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
+                  );
+            },
+            child: ListView(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  if (notifications.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: Column(
-                        children: notifications
-                            .asMap()
-                            .map((index, notification) => MapEntry(
-                          index,
-                          Padding(
-                            padding: EdgeInsets.only(bottom: index == notifications.length - 1 ? 0 : 16),
-                            child: notification,
-                          ),
-                        ))
-                            .values
-                            .toList(),
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                if (notifications.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Column(
+                      children: notifications
+                          .asMap()
+                          .map((index, notification) => MapEntry(
+                                index,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: index == notifications.length - 1 ? 0 : 16,
+                                  ),
+                                  child: notification,
+                                ),
+                              ))
+                          .values
+                          .toList(),
+                    ),
+                  ),
+                GradientBannerWidget(
+                  gradient: AppColors.gradientOrangeBackground,
+                  title: 'Быстрое оформление документов',
+                  description: 'Выберите из ${orderBloc.state.documents?.length ?? 0} образцов',
+                  btnText: 'Выбрать',
+                  imagePath: ImageAssets.saly,
+                  width: 100,
+                  onPress: () {
+                    context.goNamed(RoutePath.getOrderScreenPath);
+                  },
+                ),
+                const SizedBox(height: 18),
+                SizedBox(
+                  height: 160,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: OtherOptionWidget(
+                          title: "Популярные документы",
+                          subTitle: "Читать",
+                          icon: VectorAssets.icPlansh,
+                          onTap: () {
+                            context.goNamed(RoutePath.getOrderScreenPath);
+                          },
+                        ),
                       ),
-                    ),
-                  GradientBannerWidget(
-                    gradient: AppColors.gradientOrangeBackground,
-                    title: 'Быстрое оформление документов',
-                    description: 'Выберите из ${orderBloc.state.documents?.length ?? 0} образцов',
-                    btnText: 'Выбрать',
-                    imagePath: ImageAssets.saly,
-                    width: 100,
-                    onPress: () {
-                      context.goNamed(RoutePath.getOrderScreenPath);
-                    },
-                  ),
-                  const SizedBox(height: 18),
-                  SizedBox(
-                    height: 160,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: OtherOptionWidget(
-                            title: "Популярные документы",
-                            subTitle: "Читать",
-                            icon: VectorAssets.icPlansh,
-                            onTap: () {
-                              context.goNamed(RoutePath.getOrderScreenPath);
-                            },
-                          ),
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: OtherOptionWidget(
+                          title: "История заказов",
+                          subTitle: "Перейти",
+                          icon: VectorAssets.icHistory,
+                          onTap: () {
+                            context.goNamed(RoutePath.historyScreenPath);
+                          },
                         ),
-                        const SizedBox(width: 18),
-                        Expanded(
-                          child: OtherOptionWidget(
-                            title: "История заказов",
-                            subTitle: "Перейти",
-                            icon: VectorAssets.icHistory,
-                            onTap: () {
-                              context.goNamed(RoutePath.historyScreenPath);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

@@ -16,6 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   ProfileBloc({required this.profileUseCase}) : super(ProfileInitial()) {
     on<GetUserInfoEvent>(_onGetUserInfoEvent);
+    on<ClearUserInfoEvent>(_onClearUserInfoEvent);
   }
 
   // final ProfileUseCase luggageUseCase;
@@ -28,6 +29,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       );
 
       emit(ProfileState(userInfo: data));
+    } catch (e) {
+      rethrow;
+    }
+  } Future<void> _onClearUserInfoEvent(ClearUserInfoEvent event, Emitter<ProfileState> emit) async {
+    try {
+      emit(ProfileState(userInfo: null));
     } catch (e) {
       rethrow;
     }
