@@ -2,8 +2,10 @@
 
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../theme/app_colors.dart';
 import '../theme/typography.dart';
+import 'package:vas_app/core/theme/theme_notifier.dart';
 
 class ApeironSpaceDialog extends StatelessWidget {
   const ApeironSpaceDialog({
@@ -76,17 +78,17 @@ class ApeironSpaceDialog extends StatelessWidget {
   }
 
   static void showActionDialog(
-      BuildContext context, {
-        required String title,
-        required VoidCallback onPressedConfirm,
-        required VoidCallback onPressedClosed,
-        String? message,
-        String? confirmText,
-        String? closeText,
-        bool dismissible = true,
-        bool showTextField = false,
-        TextEditingController? textFieldController,
-      }) {
+    BuildContext context, {
+    required String title,
+    required VoidCallback onPressedConfirm,
+    required VoidCallback onPressedClosed,
+    String? message,
+    String? confirmText,
+    String? closeText,
+    bool dismissible = true,
+    bool showTextField = false,
+    TextEditingController? textFieldController,
+  }) {
     _handleDialogQueue(
       context: context,
       dismissible: dismissible,
@@ -129,110 +131,114 @@ class ApeironSpaceDialog extends StatelessWidget {
     final theme = Theme.of(context).brightness;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-          left: 16,
-          right: 16,
-        ),
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: (screenWidth - 400) / 2 > 0 ? (screenWidth - 400) / 2 : 20),
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: theme == Brightness.dark
-                ? AppColors.gray.shade90
-                : AppColors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              ),
-            ],
+    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      final isDarkTheme = themeNotifier.isDarkTheme;
+      return Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+            left: 16,
+            right: 16,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              if (title != null)
-                Text(
-                  title!,
-                  textAlign: TextAlign.center,
-                  style: AppTypography.font20Regular.copyWith(
-                      fontWeight: FontWeight.w700),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: (screenWidth - 400) / 2 > 0 ? (screenWidth - 400) / 2 : 20),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: theme == Brightness.dark ? AppColors.gray.shade90 : AppColors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
                 ),
-              const SizedBox(height: 12),
-              if (message != null)
-                Text(
-                  message!,
-                  style: AppTypography.font20Regular
-                      .copyWith(color: AppColors.black),
-                  textAlign: TextAlign.center,
-                ),
-              if (showTextField) ...[
-                const SizedBox(height: 20),
-                Material(
-                  color: AppColors.gray.shade90,
-                  child: TextField(
-                    controller: textFieldController,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      hintText: 'Введите уточняющую информацию по документу',
-                      hintStyle: TextStyle(color: Colors.grey.shade400),
-                      filled: true,
-                      fillColor: Colors.grey.shade700,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(12),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                if (title != null)
+                  Text(
+                    title!,
+                    textAlign: TextAlign.center,
+                    style: AppTypography.font20Regular.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                const SizedBox(height: 12),
+                if (message != null)
+                  Text(
+                    message!,
+                    style: AppTypography.font20Regular.copyWith(color: AppColors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                if (showTextField) ...[
+                  const SizedBox(height: 20),
+                  Material(
+                    color: isDarkTheme ? AppColors.gray.shade90 : Colors.white,
+                    child: TextField(
+                      controller: textFieldController,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        hintText: 'Введите уточняющую информацию по документу',
+                        hintStyle: TextStyle(color: Colors.grey.shade400),
+                        filled: true,
+                        fillColor: isDarkTheme ? Colors.grey.shade700 : Colors.grey.shade200,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-              const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: AppColors.white,
-                  backgroundColor: theme == Brightness.dark
-                      ? AppColors.green300.withOpacity(0.8)
-                      : AppColors.green200.withOpacity(0.8),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                ),
-                onPressed: onConfirmTap,
-                child: Text(
-                  confirmText ?? 'Подтвердить',
-                  style: AppTypography.font16Regular.copyWith(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              if (closeText != null)
+                ],
+                const SizedBox(height: 24),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: AppColors.white,
-                    backgroundColor: AppColors.red.withOpacity(0.8),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0)),
+                    backgroundColor: theme == Brightness.dark
+                        ? AppColors.green300.withOpacity(0.8)
+                        : AppColors.green200.withOpacity(0.8),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                   ),
-                  onPressed: onCloseTap,
+                  onPressed: onConfirmTap,
                   child: Text(
-                    closeText!,
+                    confirmText ?? 'Подтвердить',
                     style: AppTypography.font16Regular.copyWith(
                       color: AppColors.black,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-            ],
+                const SizedBox(height: 12),
+                if (closeText != null)
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColors.white,
+                      backgroundColor: AppColors.red.withOpacity(0.8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                    ),
+                    onPressed: onCloseTap,
+                    child: Text(
+                      closeText!,
+                      style: AppTypography.font16Regular.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
