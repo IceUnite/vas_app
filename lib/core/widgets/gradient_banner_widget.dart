@@ -56,7 +56,8 @@ class GradientBannerWidget extends StatelessWidget {
           // Отображение изображения, если оно указано
           if (imagePath != null)
             Positioned(
-              right: 10,
+
+              right: 0,
               bottom: 0,
               child: Image(
                 image: AssetImage(imagePath!),

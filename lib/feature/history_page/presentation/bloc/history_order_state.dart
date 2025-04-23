@@ -8,6 +8,9 @@ class HistoryOrderState extends Equatable {
     this.historyOrderData,
     this.activeOrders,
     this.archivedOrders,
+    this.readyOrders,
+    this.waitingOrders,
+
   });
 
   final String? errorMessage;
@@ -15,6 +18,8 @@ class HistoryOrderState extends Equatable {
   final List<HistoryDocumentEntity?>? historyOrderData;
   final List<HistoryDocumentEntity?>? activeOrders;
   final List<HistoryDocumentEntity?>? archivedOrders;
+  final int? readyOrders;
+  final int? waitingOrders;
 
   @override
   List<Object?> get props => [
@@ -23,6 +28,8 @@ class HistoryOrderState extends Equatable {
         historyOrderData,
         activeOrders,
         archivedOrders,
+    readyOrders,
+    waitingOrders,
       ];
 
   HistoryOrderState copyWith({
@@ -35,6 +42,8 @@ class HistoryOrderState extends Equatable {
       historyOrderData: historyOrderData ?? historyOrderData,
       activeOrders: activeOrders ?? activeOrders,
       archivedOrders: archivedOrders ?? archivedOrders,
+      readyOrders: readyOrders ?? readyOrders,
+      waitingOrders: waitingOrders ?? waitingOrders,
     );
   }
 }
@@ -52,10 +61,14 @@ final class HistoryOrderSuccess extends HistoryOrderState {
     required List<HistoryDocumentEntity?> historyOrderData,
     required List<HistoryDocumentEntity?> activeOrders,
     required List<HistoryDocumentEntity?> archivedOrders,
+    required int? readyOrders,
+    required int? waitingOrders,
   }) : super(
     historyOrderData: historyOrderData,
     activeOrders: activeOrders,
     archivedOrders: archivedOrders,
+    readyOrders: readyOrders,
+    waitingOrders: waitingOrders,
   );
 }
 

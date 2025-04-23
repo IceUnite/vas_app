@@ -63,10 +63,15 @@ class HistoryOrderBloc extends Bloc<HistoryOrderEvent, HistoryOrderState> {
           return bDate.compareTo(aDate); // по убыванию
         });
 
+      final inWorkOrders = activeOrders.where((order) => order.status == 'in work').toList();
+      final readyOrders = activeOrders.where((order) => order.status == 'ready').toList();
+
       emit(HistoryOrderSuccess(
         activeOrders: activeOrders,
         archivedOrders: archivedOrders,
         historyOrderData: data,
+        readyOrders: readyOrders.length,
+        waitingOrders: inWorkOrders.length,
       ));
     } catch (e) {
       print('e.toString(): $e');

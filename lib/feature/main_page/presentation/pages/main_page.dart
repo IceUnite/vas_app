@@ -64,52 +64,10 @@ class _MainPageState extends State<MainPage> {
       ),
       body: BlocBuilder<HistoryOrderBloc, HistoryOrderState>(
         builder: (context, state) {
-          List<Widget> notifications = [];
-
-          if (state is HistoryOrderSuccess) {
-            final inWorkOrders = state.activeOrders?.where((order) => order?.status == 'in work').toList();
-            final readyOrders = state.activeOrders?.where((order) => order?.status == 'ready').toList();
-
-            if (inWorkOrders?.isNotEmpty ?? false) {
-              notifications.add(
-                CustomNotificationWidget(
-                  title: 'Документы в процессе выполнения',
-                  subtitle: getDocumentCountText(inWorkOrders!.length),
-                  type: NotificationType.warning,
-                  onClose: () {},
-                ),
-              );
-            }
-
-            if (readyOrders?.isNotEmpty ?? false) {
-              notifications.add(
-                CustomNotificationWidget(
-                  title: 'Документы готовы',
-                  subtitle: '${getDocumentCountText(readyOrders!.length)}.',
-                  type: NotificationType.success,
-                  onClose: () {},
-                ),
-              );
-            }
-
-            if ((inWorkOrders?.isEmpty ?? true) && (readyOrders?.isEmpty ?? true)) {
-              notifications.add(
-                CustomNotificationWidget(
-                  title: 'Нет активных заказов',
-                  subtitle: 'У вас нет документов в обработке или готовых.',
-                  type: NotificationType.error,
-                  onClose: () {},
-                ),
-              );
-            }
-          }
-
           return RefreshIndicator(
+            color: AppColors.orange100,
             onRefresh: () async {
               final authBloc = context.read<AuthBloc>();
-              context.read<OrderBloc>().add(
-                    GetOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
-                  );
               context.read<HistoryOrderBloc>().add(
                     GetHistoryOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
                   );
@@ -118,24 +76,19 @@ class _MainPageState extends State<MainPage> {
               padding: const EdgeInsets.all(16),
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
-                if (notifications.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Column(
-                      children: notifications
-                          .asMap()
-                          .map((index, notification) => MapEntry(
-                                index,
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    bottom: index == notifications.length - 1 ? 0 : 16,
-                                  ),
-                                  child: notification,
-                                ),
-                              ))
-                          .values
-                          .toList(),
-                    ),
+                if (state.readyOrders != 0 && state.readyOrders != null)
+                  CustomNotificationWidget(
+                    title: 'Документы готовы',
+                    subtitle: '${getDocumentCountText(state.readyOrders ?? 0)}.',
+                    type: NotificationType.success,
+                    onClose: () {},
+                  ),
+                if (state.waitingOrders != 0 && state.waitingOrders != null)
+                  CustomNotificationWidget(
+                    title: 'Документы в процессе выполнения',
+                    subtitle: getDocumentCountText(state.waitingOrders ?? 0),
+                    type: NotificationType.warning,
+                    onClose: () {},
                   ),
                 GradientBannerWidget(
                   gradient: AppColors.gradientOrangeBackground,
@@ -177,6 +130,20 @@ class _MainPageState extends State<MainPage> {
                     ],
                   ),
                 ),
+
+                // if ((state.readyOrders == 0 || state.readyOrders == null) &&
+                //     (state.waitingOrders == 0 || state.waitingOrders == null))
+                //   Column(
+                //     children: [
+                //       SizedBox(height: 10,),
+                //       CustomNotificationWidget(
+                //         title: 'Нет активных заказов',
+                //         subtitle: 'У вас нет документов в обработке или готовых.',
+                //         type: NotificationType.error,
+                //         onClose: () {},
+                //       ),
+                //     ],
+                //   ),
               ],
             ),
           );

@@ -107,6 +107,9 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
                 BlocProvider.of<HistoryOrderBloc>(context).add(
                   GetHistoryOrdersEvent(userId: userId ?? 0, token: token ?? ''),
                 );
+                // context.read<OrderBloc>().add(
+                //   GetOrdersEvent(userId: authBloc.state.userId, token: authBloc.state.token),
+                // );
               },
               onPressedClosed: () {},
               showTextField: true,
