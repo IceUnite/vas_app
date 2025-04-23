@@ -22,7 +22,6 @@ class HistoryOrdersRepositoryImpl {
           // Преобразуем documentData из DocumentModel в DocumentEntity
           DocumentEntity? documentEntity = DocumentEntity.fromDocumentModel(doc.document);
 
-          print('dsgsgsgd $documentEntity');
           return HistoryDocumentEntity(
             id: doc.id,
             idUser: doc.idUser,

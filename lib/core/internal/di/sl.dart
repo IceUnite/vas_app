@@ -12,6 +12,9 @@ import 'package:vas_app/core/repositories/auth_data_repository_impl.dart';
 import 'package:vas_app/feature/auth_page/data/api/auth_api.dart';
 import 'package:vas_app/feature/auth_page/data/api/service/auth_service_api.dart';
 
+import '../../../feature/profile_page/data/api/profile_order_service_api.dart';
+import '../../../feature/profile_page/data/api/service/profile_order_service.dart';
+
 final getIt = GetIt.instance;
 
 @InjectableInit(
@@ -91,6 +94,10 @@ abstract class RegisterModule {
 
   @lazySingleton
   AuthApi authApi(Dio dio) => AuthApiDioService(dio);
+
+  @lazySingleton
+  ProfileServiceApi provideProfileServiceApi(Dio dio) =>
+      ProfileServiceApiImpl(dio);
 
 
   // @lazySingleton

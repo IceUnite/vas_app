@@ -60,19 +60,24 @@ class RoutesInit {
             path: RoutePath.mainScreenPath,
             name: MainPage.name,
             builder: (context, state) => const MainPage(),
-              routes: const []
+              routes:  [
+                GoRoute(
+                path: RoutePath.getOrderScreenPath,
+                name: GetOrderPage.name,
+                builder: (context, state) => const GetOrderPage(),
+              ),]
           ),
           GoRoute(
             path: RoutePath.orderScreenPath,
             name: OrderPage.name,
             builder: (context, state) => const OrderPage(),
-            routes: const []
+            routes:  []
           ),
           GoRoute(
             path: RoutePath.historyScreenPath,
             name: HistoryPage.name,
             builder: (context, state) => const HistoryPage(),
-            routes: const []
+            routes:  []
           ),
           GoRoute(
             path: RoutePath.profileScreenPath,

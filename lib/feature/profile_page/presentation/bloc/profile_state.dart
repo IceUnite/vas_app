@@ -3,22 +3,22 @@ part of 'profile_bloc.dart';
 @immutable
 class ProfileState extends Equatable {
   ProfileState({
-    this.cellResponse,
+    this.userInfo,
   });
 
-  final int? cellResponse;
+  final UserEntity? userInfo;
 
 
   List<Object?> get props => <Object?>[
-        cellResponse,
+    userInfo,
       ];
 
   ProfileState copyWith({
-    int? cellResponse,
+    UserEntity? userInfo,
 
   }) {
     return ProfileState(
-      cellResponse: cellResponse ?? this.cellResponse,
+      userInfo: userInfo ?? this.userInfo,
     );
   }
 }
@@ -26,7 +26,7 @@ class ProfileState extends Equatable {
 final class ProfileInitial extends ProfileState {
   ProfileInitial()
       : super(
-          cellResponse: null,
+    userInfo: null,
         );
 }
 

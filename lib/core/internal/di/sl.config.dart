@@ -29,8 +29,6 @@ import '../../../feature/history_page/domain/usecases/history_order_usecase.dart
     as _i968;
 import '../../../feature/history_page/presentation/bloc/history_order_bloc.dart'
     as _i288;
-import '../../../feature/main_page/presentation/bloc/profile_bloc.dart'
-    as _i1013;
 import '../../../feature/order_page/data/api/service/order_service_api.dart'
     as _i326;
 import '../../../feature/order_page/data/repository/order_reository_impl.dart'
@@ -38,6 +36,14 @@ import '../../../feature/order_page/data/repository/order_reository_impl.dart'
 import '../../../feature/order_page/domain/usecases/order_usecase.dart'
     as _i397;
 import '../../../feature/order_page/presentation/bloc/order_bloc.dart' as _i901;
+import '../../../feature/profile_page/data/api/profile_order_service_api.dart'
+    as _i325;
+import '../../../feature/profile_page/data/api/service/profile_order_service.dart'
+    as _i950;
+import '../../../feature/profile_page/data/repository/profile_order_repository_impl.dart'
+    as _i643;
+import '../../../feature/profile_page/domain/usecases/profile_usecase.dart'
+    as _i976;
 import '../../../feature/profile_page/presentation/bloc/profile_bloc.dart'
     as _i1046;
 import '../../errors/bot_toast.dart' as _i959;
@@ -57,10 +63,12 @@ _i174.GetIt $initGetIt(
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
   gh.lazySingleton<_i959.BotToastDi>(() => _i959.BotToastDi());
-  gh.lazySingleton<_i1046.ProfileBloc>(() => _i1046.ProfileBloc());
-  gh.lazySingleton<_i1013.ProfileBloc>(() => _i1013.ProfileBloc());
   gh.lazySingleton<_i1031.AuthApi>(
       () => registerModule.authApi(gh<_i361.Dio>()));
+  gh.lazySingleton<_i325.ProfileServiceApi>(
+      () => registerModule.provideProfileServiceApi(gh<_i361.Dio>()));
+  gh.lazySingleton<_i950.ProfileServiceApiImpl>(
+      () => _i950.ProfileServiceApiImpl(gh<_i361.Dio>()));
   gh.lazySingleton<_i326.OrderServiceApi>(
       () => _i326.OrderServiceApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i785.AuthApiDioService>(
@@ -74,14 +82,21 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i683.HistoryOrdersRepositoryImpl>(() =>
       _i683.HistoryOrdersRepositoryImpl(
           historyOrderServiceApi: gh<_i679.HistoryOrderServiceApi>()));
+  gh.lazySingleton<_i643.ProfileRepositoryImpl>(() =>
+      _i643.ProfileRepositoryImpl(
+          profileOrderServiceApi: gh<_i325.ProfileServiceApi>()));
   gh.lazySingleton<_i472.AuthRepository>(() =>
       _i458.AuthRepositoryImpl(authServiceApi: gh<_i785.AuthApiDioService>()));
   gh.lazySingleton<_i901.OrderBloc>(
       () => _i901.OrderBloc(orderUseCase: gh<_i397.OrdersUseCase>()));
   gh.lazySingleton<_i968.HistoryOrdersUseCase>(() => _i968.HistoryOrdersUseCase(
       historyOrdersRepository: gh<_i683.HistoryOrdersRepositoryImpl>()));
+  gh.lazySingleton<_i976.ProfileUseCase>(() => _i976.ProfileUseCase(
+      profileOrdersRepository: gh<_i643.ProfileRepositoryImpl>()));
   gh.lazySingleton<_i199.AuthUseCase>(
       () => _i199.AuthUseCase(authRepository: gh<_i472.AuthRepository>()));
+  gh.lazySingleton<_i1046.ProfileBloc>(
+      () => _i1046.ProfileBloc(profileUseCase: gh<_i976.ProfileUseCase>()));
   gh.lazySingleton<_i288.HistoryOrderBloc>(() => _i288.HistoryOrderBloc(
       historyOrdersUseCase: gh<_i968.HistoryOrdersUseCase>()));
   gh.lazySingleton<_i185.AuthBloc>(

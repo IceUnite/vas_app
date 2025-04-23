@@ -34,12 +34,14 @@ class OrdersUseCase {
     required String token,
     required int docId,
     String date = "48",
+    String? description,
   }) async {
     try {
       final response = await ordersRepository.registerApplication(
         userId: userId,
         token: token,
         docId: docId,
+        description: description,
         date: date,
       );
       return response;

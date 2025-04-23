@@ -42,6 +42,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         userId: event.userId,
         token: event.token,
         docId: event.docId,
+        description: event.userMessage,
       );
 
       emit(state.copyWith(

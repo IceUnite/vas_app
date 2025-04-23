@@ -53,6 +53,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
         textScaler: TextScaler.linear(data.textScaleFactor > 1.2 ? 1.2 : data.textScaleFactor),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             // Основной контент, выровненный по вертикали с учетом панели навигации и клавиатуры
@@ -137,7 +138,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                             ),
                           ],
                         ),
-                        label: 'Заказы',
+                        label: 'Мои заказы',
                       ),
                       ScaffoldWithNavBarTabItem(
                         rootRoutePath: RoutePath.orderScreenPath,

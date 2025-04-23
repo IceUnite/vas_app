@@ -4,8 +4,13 @@ part of 'profile_bloc.dart';
 sealed class ProfileEvent {}
 
 
-class FinishRentEvent extends ProfileEvent {
-  FinishRentEvent({required this.cellId});
+class GetUserInfoEvent extends ProfileEvent {
+  GetUserInfoEvent({required this.userId, required this.userToken});
 
-  final int cellId;
+  final int? userId;
+  final String? userToken;
+}
+
+class ClearUserInfoEvent extends ProfileEvent {
+  ClearUserInfoEvent();
 }
