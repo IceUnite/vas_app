@@ -43,46 +43,47 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           body: state is HistoryOrderLoading
               ? const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.orange200,
-            ),
-          )
+                  child: CircularProgressIndicator(
+                    color: AppColors.orange200,
+                  ),
+                )
               : RefreshIndicator(
-            onRefresh: () async {
-              final userId = context.read<AuthBloc>().state.userId;
-              final token = context.read<AuthBloc>().state.token;
-              context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId, token: token));
-            },
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(), // важно для работы RefreshIndicator при пустом списке
-              itemCount: state.archivedOrders?.length ?? 0,
-              itemBuilder: (context, index) {
-                final item = state.archivedOrders?[index];
-                final isLast = index == ((state.archivedOrders?.length ?? 1) - 1);
+                  color: AppColors.orange100,
+                  onRefresh: () async {
+                    final userId = context.read<AuthBloc>().state.userId;
+                    final token = context.read<AuthBloc>().state.token;
+                    context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId, token: token));
+                  },
+                  child: ListView.builder(
+                    physics:
+                        const AlwaysScrollableScrollPhysics(), // важно для работы RefreshIndicator при пустом списке
+                    itemCount: state.archivedOrders?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final item = state.archivedOrders?[index];
+                      final isLast = index == ((state.archivedOrders?.length ?? 1) - 1);
 
-                return AnimatedListItems(
-                  verticalOffset: 50.0,
-                  duration: const Duration(milliseconds: 600),
-                  children: [
-                    Padding(
-                      padding: isLast
-                          ? const EdgeInsets.only(bottom: 50.0, left: 20, right: 20)
-                          : const EdgeInsets.symmetric(horizontal: 20),
-                      child: HistoryTicketWidget(
-                        titleText: item?.document?.name ?? '',
-                        description: item?.document?.description ?? '',
-                        errorMessage: item?.description ?? '',
-                        status: item?.status ?? '',
-                        createdTime: item?.createdAt ?? '',
-                        updateTime: item?.updatedAt ?? '',
-                      ),
-                    ),
-                  ],
-                );
-              },
-
-            ),
-          ),
+                      return AnimatedListItems(
+                        verticalOffset: 50.0,
+                        duration: const Duration(milliseconds: 600),
+                        children: [
+                          Padding(
+                            padding: isLast
+                                ? const EdgeInsets.only(bottom: 50.0, left: 20, right: 20)
+                                : const EdgeInsets.symmetric(horizontal: 20),
+                            child: HistoryTicketWidget(
+                              titleText: item?.document?.name ?? '',
+                              description: item?.document?.description ?? '',
+                              errorMessage: item?.description ?? '',
+                              status: item?.status ?? '',
+                              createdTime: item?.createdAt ?? '',
+                              updateTime: item?.updatedAt ?? '',
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
         );
       },
     );

@@ -42,43 +42,43 @@ class _GetOrderPageState extends State<GetOrderPage> {
           ),
           body: state is OrderLoading
               ? const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.orange200,
-            ),
-          )
+                  child: CircularProgressIndicator(
+                    color: AppColors.orange200,
+                  ),
+                )
               : RefreshIndicator(
-            onRefresh: () async {
-              final userId = context.read<AuthBloc>().state.userId;
-              final token = context.read<AuthBloc>().state.token;
-              context.read<OrderBloc>().add(GetOrdersEvent(userId: userId, token: token));
-            },
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: state.documents?.length ?? 0,
-              itemBuilder: (context, index) {
-                return AnimatedListItems(
-                  verticalOffset: 50.0,
-                  duration: const Duration(milliseconds: 600),
-                  children: [
-                    Padding(
-                      padding: index == ((state.documents?.length ?? 1) - 1)
-                          ? const EdgeInsets.only(bottom: 40.0, left: 20, right: 20)
-                          : const EdgeInsets.symmetric(horizontal: 20),
-                      child: OrderTicketWidget(
-                        titleText: state.documents?[index]?.name ?? '',
-                        description: state.documents?[index]?.description ?? '',
-                        status: 'hours',
-                        orderTime: state.documents?[index]?.minTime,
-                        documentId:state.documents?[index]?.id ?? -1,
-                        onTap: () {
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+                  color: AppColors.orange100,
+                  onRefresh: () async {
+                    final userId = context.read<AuthBloc>().state.userId;
+                    final token = context.read<AuthBloc>().state.token;
+                    context.read<OrderBloc>().add(GetOrdersEvent(userId: userId, token: token));
+                  },
+                  child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: state.documents?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return AnimatedListItems(
+                        verticalOffset: 50.0,
+                        duration: const Duration(milliseconds: 600),
+                        children: [
+                          Padding(
+                            padding: index == ((state.documents?.length ?? 1) - 1)
+                                ? const EdgeInsets.only(bottom: 40.0, left: 20, right: 20)
+                                : const EdgeInsets.symmetric(horizontal: 20),
+                            child: OrderTicketWidget(
+                              titleText: state.documents?[index]?.name ?? '',
+                              description: state.documents?[index]?.description ?? '',
+                              status: 'hours',
+                              orderTime: state.documents?[index]?.minTime,
+                              documentId: state.documents?[index]?.id ?? -1,
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
         );
       },
     );
