@@ -5,8 +5,9 @@
 ---
 ## 📱 Demo
 
-![App Demo](assets/demo/demo.gif)
----
+<p align="center">
+  <img src="assets/demo/demo.gif" width="250" />
+</p>
 
 ## ✨ Основной функционал
 
