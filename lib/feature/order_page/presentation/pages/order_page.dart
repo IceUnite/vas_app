@@ -48,6 +48,7 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 )
               : RefreshIndicator(
+                  color: AppColors.orange100,
                   onRefresh: () async {
                     final userId = context.read<AuthBloc>().state.userId;
                     final token = context.read<AuthBloc>().state.token;

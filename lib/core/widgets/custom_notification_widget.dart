@@ -40,8 +40,16 @@ class CustomNotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 18),
+      margin: const EdgeInsets.only(bottom: 18),
       decoration: BoxDecoration(
+        boxShadow: [
+        const BoxShadow(
+        color: Colors.black26,
+        offset: Offset(4, 4),
+        blurRadius: 5.0,
+        spreadRadius: 0.25,
+      ),
+        ],
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),

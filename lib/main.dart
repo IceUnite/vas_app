@@ -9,7 +9,7 @@ import 'package:device_preview/device_preview.dart';
 late SharedPreferences prefs;
 
 Future<void> main() async {
-  // ‼️пиздец без инициализации префсов все нахуй падает ибо их нет в гетите
+  // ‼️пиздец без инициализации префсов все нахуй падает ибо их нет в гетъите
   // ‼️проебано 3 часа времени 10/02/25
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
