@@ -5,7 +5,7 @@
 ---
 ## 📱 Demo
 
-![App Demo](assets/images/demo.gif)
+![App Demo](assets/demo/demo.gif)
 ---
 
 ## ✨ Основной функционал
