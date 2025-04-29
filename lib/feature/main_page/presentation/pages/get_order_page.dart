@@ -33,7 +33,7 @@ class _GetOrderPageState extends State<GetOrderPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Заказ документа',
+              'Заказать документ',
               style: AppTypography.font26Regular.copyWith(
                 fontWeight: FontWeight.w700,
               ),

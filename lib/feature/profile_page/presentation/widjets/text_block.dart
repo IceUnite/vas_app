@@ -1,61 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:vas_app/core/theme/app_colors.dart';
+import 'package:vas_app/core/theme/typography.dart';
 
 class TextBlockWidget extends StatelessWidget {
   final String? text;
   final String hintText;
+  final IconData? icon;
 
-  const TextBlockWidget({super.key, this.text, this.hintText = ''});
+  const TextBlockWidget({
+    super.key,
+    this.text,
+    this.hintText = '',
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = Theme.of(context).brightness == Brightness.dark; // Проверяем текущую тему
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final displayText = (text == null || text!.isEmpty) ? hintText : text!;
+    final textColor = (text == null || text!.isEmpty)
+        ? (isDarkTheme ? Colors.white70 : Colors.grey)
+        : (isDarkTheme ? Colors.white : Colors.black);
+    final lineColor = isDarkTheme ? Colors.white24 : Colors.grey.shade300;
 
-    return Container(
-      width: double.infinity,
-      height: 60,
-      margin: const EdgeInsets.only(top: 15),
-      decoration: BoxDecoration(
-        color: isDarkTheme ? AppColors.gray.shade90 : AppColors.gray.shade30, // Цвет фона зависит от темы
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start, // <-- важное исправление
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 20, color: textColor),
+                const SizedBox(width: 10),
+              ],
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: Align(
+                    alignment: Alignment.centerLeft, // <-- ключевое
+                    child: Text(
+                      displayText,
+                      key: ValueKey(displayText),
+                      style: AppTypography.font16Regular.copyWith(),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Center(
-        child: TextField(
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.transparent,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide.none,
-            ),
-            hintText: text == null || text!.isEmpty ? hintText : '',
-            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: isDarkTheme ? Colors.white70 : Colors.grey, // Цвет подсказки зависит от темы
-            ),
-          ),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: isDarkTheme ? Colors.white : Colors.black, // Цвет текста зависит от темы
-          ),
-          controller: TextEditingController(text: text),
         ),
-      ),
+        Container(
+          height: 1,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                lineColor,
+                lineColor.withOpacity(0),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -92,7 +92,7 @@ class _OrderTicketWidgetState extends State<OrderTicketWidget> {
             final TextEditingController errorController = TextEditingController();
             ApeironSpaceDialog.showActionDialog(
               context,
-              title: "Создать заявку на создание документа?",
+              title: "Введите куда предоставляется справка, наример: в ООО 'ЛЕГ' ",
               confirmText: "Да",
               closeText: 'Нет',
               onPressedConfirm: () {

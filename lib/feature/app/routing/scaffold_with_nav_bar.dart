@@ -122,38 +122,38 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar>
                         ),
                         label: 'Главная',
                       ),
-                      ScaffoldWithNavBarTabItem(
-                        rootRoutePath: RoutePath.historyScreenPath,
-                        iconActive: Column(
-                          children: [
-                            SvgPicture.asset(VectorAssets.icNoteBookActive),
-                          ],
-                        ),
-                        icon: Stack(
-                          children: [
-                            Column(
-                              children: [
-                                SvgPicture.asset(VectorAssets.icNoteBookDeactive),
-                              ],
-                            ),
-                          ],
-                        ),
-                        label: 'Мои заказы',
-                      ),
-                      ScaffoldWithNavBarTabItem(
-                        rootRoutePath: RoutePath.orderScreenPath,
-                        iconActive: Column(
-                          children: [
-                            SvgPicture.asset(VectorAssets.icHistoryActive),
-                          ],
-                        ),
-                        icon: Column(
-                          children: [
-                            SvgPicture.asset(VectorAssets.icHistoryDeactive),
-                          ],
-                        ),
-                        label: 'История',
-                      ),
+                      // ScaffoldWithNavBarTabItem(
+                      //   rootRoutePath: RoutePath.historyScreenPath,
+                      //   iconActive: Column(
+                      //     children: [
+                      //       SvgPicture.asset(VectorAssets.icNoteBookActive),
+                      //     ],
+                      //   ),
+                      //   icon: Stack(
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           SvgPicture.asset(VectorAssets.icNoteBookDeactive),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   label: 'Мои заказы',
+                      // ),
+                      // ScaffoldWithNavBarTabItem(
+                      //   rootRoutePath: RoutePath.orderScreenPath,
+                      //   iconActive: Column(
+                      //     children: [
+                      //       SvgPicture.asset(VectorAssets.icHistoryActive),
+                      //     ],
+                      //   ),
+                      //   icon: Column(
+                      //     children: [
+                      //       SvgPicture.asset(VectorAssets.icHistoryDeactive),
+                      //     ],
+                      //   ),
+                      //   label: 'История',
+                      // ),
                       ScaffoldWithNavBarTabItem(
                         rootRoutePath: RoutePath.profileScreenPath,
                         iconActive: Column(

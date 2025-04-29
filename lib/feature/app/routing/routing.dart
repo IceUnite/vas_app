@@ -13,14 +13,14 @@ final List<StatefulShellBranch> _bottomNavBranches = <StatefulShellBranch>[
     rootLocation: RoutePath.mainScreenPath,
     name: 'home',
   ),
-  StatefulShellBranch(
-    rootLocation: RoutePath.orderScreenPath,
-    name: 'order',
-  ),
-  StatefulShellBranch(
-    rootLocation: RoutePath.historyScreenPath,
-    name: 'history',
-  ),
+  // StatefulShellBranch(
+  //   rootLocation: RoutePath.orderScreenPath,
+  //   name: 'order',
+  // ),
+  // StatefulShellBranch(
+  //   rootLocation: RoutePath.historyScreenPath,
+  //   name: 'history',
+  // ),
   StatefulShellBranch(
     rootLocation: RoutePath.profileScreenPath,
     name: 'profile',
@@ -54,43 +54,51 @@ class RoutesInit {
           return ScaffoldWithNavBar(body: child);
         },
         routes: <RouteBase>[
-
           ///SpacePage Menu
           GoRoute(
-            path: RoutePath.mainScreenPath,
-            name: MainPage.name,
-            builder: (context, state) => const MainPage(),
-              routes:  [
+              path: RoutePath.mainScreenPath,
+              name: MainPage.name,
+              builder: (context, state) => const MainPage(),
+              routes: [
                 GoRoute(
-                path: RoutePath.getOrderScreenPath,
-                name: GetOrderPage.name,
-                builder: (context, state) => const GetOrderPage(),
-              ),]
-          ),
+                  path: RoutePath.getOrderScreenPath,
+                  name: GetOrderPage.name,
+                  builder: (context, state) => const GetOrderPage(),
+                ),
+                GoRoute(
+                    path: RoutePath.orderScreenPath,
+                    name: OrderPage.name,
+                    builder: (context, state) => const OrderPage(),
+                    routes: []),
+                GoRoute(
+                    path: RoutePath.historyScreenPath,
+                    name: HistoryPage.name,
+                    builder: (context, state) => const HistoryPage(),
+                    routes: []),
+              ]),
+          // GoRoute(
+          //   path: RoutePath.orderScreenPath,
+          //   name: OrderPage.name,
+          //   builder: (context, state) => const OrderPage(),
+          //   routes:  []
+          // ),
+          // GoRoute(
+          //   path: RoutePath.historyScreenPath,
+          //   name: HistoryPage.name,
+          //   builder: (context, state) => const HistoryPage(),
+          //   routes:  []
+          // ),
           GoRoute(
-            path: RoutePath.orderScreenPath,
-            name: OrderPage.name,
-            builder: (context, state) => const OrderPage(),
-            routes:  []
-          ),
-          GoRoute(
-            path: RoutePath.historyScreenPath,
-            name: HistoryPage.name,
-            builder: (context, state) => const HistoryPage(),
-            routes:  []
-          ),
-          GoRoute(
-            path: RoutePath.profileScreenPath,
-            name: ProfilePage.name,
-            builder: (context, state) => const ProfilePage(),
-            routes: [
-              GoRoute(
+              path: RoutePath.profileScreenPath,
+              name: ProfilePage.name,
+              builder: (context, state) => const ProfilePage(),
+              routes: [
+                GoRoute(
                   path: RoutePath.myDataPagePath,
                   name: MyDataPage.name,
                   builder: (context, state) => const MyDataPage(),
-              ),
-            ]
-          ),
+                ),
+              ]),
         ],
       ),
       GoRoute(
