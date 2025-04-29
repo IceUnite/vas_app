@@ -7,12 +7,13 @@ abstract class RoutePath {
   //mainpage
   static const mainScreenPath = '/mainScreenPath';
   static const getOrderScreenPath = 'getOrderScreenPath';
-
-  //orderpage
-  static const orderScreenPath = '/orderScreenPath';
-
-  //historypage
-  static const historyScreenPath = '/historyScreenPath';
+  static const orderScreenPath = 'orderScreenPath';
+  static const historyScreenPath = 'historyScreenPath';
+  // //orderpage
+  // static const orderScreenPath = '/orderScreenPath';
+  //
+  // //historypage
+  // static const historyScreenPath = '/historyScreenPath';
 
   //profilepage
   static const profileScreenPath = '/profileScreenPath';

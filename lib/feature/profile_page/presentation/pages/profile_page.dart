@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vas_app/feature/auth_page/presentation/bloc/auth_bloc.dart';
 
 import '../bloc/profile_bloc.dart';
+import '../widjets/text_block.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -59,140 +60,130 @@ class _ProfilePageState extends State<ProfilePage> {
         final isDarkTheme = themeNotifier.isDarkTheme;
 
         return BlocBuilder<ProfileBloc, ProfileState>(
-  builder: (context, state) {
-    return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              '${state.userInfo?.name ?? ''} ${state.userInfo?.middleName ?? ''}',
-              style: AppTypography.font26Regular.copyWith(
-                fontWeight: FontWeight.w700,
-                color: isDarkTheme ? AppColors.white : AppColors.black,
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  '${state.userInfo?.name ?? ''} ${state.userInfo?.middleName ?? ''}',
+                  style: AppTypography.font26Regular.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: isDarkTheme ? AppColors.white : AppColors.black,
+                  ),
+                ),
+                centerTitle: true,
               ),
-            ),
-            centerTitle: true,
-          ),
-          body: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: AnimatedListItems(
-              duration: const Duration(milliseconds: 400),
-              verticalOffset: 50.0,
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: InkWell(
-                        onTap: () {
-                          context.goNamed(RoutePath.myDataPagePath);
-                        },
-                        child: CircleAvatar(
-                          child: SvgPicture.asset(
-                            VectorAssets.icProfileActive,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
+              body: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: AnimatedListItems(
+                  duration: const Duration(milliseconds: 400),
+                  verticalOffset: 50.0,
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                        child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: InkWell(
+                            onTap: () {
+                              context.goNamed(RoutePath.myDataPagePath);
+                            },
+                            child: CircleAvatar(
+                              child: SvgPicture.asset(
+                                VectorAssets.icProfileActive,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                _buildTextRow(
-                  title: 'Моя информация',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildOptionRow(
-                  icon: VectorAssets.icMyData,
-                  title: 'Мои данные',
-                  onTap: () {
-                    context.goNamed(RoutePath.myDataPagePath);
-                  },
-                  isDarkTheme: isDarkTheme,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Divider(),
-                ),
-                _buildOptionRow(
-                  onTap: () {
-                    context.goNamed(RoutePath.historyScreenPath);
-                  },
-                  icon: VectorAssets.icRefreshStory,
-                  title: 'История заказов',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildTextRow(
-                  title: 'Настройки',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildOptionRowWithSwitch(
-                  icon: VectorAssets.icBell,
-                  title: 'Темная тема',
-                  onTap: () {
-                    themeNotifier.toggleTheme();
-                    setState(() {
-                      valueSwitchButton = !valueSwitchButton;
-                    });
-                    _saveThemePreference(valueSwitchButton); // Сохраняем новый выбор темы
-                  },
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildTextRow(
-                  title: 'Сервис',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildOptionRow(
-                  onTap: () {
-                    context.goNamed(RoutePath.orderScreenPath);
-                  },
-                  icon: VectorAssets.icDoOrder,
-                  title: 'Сделать заказ документа',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                _buildTextRow(
-                  title: 'Аккаунт',
-                  isDarkTheme: isDarkTheme,
-                ),
-                const SizedBox(height: 30),
-                BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    return _buildOptionRow(
-                      onTap: () {
-                        ApeironSpaceDialog.showActionDialog(context,
-                            title: "Вы уверены что хотите выйти из своего аккаунта?", onPressedConfirm: () {
-
-                        }, confirmText: "Отмена", closeText: 'Выйти', onPressedClosed: () {
-
-                          context.read<AuthBloc>().add(
-                              ExiteEvent(),
-                            );
-                          context.read<ProfileBloc>().add(
-                              ClearUserInfoEvent(),
-                            );
-                            context.goNamed(RoutePath.authScreenPath); });
-                      },
-                      icon: VectorAssets.icLogout,
-                      title: 'Выйти',
+                    _buildTextRow(
+                      title: 'Моя информация',
                       isDarkTheme: isDarkTheme,
-                    );
-                  },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextBlockWidget(
+                      text: state.userInfo?.lastName ?? '',
+                      hintText: 'Фамилия',
+                    ),
+                    TextBlockWidget(
+                      text: state.userInfo?.name ?? '',
+                      hintText: 'Имя',
+                    ),
+                    TextBlockWidget(
+                      text: state.userInfo?.middleName ?? '',
+                      hintText: 'Отчество',
+                    ),
+                    TextBlockWidget(
+                      text: state.userInfo?.phone ?? '',
+                      hintText: 'Телефон',
+                    ),
+                    TextBlockWidget(
+                      text: state.userInfo?.login ?? '',
+                      hintText: 'Логин',
+                    ),
+                    const SizedBox(height: 30),
+                    _buildTextRow(
+                      title: 'Настройки',
+                      isDarkTheme: isDarkTheme,
+                    ),
+                    const SizedBox(height: 30),
+                    _buildOptionRowWithSwitch(
+                      icon: VectorAssets.icBell,
+                      title: 'Темная тема',
+                      onTap: () {
+                        themeNotifier.toggleTheme();
+                        setState(() {
+                          valueSwitchButton = !valueSwitchButton;
+                        });
+                        _saveThemePreference(valueSwitchButton); // Сохраняем новый выбор темы
+                      },
+                      isDarkTheme: isDarkTheme,
+                    ),
+                    const SizedBox(height: 30),
+                    _buildTextRow(
+                      title: 'Аккаунт',
+                      isDarkTheme: isDarkTheme,
+                    ),
+                    const SizedBox(height: 30),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        return _buildOptionRow(
+                          isDestructive: true,
+                          onTap: () {
+                            ApeironSpaceDialog.showActionDialog(context,
+                                title: "Вы уверены что хотите выйти из своего аккаунта?",
+                                onPressedConfirm: () {},
+                                confirmText: "Отмена",
+                                closeText: 'Выйти', onPressedClosed: () {
+                              context.read<AuthBloc>().add(
+                                    ExiteEvent(),
+                                  );
+                              context.read<ProfileBloc>().add(
+                                    ClearUserInfoEvent(),
+                                  );
+                              context.goNamed(RoutePath.authScreenPath);
+                            });
+                          },
+                          icon: VectorAssets.icLogout,
+                          title: 'Выйти',
+                          isDarkTheme: isDarkTheme,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 150),
+                  ],
                 ),
-                const SizedBox(height: 150),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
-  },
-);
       },
     );
   }
@@ -201,8 +192,11 @@ class _ProfilePageState extends State<ProfilePage> {
     required String icon,
     required String title,
     required bool isDarkTheme,
+    bool isDestructive = false, // <-- новый параметр
     VoidCallback? onTap,
   }) {
+    final color = isDestructive ? Colors.red : (isDarkTheme ? AppColors.white : AppColors.black);
+
     return InkWell(
       onTap: onTap,
       child: Row(
@@ -212,23 +206,19 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               SvgPicture.asset(
                 icon,
-                color: isDarkTheme ? AppColors.white : AppColors.black,
+                color: color,
               ),
               const SizedBox(width: 16),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: isDarkTheme ? AppColors.white : AppColors.black,
-                ),
+                style: AppTypography.font18Regular.copyWith(color: color),
               ),
             ],
           ),
           Icon(
             Icons.arrow_forward_ios,
             size: 20,
-            color: isDarkTheme ? AppColors.white : AppColors.black,
+            color: color,
           ),
         ],
       ),
@@ -251,14 +241,8 @@ class _ProfilePageState extends State<ProfilePage> {
               color: isDarkTheme ? AppColors.white : AppColors.black,
             ),
             const SizedBox(width: 16),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: isDarkTheme ? AppColors.white : AppColors.black,
-              ),
-            ),
+            Text(title,
+                style: AppTypography.font18Regular.copyWith(color: isDarkTheme ? AppColors.white : AppColors.black)),
           ],
         ),
         CupertinoSwitch(
@@ -286,14 +270,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-            color: isDarkTheme ? AppColors.white : AppColors.black, // Цвет текста для темной и светлой темы
-          ),
-        ),
+        Text(title,
+            style: AppTypography.font18Regular.copyWith(color: isDarkTheme ? AppColors.white : AppColors.black)),
       ],
     );
   }

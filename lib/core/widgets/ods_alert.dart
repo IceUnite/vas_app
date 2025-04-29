@@ -178,7 +178,7 @@ class ApeironSpaceDialog extends StatelessWidget {
                       controller: textFieldController,
                       maxLines: null,
                       decoration: InputDecoration(
-                        hintText: 'Введите уточняющую информацию по документу',
+                        hintText: "в ООО 'ЛЕГ'",
                         hintStyle: TextStyle(color: Colors.grey.shade400),
                         filled: true,
                         fillColor: isDarkTheme ? Colors.grey.shade700 : Colors.grey.shade200,

@@ -6,7 +6,8 @@ class AnimatedListItems extends StatelessWidget {
   final Duration duration;
   final double verticalOffset;
 
-  const AnimatedListItems({
+  const AnimatedListItems(
+      {
     Key? key,
     required this.children,
     this.duration = const Duration(milliseconds: 600),

@@ -108,11 +108,11 @@ class _MainPageState extends State<MainPage> {
                     children: [
                       Expanded(
                         child: OtherOptionWidget(
-                          title: "Популярные документы",
-                          subTitle: "Читать",
+                          title: "Активные заказы",
+                          subTitle: "Перейти",
                           icon: VectorAssets.icPlansh,
                           onTap: () {
-                            context.goNamed(RoutePath.getOrderScreenPath);
+                            context.goNamed(RoutePath.orderScreenPath);
                           },
                         ),
                       ),
