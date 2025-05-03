@@ -29,9 +29,6 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    List a;
-    a = ['1',2,true];
-    print(a[1]);
     return BlocBuilder<HistoryOrderBloc, HistoryOrderState>(
       builder: (context, state) {
         return Scaffold(

@@ -20,9 +20,6 @@ class GetOrderPage extends StatefulWidget {
 class _GetOrderPageState extends State<GetOrderPage> {
   @override
   void initState() {
-    // final userId = context.read<AuthBloc>().state.userId;
-    // final token = context.read<AuthBloc>().state.token;
-    // context.read<OrderBloc>().add(GetOrdersEvent(userId: userId, token: token));
     super.initState();
   }
 

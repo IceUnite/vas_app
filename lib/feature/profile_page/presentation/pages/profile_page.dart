@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(width: 16),
             Text(title,
-                style: AppTypography.font18Regular.copyWith(color: isDarkTheme ? AppColors.white : AppColors.black)),
+                style: AppTypography.font16Regular.copyWith(color: isDarkTheme ? AppColors.white : AppColors.black)),
           ],
         ),
         CupertinoSwitch(

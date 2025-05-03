@@ -5,6 +5,5 @@ abstract class HistoryOrdersRepository {
   Future<DocumentListEntity?> getApplications({
     required int? userId,
     required String? token,
-
   });
 }

@@ -22,9 +22,6 @@ class _OrderPageState extends State<OrderPage> {
   @override
   void initState() {
     super.initState();
-    // final userId = context.read<AuthBloc>().state.userId;
-    // final token = context.read<AuthBloc>().state.token;
-    // context.read<HistoryOrderBloc>().add(GetHistoryOrdersEvent(userId: userId, token: token));
   }
 
   @override

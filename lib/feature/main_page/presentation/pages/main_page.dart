@@ -11,7 +11,6 @@ import 'package:vas_app/feature/app/routing/route_path.dart';
 import '../../../auth_page/presentation/bloc/auth_bloc.dart';
 import '../../../history_page/presentation/bloc/history_order_bloc.dart';
 import '../../../order_page/presentation/bloc/order_bloc.dart';
-// ... (импорты остаются без изменений)
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -130,20 +129,6 @@ class _MainPageState extends State<MainPage> {
                     ],
                   ),
                 ),
-
-                // if ((state.readyOrders == 0 || state.readyOrders == null) &&
-                //     (state.waitingOrders == 0 || state.waitingOrders == null))
-                //   Column(
-                //     children: [
-                //       SizedBox(height: 10,),
-                //       CustomNotificationWidget(
-                //         title: 'Нет активных заказов',
-                //         subtitle: 'У вас нет документов в обработке или готовых.',
-                //         type: NotificationType.error,
-                //         onClose: () {},
-                //       ),
-                //     ],
-                //   ),
               ],
             ),
           );
