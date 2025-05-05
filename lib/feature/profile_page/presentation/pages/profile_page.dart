@@ -108,26 +108,36 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    TextBlockWidget(
+                    state.userInfo?.lastName != null
+                        ? TextBlockWidget(
                       text: state.userInfo?.lastName ?? '',
                       hintText: 'Фамилия',
-                    ),
-                    TextBlockWidget(
+                    )
+                        : const SizedBox(),
+                    state.userInfo?.name != null
+                        ? TextBlockWidget(
                       text: state.userInfo?.name ?? '',
                       hintText: 'Имя',
-                    ),
-                    TextBlockWidget(
+                    )
+                        : const SizedBox(),
+                    state.userInfo?.middleName != null
+                        ? TextBlockWidget(
                       text: state.userInfo?.middleName ?? '',
                       hintText: 'Отчество',
-                    ),
-                    TextBlockWidget(
+                    )
+                        : const SizedBox(),
+                    state.userInfo?.phone != null
+                        ? TextBlockWidget(
                       text: state.userInfo?.phone ?? '',
                       hintText: 'Телефон',
-                    ),
-                    TextBlockWidget(
+                    )
+                        : const SizedBox(),
+                    state.userInfo?.login != null
+                        ? TextBlockWidget(
                       text: state.userInfo?.login ?? '',
                       hintText: 'Логин',
-                    ),
+                    )
+                        : const SizedBox(),
                     const SizedBox(height: 30),
                     _buildTextRow(
                       title: 'Настройки',
